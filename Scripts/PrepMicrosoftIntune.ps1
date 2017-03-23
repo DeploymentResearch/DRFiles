@@ -31,8 +31,9 @@ Write-Output "$ScriptName - Architecture: $Architecture"
 Write-Output "$ScriptName - Log: $LogFile"
 
 # Copy the Microsoft Intune Setup files locally
-Copy-Item .\Microsoft_Intune_Setup.exe "C:\Windows\Temp"
-Copy-Item .\MicrosoftIntune.accountcert "C:\Windows\Temp"
+New-Item -Path "C:\Setup\Intune" -ItemType Directory -Force
+Copy-Item .\Microsoft_Intune_Setup.exe "C:\Setup\Intune"
+Copy-Item .\MicrosoftIntune.accountcert "C:\Setup\Intune"
 
 # Create a registry key to specify that the Intune client installation is pending registration in the cloud
 New-Item -Path 'HKLM:\Software\Microsoft\Onlinemanagement\Deployment' -Force
@@ -40,7 +41,7 @@ New-ItemProperty -Path 'HKLM:\Software\Microsoft\Onlinemanagement\Deployment' -P
 
 # Run the Installer locally with the argument /PrepareEnroll
 $SetupName = "Microsoft Intune Client Software"
-$SetupFile = "C:\Windows\Temp\Microsoft_Intune_Setup.exe"
+$SetupFile = "C:\Setup\Intune\Microsoft_Intune_Setup.exe"
 $SetupSwitches = "/PrepareEnroll"
 Write-Output "Starting install of $SetupName"
 Write-Output "Command line to start is: $SetupFile $SetupSwitches"
