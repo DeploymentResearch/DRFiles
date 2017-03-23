@@ -8,6 +8,17 @@
 '// This script is based of Microsoft Sample Code from the deployment guys blog
 '// (http://blogs.technet.com/b/deploymentguys) and as such we need to have a 
 '// copyright statement. Special thanks goes to Ben Hunter, Michael Murgolo and Steven Markegene. 
+'// 
+'// Usage: Add the following to your CustomSettings.ini file, and copy the scripts to deployment share / scripts
+'// 
+'// [Settings]
+'// Priority=HardwareInfo
+'// Properties=MakeAlias, ModelAlias
+'// 
+'// [HardwareInfo]
+'// UserExit=ModelAliasExit.vbs
+'// MakeAlias=#SetMakeAlias()#
+'// ModelAlias=#SetModelAlias()#
 '//
 '// COPYRIGHT STATEMENT
 '// This script is provided "AS IS" with no warranties, confers no rights and 
