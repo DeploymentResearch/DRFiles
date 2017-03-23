@@ -1,7 +1,9 @@
 '//----------------------------------------------------------------------------
-'// Solution: DF4 Book Sample Files
 '// Purpose: Custom Script for assign friendly Make and Model alias
-'// Version: 1.3 - August 08, 2012 - Johan Arwidmark
+'// Version: 1.3 - August 08, 2015 - Johan Arwidmark
+'// 
+'// Twitter: @jarwidmark
+'// Blog   : http://deploymentresearch.com
 '//
 '// This script is based of Microsoft Sample Code from the deployment guys blog
 '// (http://blogs.technet.com/b/deploymentguys) and as such we need to have a 
