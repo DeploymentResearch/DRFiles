@@ -1,5 +1,5 @@
 ﻿# Name:         Set-DriverPackageXML
-# Description:  updates the DriverPacakge XML file whenever a package status chamges according to Satatus Filter Rule Set-DriverPackageXML
+# Description:  updates the DriverPacakge XML file whenever a package status changes according to Satatus Filter Rule Set-DriverPackageXML
 # Author:       Matthew Teegarden
 	
 try

@@ -1,4 +1,4 @@
-﻿# Name:         Get-DriverPacakge
+﻿# Name:         Get-DriverPackage
 # Description:  Gets the driver package ID for download during a Task Sequence
 # Author:       Matthew Teegarden
 	
