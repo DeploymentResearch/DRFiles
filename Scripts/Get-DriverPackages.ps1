@@ -16,6 +16,9 @@ try
 		# Import PS Modules
 		ImportPsModules
 
+        # Set Logging Path
+        SetLoggingPath
+
         # Create and add more funcitons
 
         # Import Driver Package XML created from SCCM
@@ -60,10 +63,6 @@ try
         Write-Verbose "Variable ErrorState set to $script:ErrorState"
 
         #Script variables.  Modify as necessary
-
-        $Script:LoggingPath = 'c:\Windows\Temp\Get-DriverPackages.log'
-        LogTraceMessage "Variable LoggingPath set to $script:LoggingPath"
-        Write-Verbose "Variable LoggingPath set to $script:LoggingPath"
 
         # Add variables here
 
@@ -203,6 +202,22 @@ try
  	Function LogTraceMessage ($strMessage)
 	{
 		[array]$script:TraceMessage += (Get-Date).ToString() + ':  ' + $strMessage + '~~' 
+    }
+    
+    Function SetLoggingPath
+    {
+        # Function Started
+        LogTraceMessage "*** Function SetLoggingPath ***"
+        Write-Verbose "*** Function SetLoggingPath Started ***"
+
+        $script:LoggingPath = $script:tsenv.Value("OSDTargetSystemDrive") + "\windows\temp\Get-DriverPackages.log"
+
+        LogTraceMessage "SetLoggingPath = $script:LoggingPath"
+        Write-Verbose "SetLoggingPath = $script:LoggingPath"
+
+        # Function Finished
+        LogTraceMessage "*** Function SetLoggingPath Finished ***"
+        Write-Verbose "*** Function SetLoggingPath Finished ***"
     }
     
  	# Script Started
