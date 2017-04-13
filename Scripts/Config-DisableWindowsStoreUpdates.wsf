@@ -1,0 +1,51 @@
+<job id="Config-DisableWindowsStoreUpdates">
+	<script language="VBScript" src="ZTIUtility.vbs"/>
+	<script language="VBScript">
+
+	oLogging.CreateEntry "Getting crrent OS drive letter", LogTypeInfo
+	sSystemDrive = oEnvironment.Item("OSDISK")
+	oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
+	
+	oLogging.CreateEntry "About to configure Windows Store Update Settings", LogTypeInfo
+	UpdateWindowsStoreSettings(sSystemDrive)	
+
+	Function UpdateWindowsStoreSettings(sSystemDrive)	
+		
+		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
+
+		bFound = False	
+		For each sDir in oFSO.GetFolder(sSystemDrive & "\").Subfolders
+			If oFSO.FileExists(sDir & "\system32\config\software") then
+				oLogging.CreateEntry "Trying to load registry file " & sDir & "\system32\config\software", LogTypeInfo
+				iRetVal = oUtility.RunWithHeartbeat("reg load HKLM\NewOS """ & sDir & "\system32\config\software""")
+				If iRetVal = SUCCESS then
+					bFound = True
+					exit for
+				End if
+			End If
+		Next
+		If not bFound then
+			oLogging.CreateEntry "Unable to find the new OS registry file; Windows Store settings cannot be updated.", LogTypeError
+			UpdateDevicePath = Success
+			EXIT FUNCTION
+		End If
+		
+		oLogging.CreateEntry "Setting the AutoDownload registry value", LogTypeInfo
+		oShell.RegWrite "HKEY_LOCAL_MACHINE\NewOS\Policies\Microsoft\WindowsStore\AutoDownload", "2", "REG_DWORD"
+			' 2 = always off
+			' 4 = always on
+			
+		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
+		oShell.Run "reg unload HKLM\NewOS", 0, true
+
+		UpdateWindowsStoreSettings = Success
+			
+	End Function
+
+
+
+
+	
+
+	</script>
+</job>
