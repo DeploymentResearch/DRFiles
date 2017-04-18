@@ -172,7 +172,7 @@ Function ZTIProcess()
 	oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 	oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 	
-	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2013x86, LogTypeInfo
+	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2015x86, LogTypeInfo
 	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2015x86 & """ " & sArguments)
 	
 	if (iRetVal = 0) or (iRetVal = 3010) then
