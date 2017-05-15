@@ -35,8 +35,10 @@ Function ZTIProcess()
 
 	oLogging.CreateEntry oUtility.ScriptName & ": Starting installation", LogTypeInfo
 
-	Dim sSetupFile2005x86
-	Dim sSetupFile2005x64
+	'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+	' Dim sSetupFile2005x86
+	' Dim sSetupFile2005x64
+	'//
 	Dim sSetupFile2008x86
 	Dim sSetupFile2008x64
 	Dim sSetupFile2010x86
@@ -57,8 +59,10 @@ Function ZTIProcess()
 	'// Note: You need to create the below folder structure and downloading the various redistributable packages from Microsoft
 	'// https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads
 
-	sSetupFile2005x86 = oUtility.ScriptDir & "\Source\VC2005\vcredist_x86.exe"
-	sSetupFile2005x64 = oUtility.ScriptDir & "\Source\VC2005\vcredist_x64.exe"
+	'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+	' sSetupFile2005x86 = oUtility.ScriptDir & "\Source\VC2005\vcredist_x86.exe"
+	' sSetupFile2005x64 = oUtility.ScriptDir & "\Source\VC2005\vcredist_x64.exe"
+	'//
 	sSetupFile2008x86 = oUtility.ScriptDir & "\Source\VC2008\vcredist_x86.exe"
 	sSetupFile2008x64 = oUtility.ScriptDir & "\Source\VC2008\vcredist_x64.exe"
 	sSetupFile2010x86 = oUtility.ScriptDir & "\Source\VC2010\vcredist_x86.exe"
@@ -72,12 +76,14 @@ Function ZTIProcess()
 	
 	sArguments = "/Q"
 
-	'Checking for x86 files
-	If not oFSO.FileExists(sSetupFile2005x86) then
-		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2005x86 & " was not found, unable to install", LogTypeError
-		ZTIProcess = Failure
-		Exit Function
-	End if
+	'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+	' Checking for x86 files
+	' If not oFSO.FileExists(sSetupFile2005x86) then
+	' 	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2005x86 & " was not found, unable to install", LogTypeError
+	' 	ZTIProcess = Failure
+	' 	Exit Function
+	' End if
+	'//
 
 	If not oFSO.FileExists(sSetupFile2008x86) then
 		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2008x86 & " was not found, unable to install", LogTypeError
@@ -110,16 +116,18 @@ Function ZTIProcess()
 	End if
 
 
-	'Installing x86 files
-	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x86, LogTypeInfo
+	'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+	' Installing x86 files
+	' oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x86, LogTypeInfo
 	
-	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2005x86 & """ " & sArguments)
+	' iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2005x86 & """ " & sArguments)
 	
-	if (iRetVal = 0) or (iRetVal = 3010) then
-		ZTIProcess = Success 
-	Else 
-		ZTIProcess = Failure
-	End If
+	' if (iRetVal = 0) or (iRetVal = 3010) then
+	'	ZTIProcess = Success 
+	'Else 
+	'	ZTIProcess = Failure
+	'End If
+	'//
 	
 	oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 	oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
@@ -187,13 +195,15 @@ Function ZTIProcess()
 	' If x64 operating system, also install x64 version	
 	If oEnvironment.Item("Architecture") = "X64" then
 
+		'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
 		'Checking for x64 files
-		If not oFSO.FileExists(sSetupFile2005x64) then
-			oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2005x64 & " was not found, unable to install", LogTypeError
-			ZTIProcess = Failure
-			Exit Function
-		End if
-
+		'If not oFSO.FileExists(sSetupFile2005x64) then
+		'	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2005x64 & " was not found, unable to install", LogTypeError
+		'	ZTIProcess = Failure
+		'	Exit Function
+		'End if
+		'//
+		
 		If not oFSO.FileExists(sSetupFile2008x64) then
 			oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2008x64 & " was not found, unable to install", LogTypeError
 			ZTIProcess = Failure
@@ -225,17 +235,18 @@ Function ZTIProcess()
 		End if
 
 		'Installing x64 files
-		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x64, LogTypeInfo
-		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2005x64 & """ " & sArguments)
+		'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+		'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x64, LogTypeInfo
+		'iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2005x64 & """ " & sArguments)
 		
-		if (iRetVal = 0) or (iRetVal = 3010) then
-			ZTIProcess = Success 
-		Else 
-			ZTIProcess = Failure
-		End If
+		'if (iRetVal = 0) or (iRetVal = 3010) then
+		'	ZTIProcess = Success 
+		'Else 
+		'	ZTIProcess = Failure
+		'End If
 		
-		oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
-		oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+		'oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+		'oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 
 		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2008x64, LogTypeInfo
 		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2008x64 & """ " & sArguments)
