@@ -1,0 +1,231 @@
+<job id="ZTI-8021X">
+<script language="VBScript" src="ZTIUtility.vbs"/>
+<script language="VBScript"> 
+
+' //***************************************************************************
+' // ***** Script Header *****
+' //
+' // Solution: Solution Accelerator for Business Desktop Deployment
+' // File: ZTI-8021X.wsf
+' //
+' // Purpose: Applys the XML templates for WiFi and LAN and activates 802.1 X
+' // 
+' // Tested on: XPSP3 (XPSP2 and older will not work and you really should be on SP3)
+' //            Win7 32 and 64 bit
+' //
+' // Usage: cscript ZTI-8021X.wsf [/debug:true]
+' //
+' // Requires:  Valid XML templates for the interface you want to configure
+' //		    On XP Certutil.exe, certadm.dll,certcli.dll and certreq.exe Must be in the path
+' //
+' // Thanks to "Jobr" for the tip on certutil -pulse
+' // 
+' // Customer Build Version: 1.1.0
+' // Customer Script Version: 1.1.0
+' // Customer History:
+' // 
+' // 1.0 New Script that works with W7-X64
+' // 1.1 Cleaned up version
+' //
+' // Created by: Mats Olsson
+' // 
+' //
+' // ***** End Header *****
+' //*************************************************************************** 
+
+'//----------------------------------------------------------------------------
+'//
+'// Global constant and variable declarations
+'//
+'//---------------------------------------------------------------------------- 
+
+Option Explicit 
+
+Dim iRetVal 
+
+
+'//----------------------------------------------------------------------------
+'// End declarations
+'//---------------------------------------------------------------------------- 
+
+'//----------------------------------------------------------------------------
+'// Main routine
+'//---------------------------------------------------------------------------- 
+
+
+'On Error Resume Next
+iRetVal = ZTIProcess
+ProcessResults iRetVal
+On Error Goto 0 
+
+'//---------------------------------------------------------------------------
+'//
+'// Function: ZTIProcess()
+'//
+'// Input: None
+'// 
+'// Return: Success - 0
+'// Failure - non-zero
+'//
+'// Purpose: Perform main ZTI processing
+'// 
+'//---------------------------------------------------------------------------
+Function ZTIProcess() 
+
+     iRetVal = Success 
+     
+  Clear_all_certs2
+  If get_cert2 Then
+    enable_802_1X
+  Else
+    iretval=failure
+  End If
+  ZTIProcess = iRetval 
+
+End Function
+
+
+
+'//----------------------------------------------------------------------------
+'// Clear all certs.
+'// Makes sure there is no old cert that can mess up (USMT can restore an old cert 
+' // wich is bad in a rename scenario
+'//---------------------------------------------------------------------------- 
+sub clear_all_certs2 'new version to handle 64 bit
+  
+  Dim ObjExec
+  dim objexec2
+  Dim arrtext
+  Dim i
+  Dim SerialNumber
+  Set objExec = oshell.Exec("cmd /C certutil -store my")
+  
+  arrtext=split(objExec.StdOut.ReadAll,chr(13))
+  for I=0 to ubound(arrtext)  
+    if instr(arrtext(i),"Serial Number") then
+      serialNumber=mid(arrtext(i),instr(arrtext(i),":")+2)
+      oLogging.CreateEntry "deleteing cert with SN: " & serialnumber, LogTypeInfo
+      Set objExec2 = oshell.Exec("cmd /C certutil -delstore my " & serialNumber )
+      oLogging.CreateEntry objExec2.StdOut.ReadAll, LogTypeInfo 
+      Do Until objExec2.Status
+        Wscript.Sleep 250
+      Loop 
+    end if 
+   
+  next
+ 
+  Do Until objExec.Status
+    Wscript.Sleep 250
+  Loop 
+  
+
+end sub
+
+
+'//----------------------------------------------------------------------------
+'// Get a new Certificate using certutil -pulse
+'// Will make five tries to avoid problems with slow networks 
+'//---------------------------------------------------------------------------- 
+Function get_cert2
+
+  Dim I,J
+  Dim objexec
+  Dim arrtext
+ 
+  for I=1 to 5
+  
+    Set objExec = oshell.Exec("cmd /C net stop gpsvc")
+    oLogging.CreateEntry objExec.StdOut.ReadAll, LogTypeInfo 
+    Do Until objExec.Status
+      Wscript.Sleep 250
+    Loop 
+
+    wscript.sleep 10000
+
+    Set objExec = oshell.Exec("cmd /C net start gpsvc")
+    oLogging.CreateEntry objExec.StdOut.ReadAll, LogTypeInfo 
+    Do Until objExec.Status
+      Wscript.Sleep 250
+    Loop 
+
+    wscript.sleep 10000
+
+    Set objExec = oshell.Exec("cmd /C certutil -pulse")
+    oLogging.CreateEntry objExec.StdOut.ReadAll, LogTypeInfo 
+    Do Until objExec.Status
+      Wscript.Sleep 250
+    Loop 
+  
+    Set objExec = oshell.Exec("cmd /C certutil -store my")
+    arrtext=split(objExec.StdOut.ReadAll,chr(13))
+    for J=0 to ubound(arrtext)  
+      if instr(arrtext(J),"Serial Number") then
+        oLogging.CreateEntry "Found a cert", LogTypeInfo 
+        get_cert2=True
+        exit function
+      end if   
+    next     
+    Do Until objExec.Status
+      Wscript.Sleep 250
+    Loop 
+    oLogging.CreateEntry "No Cert yet attempt: " & I, LogTypeInfo
+  Next
+  get_cert2=false
+end function
+
+
+
+'//----------------------------------------------------------------------------
+'// Enable 802.1X using XML templates for wired and wireless adapters
+'//---------------------------------------------------------------------------- 
+Function enable_802_1X
+  
+  Dim objservice
+  Dim localfile
+  Dim wirelessfile
+  Dim objexec
+  
+  localfile="LAN.xml"
+  wirelessfile="WLAN.xml"
+
+  if ofso.fileexists(oUtility.ScriptDir & "\" & localfile) Then
+    oLogging.CreateEntry "Found " & oUtility.ScriptDir & "\" & localfile, LogTypeInfo    
+    if ofso.fileexists(oUtility.ScriptDir & "\" & wirelessfile) then
+      oLogging.CreateEntry "Found " & oUtility.ScriptDir & "\" & wirelessfile, LogTypeInfo    
+  
+	  'got the Files. Ok to start the service	       
+      oLogging.CreateEntry "Configuring Dot3svc Service", LogTypeInfo    
+	  Set objService = GetObject("WinNT://" & "." & "/" & "Dot3svc" & ",Service")
+      objService.StartType = 2
+      objService.SetInfo
+      if objservice.status<>4 then
+  	    objService.Start
+      end if
+      Set objService = Nothing
+      oLogging.CreateEntry "Service Configured", LogTypeInfo    
+
+      WScript.Sleep 3000
+
+      oLogging.CreateEntry "Loading Configuration", LogTypeInfo    
+	  Set objExec = oshell.Exec("cmd /C netsh lan add profile filename=" & Chr(34) & oUtility.ScriptDir & "\" & localfile & Chr(34))
+      oLogging.CreateEntry objExec.StdOut.ReadAll, LogTypeInfo 
+      Do Until objExec.Status
+  	    Wscript.Sleep 250
+      Loop 
+     
+	  Set objExec = oshell.Exec("cmd /C netsh wlan add profile filename=" & Chr(34) & oUtility.ScriptDir & "\" & wirelessfile & Chr(34))  
+      oLogging.CreateEntry objExec.StdOut.ReadAll, LogTypeInfo 
+      Do Until objExec.Status
+  	    Wscript.Sleep 250
+      Loop 
+    Else
+      oLogging.CreateEntry "Could not Find " & oUtility.ScriptDir & "\" & Wirelessfile, LogTypeInfo    
+	End if	
+  Else
+    oLogging.CreateEntry "Could not Find " & oUtility.ScriptDir & "\" & localfile, LogTypeInfo    
+  End if
+end function
+     
+</script>
+</job>
+
