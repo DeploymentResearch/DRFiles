@@ -9,12 +9,15 @@
 '// Version: 1.1 - August 8, 2012 - Johan Arwidmark
 '// Version: 2.1 - June 26, 2014 - Mikael Nystrom
 '// Version: 2.2 - March 12, 2017 - Johan Arwidmark
+'// Version: 2.3 - September 6, 2017 - Christoph Voigt
 '// 
 '// Twitter: @jarwidmark
 '// Blog   : http://deploymentresearch.com
 '// 
 '// Twitter: @mikael_nystrom
 '// Blog   : http://deploymentbunny.com
+'// 
+'// Twitter: @spucktier
 '// 
 '// Disclaimer:
 '// This script is provided "AS IS" with no warranties, confers no rights and 
@@ -49,6 +52,8 @@ Function ZTIProcess()
 	Dim sSetupFile2013x64
 	Dim sSetupFile2015x86
 	Dim sSetupFile2015x64
+	Dim sSetupFile2017x86
+	Dim sSetupFile2017x64
 	
 
 	Dim sArguments
@@ -73,6 +78,8 @@ Function ZTIProcess()
 	sSetupFile2013x64 = oUtility.ScriptDir & "\Source\VC2013\vcredist_x64.exe"
 	sSetupFile2015x86 = oUtility.ScriptDir & "\Source\VC2015\vc_redist.x86.exe"
 	sSetupFile2015x64 = oUtility.ScriptDir & "\Source\VC2015\vc_redist.x64.exe"
+	sSetupFile2017x86 = oUtility.ScriptDir & "\Source\VC2017\vc_redist.x86.exe"
+	sSetupFile2017x64 = oUtility.ScriptDir & "\Source\VC2017\vc_redist.x64.exe"
 	
 	sArguments = "/Q"
 
@@ -115,8 +122,13 @@ Function ZTIProcess()
 		Exit Function
 	End if
 
+	If not oFSO.FileExists(sSetupFile2017x86) then
+		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2017x86 & " was not found, unable to install", LogTypeError
+		ZTIProcess = Failure
+		Exit Function
+	End if
 
-	'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+	'// Removed Visual C++ 2005 since it's no longer supported (and does not receive security updates anymore)
 	' Installing x86 files
 	' oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x86, LogTypeInfo
 	
@@ -180,7 +192,7 @@ Function ZTIProcess()
 	oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 	oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 	
-	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2013x86, LogTypeInfo
+	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2015x86, LogTypeInfo
 	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2015x86 & """ " & sArguments)
 	
 	if (iRetVal = 0) or (iRetVal = 3010) then
@@ -192,10 +204,23 @@ Function ZTIProcess()
 	oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 	oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 	
+	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2017x86, LogTypeInfo
+	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2017x86 & """ " & sArguments)
+	
+	if (iRetVal = 0) or (iRetVal = 3010) then
+		ZTIProcess = Success 
+	Else 
+		ZTIProcess = Failure
+	End If
+	
+	oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+	oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+	
+	
 	' If x64 operating system, also install x64 version	
 	If oEnvironment.Item("Architecture") = "X64" then
 
-		'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
+		'// Removed Visual C++ 2005 since it's no longer supported (and does not receive security updates anymore)
 		'Checking for x64 files
 		'If not oFSO.FileExists(sSetupFile2005x64) then
 		'	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2005x64 & " was not found, unable to install", LogTypeError
@@ -234,6 +259,12 @@ Function ZTIProcess()
 			Exit Function
 		End if
 
+		If not oFSO.FileExists(sSetupFile2017x64) then
+			oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2017x64 & " was not found, unable to install", LogTypeError
+			ZTIProcess = Failure
+			Exit Function
+		End if
+	
 		'Installing x64 files
 		'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
 		'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x64, LogTypeInfo
@@ -308,6 +339,18 @@ Function ZTIProcess()
 		oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 		oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 
+		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2017x64, LogTypeInfo
+		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2017x64 & """ " & sArguments)
+		
+		if (iRetVal = 0) or (iRetVal = 3010) then
+			ZTIProcess = Success 
+		Else 
+			ZTIProcess = Failure
+		End If
+		
+		oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+		oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+	
 	End If
 
 	'/// Enable Zone Checks
