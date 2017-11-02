@@ -31,7 +31,7 @@
 		End If
 		
 		oLogging.CreateEntry "Setting the AutoDownload registry value", LogTypeInfo
-		oShell.RegWrite "HKEY_LOCAL_MACHINE\NewOS\Policies\Microsoft\WindowsStore\AutoDownload", "2", "REG_DWORD"
+		oShell.RegWrite "HKEY_LOCAL_MACHINE\NewOS\Microsoft\Windows\CurrentVersion\WindowsStore\AutoDownload", "2", "REG_DWORD"  
 			' 2 = always off
 			' 4 = always on
 			
