@@ -1,4 +1,4 @@
-<job id="Config-DisableWindowsStoreUpdates">
+<job id="Config-EnableWindowsStoreUpdates">
 	<script language="VBScript" src="ZTIUtility.vbs"/>
 	<script language="VBScript">
 
