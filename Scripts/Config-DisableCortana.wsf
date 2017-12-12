@@ -1,0 +1,45 @@
+<job id="Config-DisableCortana">
+	<script language="VBScript" src="ZTIUtility.vbs"/>
+	<script language="VBScript">
+
+	oLogging.CreateEntry "Getting crrent OS drive letter", LogTypeInfo
+	sSystemDrive = oEnvironment.Item("OSDISK")
+	oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
+	
+	oLogging.CreateEntry "About to configure offline registry settings", LogTypeInfo
+	oLogging.CreateEntry "Windows version applied to harddrive is" & oEnvironment.Item("IMAGEBUILD"), LogTypeInfo
+	UpdateOfflineRegistry(sSystemDrive)	
+
+	Function UpdateOfflineRegistry(sSystemDrive)	
+		
+		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
+
+		bFound = False	
+		For each sDir in oFSO.GetFolder(sSystemDrive & "\").Subfolders
+			If oFSO.FileExists(sDir & "\system32\config\software") then
+				oLogging.CreateEntry "Trying to load registry file " & sDir & "\system32\config\software", LogTypeInfo
+				iRetVal = oUtility.RunWithHeartbeat("reg load HKLM\NewOS """ & sDir & "\system32\config\software""")
+				If iRetVal = SUCCESS then
+					bFound = True
+					exit for
+				End if
+			End If
+		Next
+		If not bFound then
+			oLogging.CreateEntry "Unable to find the new OS registry file; Cortana settings cannot be updated.", LogTypeError
+			UpdateDevicePath = Success
+			EXIT FUNCTION
+		End If
+		
+		oLogging.CreateEntry "Disable Cortana", LogTypeInfo
+		oShell.RegWrite "HKEY_LOCAL_MACHINE\NewOS\Microsoft\Windows\CurrentVersion\OOBE\DisableVoice", "1", "REG_DWORD"  
+							
+		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
+		oShell.Run "reg unload HKLM\NewOS", 0, true
+
+		UpdateOfflineRegistry = Success
+			
+	End Function
+
+	</script>
+</job>
