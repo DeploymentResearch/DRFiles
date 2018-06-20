@@ -6,7 +6,7 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Description>Start DaRT</Description>
                     <Order>1</Order>
-                    <Path>wscript.exe X:\Deploy\Scripts\EnableDart.wsf /EventService:http://cm01:9800</Path>
+                    <Path>wscript.exe X:\Deploy\Scripts\EnableDart.wsf /EventService:http://cm01:9800 /_SMSTSCurrentActionName:"Booted into WinPE"</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
         </component>
