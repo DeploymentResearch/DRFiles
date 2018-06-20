@@ -1,0 +1,186 @@
+<job id="EnableDart">
+	<script language="VBScript">
+
+	' Due to an issue that may exist in x64 images captured by MDT 2010 Lite Touch, 
+	' there may be a need to clean up a bad registry key that would cause this script
+	' to get into an infinite loop.  This logic will fix that bad registry key
+	' when necessary.
+
+	Dim tmpShell, tmpFSO
+	Set tmpShell = CreateObject("WScript.Shell")
+	Set tmpFSO = CreateObject("Scripting.FileSystemObject")
+	If tmpFSO.FileExists(tmpShell.ExpandEnvironmentStrings("%WINDIR%\SysWOW64\CCM\TSCore.DLL")) then
+		On Error Resume Next
+		tmpShell.RegWrite "HKCR\TypeLib\{D5E1749D-832D-4587-AFC3-9462187FE2F5}\1.0\0\win64\", tmpShell.ExpandEnvironmentStrings("%WINDIR%\SysWOW64\CCM\TSCore.DLL")
+		On Error Goto 0
+	End if
+
+	</script>
+	<script language="VBScript" src="ZTIUtility.vbs"/>
+	<script language="VBScript" src="ZTIDataAccess.vbs"/>
+	<script language="VBScript">
+
+' // ***************************************************************************
+' // 
+' // Copyright (c) Microsoft Corporation.  All rights reserved.
+' // 
+' // Microsoft Deployment Toolkit Solution Accelerator
+' //
+' // File:      EnableDart.wsf
+' // 
+' // Version:   1.0 - Alexey Semibratov: Initial version
+' // Version:   1.1 - Johan Arwidmark: Added timeout, and fix for 169.x networks (yes, they exist, it's only 169.254 that are APIPA networks)
+' // 
+' // Purpose:   Initialize the Remote Recovery
+' // 
+' // Usage:     cscript EnableDart.wsf [/debug:true]
+' // 
+' // ***************************************************************************
+
+Option Explicit
+RunNewInstance
+
+'//----------------------------------------------------------------------------
+'//
+'//  Global constants
+'//
+'//----------------------------------------------------------------------------
+
+
+
+'//----------------------------------------------------------------------------
+'//  Main Class
+'//----------------------------------------------------------------------------
+
+Class EnableDart
+
+	'//----------------------------------------------------------------------------
+	'//  Class instance variable declarations
+	'//----------------------------------------------------------------------------
+	
+	'//----------------------------------------------------------------------------
+	'//  Constructor to initialize needed global objects
+	'//----------------------------------------------------------------------------
+
+	Private Sub Class_Initialize
+
+
+	End Sub
+
+	'//----------------------------------------------------------------------------
+	'//  Main routine
+	'//----------------------------------------------------------------------------
+	
+	
+	Function Main
+
+		Dim iRetVal
+
+		' Enable DaRT remote control (for Windows PE)
+
+		EnableDaRT
+
+		' Run Gather to be able to send event
+
+		oUtility.RunWithConsoleLoggingAndHidden "cscript.exe """ & oUtility.ScriptDir & "\ZTIGather.wsf"" /localonly"
+
+		oLogging.CreateEvent 41016, LogTypeInfo, "ZTI beginning deployment", Array()
+		
+		iRetVal = Success
+
+
+	End Function
+
+	Sub EnableDaRT
+
+		Dim tries
+		Dim oInv
+		Dim oTicketNode
+		Dim oIPNode
+		Dim dicPortList
+		Dim dicIPList
+		
+		' Make sure WinPE has enough time to start networking and all services
+		WScript.Sleep 10000
+
+		
+		' Remote control is only supported in Windows PE (don't use OSVersion as it isn't set yet for refresh)
+
+		If oEnv("SystemDrive") <> "X:" then
+			Exit Sub
+		End if
+
+
+		' Don't start remote control if it has already been started
+
+		If oFSO.FileExists(oEnv("SystemRoot") & "\System32\inv32.xml") then
+			Exit Sub
+		End if
+
+
+		' Initialize
+
+		Set dicIPList = CreateObject("Scripting.Dictionary")
+		Set dicPortList = CreateObject("Scripting.Dictionary")
+
+
+		' Make sure the executable exists
+
+		If not oFSO.FileExists(oEnv("SystemRoot") & "\System32\RemoteRecovery.exe") then
+			Exit Sub
+		End if
+
+
+		' Start remote recovery process
+
+		oShell.CurrentDirectory = oEnv("SystemRoot") & "\System32"
+		oShell.Run oEnv("SystemRoot") & "\System32\RemoteRecovery.exe -nomessage", 2, false
+
+
+		' Sleep until we see the inv32.xml file
+
+		tries = 0
+		Do
+			WScript.Sleep 1000
+			tries = tries + 1
+		Loop While not oFSO.FileExists(oEnv("SystemRoot") & "\System32\inv32.xml") and tries < 10
+
+		If not oFSO.FileExists(oEnv("SystemRoot") & "\System32\inv32.xml") then
+			oLogging.CreateEntry "Unable to find the inv32.xml file, DaRT remote control is not running.", LogTypeInfo
+			Exit Sub
+		End if
+
+
+		' Read the XML file and put the values into variables
+
+		On Error Resume Next
+
+		Set oInv = oUtility.CreateXMLDOMObjectEx(oEnv("SystemRoot") & "\System32\inv32.xml")
+		Set oTicketNode = oInv.SelectSingleNode("//A")
+		oEnvironment.Item("DartTicket") = oTicketNode.Attributes.getNamedItem("ID").value
+
+		' First get the IPv4 entries (skipping locally-administered ones)
+		For each oIPNode in oInv.SelectNodes("//L")
+			If Instr(oIPNode.Attributes.getNamedItem("N").value, ":") = 0 and Left(oIPNode.Attributes.getNamedItem("N").value, 4) <> "169.254" then
+				dicIPList.Add oIPNode.Attributes.getNamedItem("N").value, ""
+				dicPortList.Add oIPNode.Attributes.getNamedItem("P").value, ""
+			End if
+		Next
+
+		' Then add the IPv6 entries
+		For each oIPNode in oInv.SelectNodes("//L")
+			If Instr(oIPNode.Attributes.getNamedItem("N").value, ":") > 0 then
+				dicIPList.Add oIPNode.Attributes.getNamedItem("N").value, ""
+				dicPortList.Add oIPNode.Attributes.getNamedItem("P").value, ""
+			End if
+		Next
+		oEnvironment.ListItem("DartIP") = dicIPList
+		oEnvironment.ListItem("DartPort") = dicPortList
+
+	End Sub
+
+
+End Class	
+
+	</script>
+</job>
