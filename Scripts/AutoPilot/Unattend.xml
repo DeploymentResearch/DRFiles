@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-UnattendedJoin" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <Identification>
+                <JoinWorkgroup>WORKGROUP</JoinWorkgroup>
+            </Identification>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <ComputerName>*</ComputerName>
+            <RegisteredOrganization>ViaMonstra</RegisteredOrganization>
+            <RegisteredOwner>ViaMonstra</RegisteredOwner>
+            <DoNotCleanTaskBar>true</DoNotCleanTaskBar>
+            <TimeZone>Pacific Standard Time</TimeZone>
+        </component>
+        <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DisableFirstRunWizard>true</DisableFirstRunWizard>
+            <DisableOOBAccelerators>true</DisableOOBAccelerators>
+            <DisableDevTools>true</DisableDevTools>
+            <Home_Page>about:blank</Home_Page>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-IE-ESC" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <IEHardenAdmin>false</IEHardenAdmin>
+            <IEHardenUser>false</IEHardenUser>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>P@ssw0rd</Value>
+                    <PlainText>True</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
+			<AutoLogon>
+				<Enabled>true</Enabled>
+				<Username>Administrator</Username>
+				<Domain>.</Domain>
+				<Password>
+					<Value>P@ssw0rd</Value>
+					<PlainText>true</PlainText>
+				</Password>
+				<LogonCount>999</LogonCount>
+			</AutoLogon>
+            <RegisteredOrganization>ViaMonstra</RegisteredOrganization>
+            <RegisteredOwner>ViaMonstra</RegisteredOwner>
+            <TimeZone>Pacific Standard Time</TimeZone>
+		<FirstLogonCommands>
+			<SynchronousCommand wcm:action="add">
+				<CommandLine>PowerShell.exe -ExecutionPolicy ByPass -Command "C:\Windows\Get-WindowsAutoPilotInfo.ps1 -OutputFile "C:\Users\Administrator\Desktop\AutoPilot_$env:Computername.csv"</CommandLine>
+				<Description>Get the Windows AutoPilot hardware ID, and store it on the Desktop</Description>
+				<Order>1</Order>
+			</SynchronousCommand>
+		</FirstLogonCommands>
+		<OOBE>
+			<HideEULAPage>true</HideEULAPage>
+			<NetworkLocation>Work</NetworkLocation>
+			<ProtectYourPC>1</ProtectYourPC>
+			<HideLocalAccountScreen>true</HideLocalAccountScreen>
+			<HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+			<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+		</OOBE>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
+    </settings>
+</unattend>
