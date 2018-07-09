@@ -27,6 +27,7 @@ $ImageMountFolder = "C:\Mount_Image"
 $BootImageMountFolder = "C:\Mount_BootImage"
 $WIMImageFolder = "C:\WIMs"
 $TmpImage = "$WIMImageFolder\tmp_install.wim"
+$TmpWinREImage = "$WIMImageFolder\tmp_winre.wim"
 $RefImage = "$WIMImageFolder\install.wim"
 $BootImage = "$WIMImageFolder\boot.wim"
 
@@ -63,23 +64,37 @@ Export-WindowsImage -SourceImagePath "$ISODrive\Sources\install.wim" -SourceName
 # Mount the Windows 10 Enterprise image/index with the Optimize option (reduces initial mount time)
 Mount-WindowsImage -ImagePath $TmpImage -Index 1 -Path $ImageMountFolder -Optimize
 
-# Add .NET Framework 3.5.1 to the Windows 10 Enterprise image 
-& $DISMFile /Image:$ImageMountFolder /Add-Package /PackagePath:$ISODrive\sources\sxs\microsoft-windows-netfx3-ondemand-package.cab 
-
 # Add the Updates to the Windows 10 Enterprise image
 & $DISMFile /Image:$ImageMountFolder /Add-Package /PackagePath:$ServicingUpdate
 & $DISMFile /Image:$ImageMountFolder /Add-Package /PackagePath:$AdobeFlashUpdate
 & $DISMFile /Image:$ImageMountFolder /Add-Package /PackagePath:$MonthlyCU
 
-# Mount the WinRE Image (which resides inside the mounted Windows 10 image)
-Mount-WindowsImage -ImagePath $ImageMountFolder\Windows\System32\Recovery\winre.wim -Index 1 -Path $BootImageMountFolder
+# Cleanup the image BEFORE installing .NET to prevent errors
+# Using the /ResetBase switch with the /StartComponentCleanup parameter of DISM.exe on a running version of Windows 10 removes all superseded versions of every component in the component store.
+# https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder#span-iddismexespanspan-iddismexespandismexe
+& $DISMFile /Image:$ImageMountFolder /Cleanup-Image /StartComponentCleanup /ResetBase
+
+# Add .NET Framework 3.5.1 to the Windows 10 Enterprise image 
+& $DISMFile /Image:$ImageMountFolder  /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:"$ISODrive\sources\sxs"
+
+#Move WinRE Image to temp location
+Move-Item -Path $ImageMountFolder\Windows\System32\Recovery\winre.wim -Destination $TmpWinREImage
+
+# Mount the temp WinRE Image
+Mount-WindowsImage -ImagePath $TmpWinREImage -Index 1 -Path $BootImageMountFolder
 
 # Add the Updates to the WinRE image (adds about 100 MB in size)
 & $DISMFile /Image:$BootImageMountFolder /Add-Package /PackagePath:$ServicingUpdate
 & $DISMFile /Image:$BootImageMountFolder /Add-Package /PackagePath:$MonthlyCU
 
+#Cleanup wim
+& $DISMFile /Image:$BootImageMountFolder /Cleanup-Image /StartComponentCleanup /ResetBase 
+    
 # Dismount the WinRE image
 DisMount-WindowsImage -Path $BootImageMountFolder -Save
+
+# Export new WinRE wim back to original location
+Export-WindowsImage -SourceImagePath $TmpWinREImage -SourceName "Microsoft Windows Recovery Environment (x64)" -DestinationImagePath $ImageMountFolder\Windows\System32\Recovery\winre.wim
 
 # Dismount the Windows 10 Enterprise image
 DisMount-WindowsImage -Path $ImageMountFolder -Save
@@ -89,6 +104,7 @@ Export-WindowsImage -SourceImagePath $TmpImage -SourceName "Windows 10 Enterpris
 
 # Remove the temporary WIM
 if (Test-Path -path $TmpImage) {Remove-Item -Path $TmpImage -Force}
+if (Test-Path -path $TmpWinREImage) {Remove-Item -Path $TmpImage -Force}
 
 # Mount index 2 of the Windows 10 boot image (boot.wim)
 Copy-Item "$ISODrive\Sources\boot.wim" $WIMImageFolder
