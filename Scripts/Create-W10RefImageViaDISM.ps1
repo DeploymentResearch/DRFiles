@@ -4,14 +4,7 @@
 # Solution, simply install the latest Windows ADK 10, and use DISM from that version
 #
 # Note #2:
-# Due to how applying updates offline works, you can not use Cleanup-Image /StartComponentCleanup /ResetBase with DISM to reduce the size
-# This is because there are pending operations after applying updates offline.
-#
-# Note #3:
-# Adding updates offline typically increases the WIM size with 1 - 1.5 GB
-#
-# Note #4:
-# If your Windows OS already have a newer version of dism, uncomment the below line, and comment out line 18 and 19
+# If your Windows OS already have a newer version of dism, uncomment the below line, and comment out line 11 and 12
 # $DISMFile = 'dism.exe'
 
 # Configuring the script to use the Windows ADK 10 version of DISM
@@ -75,7 +68,7 @@ Mount-WindowsImage -ImagePath $TmpImage -Index 1 -Path $ImageMountFolder -Optimi
 & $DISMFile /Image:$ImageMountFolder /Cleanup-Image /StartComponentCleanup /ResetBase
 
 # Add .NET Framework 3.5.1 to the Windows 10 Enterprise image 
-& $DISMFile /Image:$ImageMountFolder  /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:"$ISODrive\sources\sxs"
+& $DISMFile /Image:$ImageMountFolder /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:"$ISODrive\sources\sxs"
 
 # Move WinRE Image to temp location
 Move-Item -Path $ImageMountFolder\Windows\System32\Recovery\winre.wim -Destination $TmpWinREImage
