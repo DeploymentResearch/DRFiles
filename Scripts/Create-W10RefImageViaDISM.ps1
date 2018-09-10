@@ -70,6 +70,9 @@ Mount-WindowsImage -ImagePath $TmpImage -Index 1 -Path $ImageMountFolder -Optimi
 # Add .NET Framework 3.5.1 to the Windows 10 Enterprise image 
 & $DISMFile /Image:$ImageMountFolder /Enable-Feature /FeatureName:NetFx3 /All /LimitAccess /Source:"$ISODrive\sources\sxs"
 
+# Re-apply CU because of .NET changes
+& $DISMFile /Image:$ImageMountFolder /Add-Package /PackagePath:$MonthlyCU
+
 # Move WinRE Image to temp location
 Move-Item -Path $ImageMountFolder\Windows\System32\Recovery\winre.wim -Destination $TmpWinREImage
 
