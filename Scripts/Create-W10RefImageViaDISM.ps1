@@ -54,8 +54,8 @@ $ISODrive = [string]$ISOImage.DriveLetter+":"
 # Export the Windows 10 Enterprise index to a new (temporary) WIM
 Export-WindowsImage -SourceImagePath "$ISODrive\Sources\install.wim" -SourceName "Windows 10 Enterprise" -DestinationImagePath $TmpImage
 
-# Mount the Windows 10 Enterprise image/index with the Optimize option (reduces initial mount time)
-Mount-WindowsImage -ImagePath $TmpImage -Index 1 -Path $ImageMountFolder -Optimize
+# Mount the Windows 10 Enterprise image/index 
+Mount-WindowsImage -ImagePath $TmpImage -Index 1 -Path $ImageMountFolder
 
 # Add the Updates to the Windows 10 Enterprise image
 & $DISMFile /Image:$ImageMountFolder /Add-Package /PackagePath:$ServicingUpdate
