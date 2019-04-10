@@ -12,7 +12,7 @@
 
 	Function UpdateOfflineRegistry(sSystemDrive)	
 		
-		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
+		oLogging.CreateEntry "Load the offline registry file", LogTypeInfo
 
 		bFound = False	
 		For each sDir in oFSO.GetFolder(sSystemDrive & "\").Subfolders
