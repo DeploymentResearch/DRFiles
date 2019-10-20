@@ -1,0 +1,57 @@
+<job id="Configure-SetAutologonInDomain">
+<script language="VBScript" src="..\..\scripts\ZTIUtility.vbs"/>
+<script language="VBScript"> 
+
+'//----------------------------------------------------------------------------
+'// Solution: Hydration
+'// Purpose: Used to Configure Task Sequence to run as a different user
+'// Usage: cscript Configure-SetAutologonInDomain.wsf [/debug:true]
+'// Version: 1.5 - February 2, 2019 - Johan Arwidmark
+'//
+'// This script is provided "AS IS" with no warranties, confers no rights and 
+'// is not supported by the authors or Deployment Artist. 
+'//
+'//----------------------------------------------------------------------------
+
+
+
+'//----------------------------------------------------------------------------
+'// Global constant and variable declarations
+'//---------------------------------------------------------------------------- 
+
+Dim iRetVal 
+
+'//----------------------------------------------------------------------------
+'// Main routine
+'//---------------------------------------------------------------------------- 
+
+'On Error Resume Next
+iRetVal = ZTIProcess
+ProcessResults iRetVal
+On Error Goto 0 
+
+Function ZTIProcess() 
+
+	Dim sAppInstallAccount
+	Dim sAppInstallPassword
+	Dim sAppInstallDomain
+	
+	sAppInstallAccount = oEnvironment.Item("APPINSTALLACCOUNT")
+	sAppInstallPassword = oEnvironment.Item("APPINSTALLPASSWORD")
+	sAppInstallDomain = oEnvironment.Item("APPINSTALLDOMAIN")
+
+	iRetVal = Success 
+	ZTIProcess = iRetval 
+
+	oLogging.CreateEntry "Configure - Set Administrator Autologon in Domain: Starting", LogTypeInfo	
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoAdminLogon", "1", "REG_SZ"
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\DefaultUserName", sAppInstallAccount, "REG_SZ"
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\DefaultPassword", sAppInstallPassword, "REG_SZ"
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\DefaultDomainName", sAppInstallDomain, "REG_SZ"
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoLogonCount", &H000003e7, "REG_DWORD"
+
+End Function 
+
+</script>
+</job>
+
