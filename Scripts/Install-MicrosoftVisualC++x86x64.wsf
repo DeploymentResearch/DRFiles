@@ -222,7 +222,7 @@ Function ZTIProcess()
 
 	'// Modified installation switch due to changes introduced from version 2013 and newer
 	sArguments = "/quiet /norestart"
-	
+
 	'// Installing Visual C++ 2013 x86
 	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2013x86, LogTypeInfo
 	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2013x86 & """ " & sArguments)
@@ -339,7 +339,7 @@ Function ZTIProcess()
 
 		'// Reverting back to old silent installation switch
 		sArguments = "/Q"
-	
+
 		'// Removed Visual C++ 2005 since it's no longer supported (and don't get security updates)
 		'// Installing Visual C++ 2005 x64
 		'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2005x64, LogTypeInfo
@@ -399,8 +399,8 @@ Function ZTIProcess()
 
 		'// Modified installation switch due to changes introduced from version 2013 and newer
 		sArguments = "/quiet /norestart"
-	
-		'// Installing Visual C++ 2013 x64
+
+    '// Installing Visual C++ 2013 x64
 		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2013x64, LogTypeInfo
 		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2013x64 & """ " & sArguments)
 		
