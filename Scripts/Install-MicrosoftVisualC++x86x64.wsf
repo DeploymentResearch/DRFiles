@@ -99,8 +99,8 @@ Function ZTIProcess()
 	'sSetupFile2015x64 = oUtility.ScriptDir & "\Source\VS2015\mu_visual_cpp_2015_redistributable_update_3_x64_9052538.exe"
 	'sSetupFile2017x86 = oUtility.ScriptDir & "\Source\VS2017\mu_visual_cpp_redistributable_for_visual_studio_2017_version_15.3_x86_11100229.exe"
 	'sSetupFile2017x64 = oUtility.ScriptDir & "\Source\VS2017\mu_visual_cpp_redistributable_for_visual_studio_2017_version_15.3_x64_11100230.exe"
-	sSetupFile2019x86 = oUtility.ScriptDir & "\Source\VS2019\vcredist_x86.exe"
-	sSetupFile2019x64 = oUtility.ScriptDir & "\Source\VS2019\vcredist_x64.exe"
+	sSetupFile2019x86 = oUtility.ScriptDir & "\Source\VS2019\vc_redist.x86.exe"
+	sSetupFile2019x64 = oUtility.ScriptDir & "\Source\VS2019\vc_redist.x64.exe"
 	
 	sArguments = "/Q"
 
