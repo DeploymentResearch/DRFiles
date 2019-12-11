@@ -1,0 +1,220 @@
+<job id="ParseLog">
+    <script language="VBScript" src="ZTIUtility.vbs"/>
+    <script language="VBScript">
+ 
+Dim iWarnings, iErrors, sBuffer
+Dim iTimerID, iCount, sMessage
+Dim oFSO, oShell, objMessage, objNetwork
+Dim wmiService, wmiObjects, wmiObject, wmiSubitem
+Dim infoOS, infoIPAddress, infoComputerName, infoSerial, infoModel, infoArchitechture, infoMemory, infoWarnings, infoErrors, infoLog
+Dim fromAddress, toAddress, toAddress2, BccAddress, subject, messageBody, textrow
+ 
+iWarnings = 0
+iErrors = 0
+ 
+Set oFSO = CreateObject("Scripting.FileSystemObject")
+Set oStrings = New Strings
+ 
+ProcessLog "C:\Windows\CCM\Logs\SMSTSLog\smsts.log"
+CollectData()
+SendNotIficationMail()
+ 
+Function ProcessLog(sLog)
+ 
+        'Dim oLog
+        'Dim sLine
+        'Dim sMessage
+        'Dim sDetails
+        'Dim sType
+        'Dim sFile
+        'Dim sComponent
+        'Dim bProcess
+ 
+ 
+        ' Make sure the file exists
+ 
+        If not oFSO.FileExists(sLog) then
+            Exit Function
+        End if
+ 
+ 
+        ' Process the file
+ 
+        Set oLog = oFSO.OpenTextFile(sLog)
+        While not oLog.AtEndOfStream
+ 
+            ' Split apart the message
+            bProcess = false
+            sLine = oLog.ReadLine
+            If Instr(sLine, "<![LOG[") > 0 then  ' Line beginning found
+ 
+                If Instr(sLine, "]LOG]!>") = 0 then  ' No end label found, start of multiline message
+                    sMessage = Mid(sLine, 8)
+                Else
+                    sMessage = Mid(sLine, 8, Instr(sLine, "]LOG]!>") - 8)
+                    sDetails = Mid(sLine, Instr(sLine, "]LOG]!>") + 7)
+                    sType = Mid(sDetails, Instr(sDetails, "type=""") + 6, 1)
+                    bProcess = true
+                End if
+                 
+            Else  ' No line beginning found, continuation
+ 
+                If Instr(sLine, "]LOG]!>") = 0 then  ' No end label found, start of multiline message
+                    sMessage = sMessage & vbNewLine & sLine
+                Else
+                    sMessage = sMessage & vbNewLine & Left(sLine, Instr(sLine, "]LOG]!>") - 1)
+                    sDetails = Mid(sLine, Instr(sLine, "]LOG]!>") + 7)
+                    sType = Mid(sDetails, Instr(sDetails, "type=""") + 6, 1)
+                    sFile = Mid(sDetails, Instr(sDetails, "file=""") + 6)
+                    sFile = Left(sFile, Instr(sFile, """") - 1)
+                    sComponent = Mid(sDetails, Instr(sDetails, "component=""") + 11)
+                    sComponent = Left(sComponent, Instr(sComponent, """") - 1)
+                    bProcess = true
+                End if
+                 
+            End if
+ 
+ 
+            ' Inspect the type
+ 
+            If bProcess then
+ 
+                ' Add the message to the details display
+ 
+                If sType > "1" then
+ 
+                    If Instr(1, sMessage, "_SMSTaskSequence", 1) > 0 or Instr(1, sFile, "executionenv.cxx", 1) > 0 or Instr(1, sFile, "environmentlib.cpp", 1) > 0 then
+                        ' Ignore these messages
+                    Else
+                        ' Increment the counter
+ 
+                        Select Case sType
+                        Case "3"
+                            iErrors = iErrors + 1
+                        Case "2"
+                            iWarnings = iWarnings + 1
+                        End Select
+ 
+ 
+                        ' Add a header when appropriate
+ 
+                        If bFirst and Instr(1, sLog, "smsts", 1) > 0 then
+                            oStrings.AddToList sBuffer, vbNewLine & "Messages from the task sequence engine:" & vbNewLine, vbNewLine
+                            bFirst = False
+                        End if
+                         
+                        'AW
+                        If sType <> "1" Then
+                            sBuffer = sBuffer & "<SPLIT>"
+                        End If
+ 
+ 
+                        ' Add the string to the list
+ 
+                        oStrings.AddToList sBuffer, sMessage, vbNewLine
+                         
+                        'wscript.echo "sMessage:" & sMessage
+ 
+                    End if
+                End if
+ 
+            End if
+ 
+        WEnd
+        'wscript.echo "sMessage: " & sMessage
+        oLog.Close
+        Set oLog = Nothing
+ 
+    End Function
+ 
+ 
+Function SendMail(ToAddress,BccAddress,FromAddress,Subject,Body)
+     
+    Set objMessage = CreateObject("CDO.Message")
+     
+    objMessage.Subject= Subject
+    objMessage.From = FromAddress
+    objMessage.To = ToAddress
+    objMessage.Bcc = BccAddress
+    objMessage.HTMLBody = Body
+ 
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendusing") = 2 
+    'objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpserver") = "ex01.viamonstra.com"
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpserverport") = 25 
+    'Name or IP of Remote SMTP Server
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpserver") = "ex01.viamonstra.com"
+    'Type of authentication, NONE (0), Basic (1) (Base64 encoded), NTLM (2)
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate") = 1
+    'Your UserID on the SMTP server
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendusername") = "support@viamonstra.com"
+    'Your password on the SMTP server
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/sendpassword") = "P@ssw0rd"
+    'Use SSL for the connection (False or True)
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpusessl") = False
+    'Connection Timeout in seconds (the maximum time CDO will try to establish a connection to the SMTP   server)
+    objMessage.Configuration.Fields.Item("http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout") = 60
+ 
+    objMessage.Configuration.Fields.Update
+    objMessage.Send
+End Function
+ 
+Function SendNotIficationMail()
+ 
+    messageBody = "<b>The following computer have been deployed:</b><br>"
+    messageBody = messageBody & "Computer name: " & infoComputerName & "<br>"
+    messageBody = messageBody & "Serial number: " & infoSerial & "<br>"
+    messageBody = messageBody & "Model: " & infoModel & "<br>"
+    messageBody = messageBody & "IP address: " & infoIPAddress & "<br>"
+    messageBody = messageBody & "Operating System: " & infoOS & " (" & infoArchitechture & ")<br>"
+    messageBody = messageBody & "RAM: " & infoMemory & " MB" & "<br>"
+    messageBody = messageBody & "" & "<br><br>"
+     
+    messageBody = messageBody & "" & "<br>"
+    messageBody = messageBody & "<b>Deployment log ("&iWarnings&" warnings, " & iErrors & " errors)</b><br>"
+    For Each textRow In split(sBuffer,"<SPLIT>")
+        messageBody = messageBody & textrow & "<br>"
+    Next
+    'messageBody = messageBody & sBuffer & "<br>"
+ 
+    fromAddress = "Configmgr@viamonstra.com"
+    toAddress = "support@viamonstra.com"
+    subject = "System completion message: " & infoComputerName
+ 
+    'SendMail toAddress,BccAddress,fromAddress,subject,messageBody
+    SendMail toAddress2,BccAddress,fromAddress,subject,messageBody
+End Function
+ 
+Function CollectData()
+ 
+    Set wmiService = GetObject("winmgmts:{impersonationLevel=impersonate}!\\.\root\cimv2")
+    Set objNetwork = CreateObject("WScript.Network")
+     
+    'GET IP AND MAC
+    Set wmiObjects = wmiService.ExecQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled=-1")
+    For Each wmiObject In wmiObjects
+        For Each wmiSubitem In wmiObject.IPAddress
+            If instr(wmiSubitem,".") Then infoIPAddress = wmiSubitem
+        Next
+    Next
+     
+    'GET COMPUTER NAME
+     infoComputerName = objNetwork.ComputerName
+     'WScript.Echo infoComputerName
+      
+    'GET SERIAL NUMBER
+    Set wmiObjects = wmiService.ExecQuery("Select * from Win32_ComputerSystemProduct")
+     For Each wmiObject In wmiObjects
+        infoSerial = wmiObject.IdentIfyingNumber
+        infoModel = wmiObject.Name
+    Next
+      
+    'GET SYSTEM PROPERTIES
+    Set wmiObjects = wmiService.ExecQuery("Select * from Win32_ComputerSystem")
+     For Each wmiObject In wmiObjects
+        infoArchitechture = wmiObject.SystemType
+        infoMemory = Round(wmiObject.TotalPhysicalMemory / 1048576, 0)
+    Next    
+End Function
+ 
+    </script>
+</job>
