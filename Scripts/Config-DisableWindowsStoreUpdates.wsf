@@ -1,16 +1,14 @@
-<job id="Config-EnableWindowsStoreUpdates">
+<job id="Config-DisableWindowsStoreUpdates">
 	<script language="VBScript" src="ZTIUtility.vbs"/>
 	<script language="VBScript">
+
+	oLogging.CreateEntry "Getting crrent OS drive letter", LogTypeInfo
+	sSystemDrive = oEnvironment.Item("OSDISK")
+	oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
 	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
-		oLogging.CreateEntry "Getting current OS drive letter", LogTypeInfo
-		sSystemDrive = oEnvironment.Item("OSDTARGETDRIVECACHE")
-		oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
-	
-		oLogging.CreateEntry "About to configure offline registry settings", LogTypeInfo
-		oLogging.CreateEntry "Windows version applied to harddrive is" & oEnvironment.Item("IMAGEBUILD"), LogTypeInfo
-		UpdateOfflineRegistry(sSystemDrive)
-	End If
+	oLogging.CreateEntry "About to configure offline registry settings", LogTypeInfo
+	oLogging.CreateEntry "Windows version applied to harddrive is" & oEnvironment.Item("IMAGEBUILD"), LogTypeInfo
+	UpdateOfflineRegistry(sSystemDrive)	
 
 	Function UpdateOfflineRegistry(sSystemDrive)	
 		
@@ -24,8 +22,6 @@
 				If iRetVal = SUCCESS then
 					bFound = True
 					exit for
-				Else
-					sLoadOfflineRegistry = ""
 				End if
 			End If
 		Next
@@ -34,45 +30,24 @@
 			UpdateDevicePath = Success
 			EXIT FUNCTION
 		End If
+		
+		oLogging.CreateEntry "Disable Windows Store Updates", LogTypeInfo
+		oShell.RegWrite "HKEY_LOCAL_MACHINE\NewOS\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload", "2", "REG_DWORD"  
+			' 2 = always off
+			' 4 = always on
+			
+		oLogging.CreateEntry "Disable Consumer Experience", LogTypeInfo
+		oShell.RegWrite "HKEY_LOCAL_MACHINE\NewOS\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures", "1", "REG_DWORD"  
+			' 1 = Off (disabled)
+			' 0 = On (enabled)
+
+			
+		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
+		oShell.Run "reg unload HKLM\NewOS", 0, true
 
 		UpdateOfflineRegistry = Success
 			
 	End Function
-	
-	oLogging.CreateEntry "Enable Windows Store Updates", LogTypeInfo
-	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
-		oShell.RegDelete "HKEY_LOCAL_MACHINE\NewOS\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"  
-	Else
-		oShell.RegDelete "HKEY_LOCAL_MACHINE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"
-	End If
-	
-	If Err.Number <> 0 Then
-		oLogging.CreateEntry "Could not delete the key, probably not exist", LogTypeInfo
-	Else
-		oLogging.CreateEntry "Key deleted successfully", LogTypeInfo  
-	End If
-	Err.Clear
-			
-	oLogging.CreateEntry "Enable Consumer Experience", LogTypeInfo
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
-		oShell.RegDelete "HKEY_LOCAL_MACHINE\NewOS\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
-	Else
-		oShell.RegDelete "HKEY_LOCAL_MACHINE\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
-	End If
-	
-	If Err.Number <> 0 Then
-		oLogging.CreateEntry "Could not delete the key, probably not exist", LogTypeInfo
-	Else
-		oLogging.CreateEntry "Key deleted successfully", LogTypeInfo  
-	End If
-	Err.Clear
-	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
-		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
-		oShell.Run "reg unload HKLM\NewOS", 0, true
-	End If
-	
+
 	</script>
 </job>
-
