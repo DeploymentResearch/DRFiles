@@ -41,7 +41,7 @@
 	
 	oLogging.CreateEntry "Enable Windows Store Updates", LogTypeInfo
 	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
+	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oShell.RegDelete "HKEY_LOCAL_MACHINE\NewOS\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"  
 	Else
 		oShell.RegDelete "HKEY_LOCAL_MACHINE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"
@@ -55,7 +55,7 @@
 	Err.Clear
 			
 	oLogging.CreateEntry "Enable Consumer Experience", LogTypeInfo
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
+	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oShell.RegDelete "HKEY_LOCAL_MACHINE\NewOS\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
 	Else
 		oShell.RegDelete "HKEY_LOCAL_MACHINE\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
@@ -68,7 +68,7 @@
 	End If
 	Err.Clear
 	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
+	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
 		oShell.Run "reg unload HKLM\NewOS", 0, true
 	End If
