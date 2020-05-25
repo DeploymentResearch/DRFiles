@@ -2,7 +2,7 @@
 	<script language="VBScript" src="ZTIUtility.vbs"/>
 	<script language="VBScript">
 	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
+	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oLogging.CreateEntry "Getting current OS drive letter", LogTypeInfo
 		sSystemDrive = oEnvironment.Item("OSDTARGETDRIVECACHE")
 		oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
@@ -29,7 +29,7 @@
 				End if
 			End If
 		Next
-		If not bFound then
+		If not bFound Then
 			oLogging.CreateEntry "Unable to find the new OS registry file; Windows Store settings cannot be updated.", LogTypeError
 			UpdateDevicePath = Success
 			EXIT FUNCTION
