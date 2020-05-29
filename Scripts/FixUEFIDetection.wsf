@@ -6,28 +6,53 @@
 ' // 
 ' // File:      FixUEFIDetection.wsf
 ' // 
-' // Version:   1.0
+' // Version:   1.1
 ' // 
 ' // Author:     Johan Arwidmark, @jarwidmark
 ' // 
 ' // ***************************************************************************
 
-oLogging.CreateEntry "Detecting firmware type from WinPE..." & PEFirmwareType, LogTypeInfo
+oLogging.CreateEntry "Checking if running in WinPE or Full Windows", LogTypeInfo
 
-' Getting firmware type from WinPE registry
-PEFirmwareType = oShell.Regread("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PEFirmwareType")
+If oEnvironment.Item("OSVersion") = "WinPE" Then 
 
-oLogging.CreateEntry "firmware type from WinPE registry is " & PEFirmwareType, LogTypeInfo
+	oLogging.CreateEntry "We are in WinPE, detecting firmware type from registry...", LogTypeInfo
 
-If PEFirmwareType = "2" Then 
-	oLogging.CreateEntry "Machine is configured for UEFI, setting the IsUEFI variable to True", LogTypeInfo
-	oEnvironment.Item("IsUEFI") = "true"
+	' Getting firmware type from WinPE registry
+	PEFirmwareType = oShell.Regread("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PEFirmwareType")
+
+	oLogging.CreateEntry "Firmware type from WinPE registry is " & PEFirmwareType, LogTypeInfo
+
+	If PEFirmwareType = "2" Then 
+		oLogging.CreateEntry "Machine is configured for UEFI, setting the IsUEFI variable to True", LogTypeInfo
+		oEnvironment.Item("IsUEFI") = "true"
+	Else
+		oLogging.CreateEntry "Machine is configured for BIOS, setting the IsUEFI variable to False", LogTypeInfo
+		oEnvironment.Item("IsUEFI") = "false"
+	End If
 Else
-	oLogging.CreateEntry "Machine is configured for BIOS, setting the IsUEFI variable to False", LogTypeInfo
-	oEnvironment.Item("IsUEFI") = "false"
-End If
+	oLogging.CreateEntry "Detecting firmware type from Full Windows", LogTypeInfo
+
+	Set objShell = CreateObject("WScript.Shell")
+	Set objExecObject = objShell.Exec("bcdedit /enum BOOTMGR")
+
+	Do While Not objExecObject.StdOut.AtEndOfStream
+	    strText = objExecObject.StdOut.ReadLine()
+	    If Instr(strText, "\EFI\Microsoft\Boot\bootmgfw.efi") > 0 Then
+			oLogging.CreateEntry "Machine is configured for UEFI, setting the IsUEFI variable to True", LogTypeInfo
+	        oEnvironment.Item("IsUEFI") = "true"
+	        Exit Do
+	    End If
+	Loop
+
+	If oEnvironment.Item("IsUEFI") = "true" Then 
+		' All good, do nothing
+	Else
+		oEnvironment.Item("IsUEFI") = "false"
+	End If
 	
 
+End If
 
 
    </script>
