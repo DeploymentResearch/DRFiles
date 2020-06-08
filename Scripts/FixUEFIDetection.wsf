@@ -13,6 +13,7 @@
 ' // ***************************************************************************
 
 oLogging.CreateEntry "Checking if running in WinPE or Full Windows", LogTypeInfo
+oLogging.CreateEntry "OSVersion is: " & oEnvironment.Item("OSVersion"), LogTypeInfo
 
 If oEnvironment.Item("OSVersion") = "WinPE" Then 
 
