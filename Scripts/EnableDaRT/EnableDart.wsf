@@ -15,7 +15,7 @@
 		On Error Goto 0
 	End if
 	
-	' Add support for Windows ADK 2004 which uses a different layout for the console, making command prompts not showing in the remote viewer unless forced to use old layout
+	' Add support for Windows ADK 2004, making command prompts not showing in the remote viewer unless forced to use old layout
 	sVersion = tmpShell.RegRead("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinPE\Version")
 	splitArray = Split(sVersion,".")
 	iBuildNumber = CInt(splitArray(2))
