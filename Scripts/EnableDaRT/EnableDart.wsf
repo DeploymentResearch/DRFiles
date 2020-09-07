@@ -1,7 +1,7 @@
 <job id="EnableDart">
 	<script language="VBScript">
 
-	' Due to an issue that may exist in x64 images captured by MDT 2010 Lite Touch, 
+	' Due to an issue that may exist in x64 images captured by MDT  Lite Touch, 
 	' there may be a need to clean up a bad registry key that would cause this script
 	' to get into an infinite loop.  This logic will fix that bad registry key
 	' when necessary.
@@ -14,6 +14,14 @@
 		tmpShell.RegWrite "HKCR\TypeLib\{D5E1749D-832D-4587-AFC3-9462187FE2F5}\1.0\0\win64\", tmpShell.ExpandEnvironmentStrings("%WINDIR%\SysWOW64\CCM\TSCore.DLL")
 		On Error Goto 0
 	End if
+	
+	' Add support for Windows ADK 2004 which uses a different layout for the console, making command prompts not showing in the remote viewer unless forced to use old layout
+	sVersion = tmpShell.RegRead("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinPE\Version")
+	splitArray = Split(sVersion,".")
+	iBuildNumber = CInt(splitArray(2))
+	If iBuildNumber >= 19041 Then
+		tmpShell.RegWrite "HKCU\Console\ForceV2","0","REG_DWORD"
+	End if 
 
 	</script>
 	<script language="VBScript" src="ZTIUtility.vbs"/>
@@ -30,6 +38,7 @@
 ' // 
 ' // Version:   1.0 - Alexey Semibratov: Initial version
 ' // Version:   1.1 - Johan Arwidmark: Added timeout, and fix for 169.x networks (yes, they exist, it's only 169.254 that are APIPA networks)
+' // Version:   1.2 - Johan Arwidmark: Added suppport for WinPE 2004 (command prompt would not show on remote wiewer)
 ' // 
 ' // Purpose:   Initialize the Remote Recovery
 ' // 
@@ -101,9 +110,8 @@ Class EnableDart
 		Dim dicIPList
 		
 		' Make sure WinPE has enough time to start networking and all services
-		WScript.Sleep 10000
+		WScript.Sleep 5000
 
-		
 		' Remote control is only supported in Windows PE (don't use OSVersion as it isn't set yet for refresh)
 
 		If oEnv("SystemDrive") <> "X:" then
