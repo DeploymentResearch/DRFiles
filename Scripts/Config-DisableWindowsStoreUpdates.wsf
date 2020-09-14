@@ -2,7 +2,7 @@
 	<script language="VBScript" src="ZTIUtility.vbs"/>
 	<script language="VBScript">
 
-	oLogging.CreateEntry "Getting crrent OS drive letter", LogTypeInfo
+	oLogging.CreateEntry "Getting current OS drive letter", LogTypeInfo
 	sSystemDrive = oEnvironment.Item("OSDISK")
 	oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
 	
@@ -41,7 +41,6 @@
 			' 1 = Off (disabled)
 			' 0 = On (enabled)
 
-			
 		oLogging.CreateEntry "Unload the offline registry file", LogTypeInfo
 		oShell.Run "reg unload HKLM\NewOS", 0, true
 

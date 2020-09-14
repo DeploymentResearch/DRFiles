@@ -2,7 +2,7 @@
 	<script language="VBScript" src="ZTIUtility.vbs"/>
 	<script language="VBScript">
 	
-	If oEnvironment.Item("_SMSTSInWinPE") = "true"
+	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oLogging.CreateEntry "Getting current OS drive letter", LogTypeInfo
 		sSystemDrive = oEnvironment.Item("OSDTARGETDRIVECACHE")
 		oLogging.CreateEntry "Current OS drive letter is " & sSystemDrive, LogTypeInfo
@@ -44,7 +44,7 @@
 	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oShell.RegDelete "HKEY_LOCAL_MACHINE\NewOS\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"  
 	Else
-		oShell.RegDelete "HKEY_LOCAL_MACHINE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"
+		oShell.RegDelete "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate\AutoDownload"
 	End If
 	
 	If Err.Number <> 0 Then
@@ -58,7 +58,7 @@
 	If oEnvironment.Item("_SMSTSInWinPE") = "true" Then
 		oShell.RegDelete "HKEY_LOCAL_MACHINE\NewOS\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
 	Else
-		oShell.RegDelete "HKEY_LOCAL_MACHINE\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
+		oShell.RegDelete "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CloudContent\DisableWindowsConsumerFeatures"
 	End If
 	
 	If Err.Number <> 0 Then
