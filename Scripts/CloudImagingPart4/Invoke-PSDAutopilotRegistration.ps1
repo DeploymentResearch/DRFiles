@@ -63,8 +63,6 @@ Write-Log "IntuneGroup name sent from task sequence is $IntuneGroup"
 
 Return "Device with serial number $SerialNumber uploaded to Autopilot"
 
-BREAK
-
 # Connect to Microsoft Graph
 Update-MSGraphEnvironment -AppId $AppID -Quiet
 Update-MSGraphEnvironment -AuthUrl $authority -Quiet
