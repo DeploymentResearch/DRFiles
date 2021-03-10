@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<sequence version="3.00" name="Custom Task Sequence" description="Sample Custom Task Sequence">
+  <group expand="true" name="Dell BIOS Settings" description="" disable="false" continueOnError="false">
+    <action />
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Copy Dell BIOS Config Tools" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c xcopy .\DELL\*.* %systemdrive%\BIOStoUEFI\DELL /s /y /i</action>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Install Dell HAPI Drivers" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c %systemdrive%\BIOStoUEFI\DELL\%processor_architecture%\HAPI\HAPIInstall.bat</action>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Enable UEFI" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c %systemdrive%\BIOStoUEFI\DELL\%processor_architecture%\cctk.exe bootorder --activebootlist=uefi</action>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Enable Secure Boot" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c %systemdrive%\BIOStoUEFI\DELL\%processor_architecture%\cctk.exe --secureboot=enable</action>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Enable Virtualization" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c %systemdrive%\BIOStoUEFI\DELL\%processor_architecture%\cctk.exe --virtualization=enable</action>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Enable UEFI Network Stack" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c %systemdrive%\BIOStoUEFI\DELL\%processor_architecture%\cctk.exe --uefinwstack=enable</action>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Set UEFI boot order" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID"></variable>
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>%comspec% /c %systemdrive%\BIOStoUEFI\DELL\%processor_architecture%\cctk.exe bootorder --bootlisttype=uefi --sequence=hdd.1</action>
+    </step>
+  </group>
+</sequence>

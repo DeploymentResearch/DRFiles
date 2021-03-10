@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<sequence version="3.00" name="Custom Task Sequence" description="Sample Custom Task Sequence">
+  <group expand="true" name="Convert" description="" disable="false" continueOnError="false">
+    <action />
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Lenovo: Turn on UEFI in firmware" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID" />
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>cscript.exe "%ScriptRoot%\Lenovo_UEFI.vbs"</action>
+      <condition>
+        <expression type="SMS_TaskSequence_VariableConditionExpression">
+          <variable name="Variable">Make</variable>
+          <variable name="Operator">equals</variable>
+          <variable name="Value">Lenovo</variable>
+        </expression>
+      </condition>
+    </step>
+    <step type="SMS_TaskSequence_RunCommandLineAction" name="Convert MBR to GPT" description="" disable="false" continueOnError="false" startIn="" successCodeList="0 3010" runIn="WinPEandFullOS">
+      <defaultVarList>
+        <variable name="PackageID" property="PackageID" />
+        <variable name="RunAsUser" property="RunAsUser">false</variable>
+        <variable name="SMSTSRunCommandLineUserName" property="SMSTSRunCommandLineUserName"></variable>
+        <variable name="SMSTSRunCommandLineUserPassword" property="SMSTSRunCommandLineUserPassword"></variable>
+        <variable name="LoadProfile" property="LoadProfile">false</variable>
+      </defaultVarList>
+      <action>cmd.exe /c mbr2gpt.exe /convert /allowFullOS</action>
+    </step>
+    <step type="SMS_TaskSequence_SetVariableAction" name="Set FinishAction to reboot" description="" disable="false" continueOnError="false" successCodeList="0 3010">
+      <defaultVarList>
+        <variable name="VariableName" property="VariableName">FinishAction</variable>
+        <variable name="VariableValue" property="VariableValue">REBOOT</variable>
+      </defaultVarList>
+      <action>cscript.exe "%SCRIPTROOT%\ZTISetVariable.wsf"</action>
+    </step>
+    <condition>
+      <expression type="SMS_TaskSequence_VariableConditionExpression">
+        <variable name="Variable">IsUEFI</variable>
+        <variable name="Operator">notEquals</variable>
+        <variable name="Value">True</variable>
+      </expression>
+    </condition>
+  </group>
+</sequence>
