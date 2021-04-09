@@ -72,11 +72,17 @@ Write-Log "Connecting to ConfigMgr"
 Import-Module (Join-Path $(Split-Path $env:SMS_ADMIN_UI_PATH) ConfigurationManager.psd1)
 cd "$SiteCode`:"
 
-# Enumerating Custom ConfigMgr Queries (Only)
+# Enumerating Custom ConfigMgr Queries (excluding the built-in queries)
 Write-Log "Enumerating Custom ConfigMgr Queries"
 $Queries = Get-CMQuery -Name * | Where-Object {$_.QueryID -inotlike 'SMS*'}
 $NumberOfQueries = ($Queries | Measure-Object).Count
 Write-Log "Number of Custom ConfigMgr Queries found is $NumberOfQueries"
+
+# Abort if no custom queries found
+If ($NumberOfQueries -eq 0){
+    Write-warning "No custom queries found, aborting export..."
+    Break
+}
 
 Foreach ($Query in $Queries){
 
