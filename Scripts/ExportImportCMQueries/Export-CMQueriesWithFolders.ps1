@@ -1,10 +1,9 @@
 ﻿# Export script for ConfigMgr queries, including folder structure
 # Credits to Peter van der Woude (@pvanderwoude) for original Get-ObjectLocation function
 
-# Run this on the site server
 $ExportPath = "E:\ExportedQueries"
 $Logfile = "$ExportPath\QueryExport.log"
-$SiteServer = $env:COMPUTERNAME
+$SiteServer = "CM01"
 $SiteCode = "PS1"
 
 # Create path if not existing
