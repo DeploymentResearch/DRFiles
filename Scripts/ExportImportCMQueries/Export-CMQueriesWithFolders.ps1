@@ -76,8 +76,6 @@ $Queries = Get-CMQuery -Name * | Where-Object {$_.QueryID -inotlike 'SMS*'}
 $NumberOfQueries = ($Queries | Measure-Object).Count
 Write-Log "Number of Custom ConfigMgr Queries found is $NumberOfQueries"
 
-$Queries | Select -First 1 | Select *
-
 Foreach ($Query in $Queries){
 
     Write-Log  "Working on query: $Folder\$($Query.Name)"
