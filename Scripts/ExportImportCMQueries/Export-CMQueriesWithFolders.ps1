@@ -1,4 +1,7 @@
-﻿# Run this on the site server
+﻿# Export script for ConfigMgr queries, including folder structure
+# Credits to Peter van der Woude (@pvanderwoude) for original Get-ObjectLocation function
+
+# Run this on the site server
 $ExportPath = "E:\ExportedQueries"
 $Logfile = "$ExportPath\QueryExport.log"
 $SiteServer = $env:COMPUTERNAME
@@ -35,8 +38,8 @@ function Get-ObjectLocation {
     param (
     [string]$InstanceKey
     )
-    
-    $ContainerNode = Get-WmiObject -Namespace root/SMS/site_$SiteCode -ComputerName $SiteServer -Query "SELECT ocn.* FROM SMS_ObjectContainerNode AS ocn JOIN SMS_ObjectContainerItem AS oci ON ocn.ContainerNodeID=oci.ContainerNodeID WHERE oci.ObjectType = '7' and oci.InstanceKey='$InstanceKey'"
+    $ObjectType = "7" # Queries are object type 7
+    $ContainerNode = Get-WmiObject -Namespace root/SMS/site_$SiteCode -ComputerName $SiteServer -Query "SELECT ocn.* FROM SMS_ObjectContainerNode AS ocn JOIN SMS_ObjectContainerItem AS oci ON ocn.ContainerNodeID=oci.ContainerNodeID WHERE oci.ObjectType = '$ObjectType' and oci.InstanceKey='$InstanceKey'"
     if ($ContainerNode -ne $null) {
         $ObjectFolder = $ContainerNode.Name
         if ($ContainerNode.ParentContainerNodeID -eq 0) {
@@ -83,7 +86,7 @@ Foreach ($Query in $Queries){
     $TargetFolder = "$ExportPath\$Folder"
     If (!(Test-Path -Path $TargetFolder)){ 
         Write-Log "Target folder $TargetFolder does not esist, creating it..."
-        New-Item -Path $TargetFolder -ItemType Directory
+        New-Item -Path $TargetFolder -ItemType Directory | Out-Null
     } 
     $ExportFilePath = "$TargetFolder\$($Query.Name).mof"
     Write-Log "Exporting query: $Folder\$($Query.Name) to $TargetFolder"
