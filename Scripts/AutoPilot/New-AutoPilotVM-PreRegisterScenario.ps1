@@ -2,6 +2,7 @@
 # Requirements: VHDX file of sysprepped Windows 10 setup (can be default from Microsoft)
 #
 # TIP: To convert an existing WIM image to VHDX file, use Convert-WindowsImage.ps1 from https://github.com/nerdile/convert-windowsimage 
+# For example syntax, see  https://github.com/DeploymentResearch/DRFiles/blob/master/Scripts/AutoPilot/Convert-WindowsImage-Syntax.ps1
 #
 # Author: Johan Arwidmark
 # Twitter: @jarwidmark
