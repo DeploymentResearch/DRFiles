@@ -1,4 +1,4 @@
-﻿# Syntax example for Import-TaskSequence.ps1 scipt
+﻿# Syntax example for Import-TaskSequence.ps1 script
 $TSImportFile = "E:\Demo\ExportedTaskSequences\PS100320.xml"
 $NewTSName = "Windows 10 Enterprise x64 20HD From Export"
 
