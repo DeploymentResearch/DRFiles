@@ -9,7 +9,7 @@
 
 $SiteServer = $env:COMPUTERNAME
 $SiteCode = "PS1"
-$OutputPath = "$OutputPath"
+$OutputPath = "E:\Setup"
 
 Import-Module (Join-Path $(Split-Path $env:SMS_ADMIN_UI_PATH) ConfigurationManager.psd1)
 cd "$SiteCode`:"
