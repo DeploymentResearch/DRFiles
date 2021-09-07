@@ -1,0 +1,11 @@
+select
+SMS_StatusMessage.*, 
+SMS_StatMsgInsStrings.*, 
+SMS_StatMsgAttributes.*, 
+SMS_StatMsgAttributes.AttributeTime 
+from SMS_StatusMessage 
+left join SMS_StatMsgInsStrings 
+on SMS_StatMsgInsStrings.RecordID = SMS_StatusMessage.RecordID 
+left join SMS_StatMsgAttributes 
+on SMS_StatMsgAttributes.RecordID = SMS_StatusMessage.RecordID 
+where SMS_StatMsgAttributes.AttributeID = 401 and SMS_StatMsgAttributes.AttributeValue = "PS120060" and SMS_StatMsgAttributes.AttributeTime >= ##PRM:SMS_StatMsgAttributes.AttributeTime## order by SMS_StatMsgAttributes.AttributeTime DESC
