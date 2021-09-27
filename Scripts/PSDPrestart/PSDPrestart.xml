@@ -1,0 +1,7 @@
+﻿<Commands>
+ <Command>
+  <Executable>powershell.exe</Executable>
+  <Argument>-noprofile -file X:\Deploy\Prestart\PSDSetComputerName.ps1</Argument>
+ </Command>
+</Commands>
+
