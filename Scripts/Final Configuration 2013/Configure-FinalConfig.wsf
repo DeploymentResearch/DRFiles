@@ -88,7 +88,7 @@ Function ZTIProcess()
 	'Log the cmd we are going to run
 	oLogging.CreateEntry "About to run " & sCmd,LogTypeInfo
 
-	'start the HTA, but don't wait for it to complete - otherwise well never end the TS.
+	'start the HTA, but don't wait for it to complete - otherwise we'll never end the TS.
 	oShell.CurrentDirectory = sTemporaryFolder
 	sReturn=oShell.run (sCmd,1,False)
 
