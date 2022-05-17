@@ -1,8 +1,41 @@
-﻿# Single Export 20H2
-$ISO = "E:\ISO\Windows 10 Business Editions x64 20H2 (updated March 2021).iso"
-$WIM = "C:\Ref\REFW10-X64-20H2-March-2021-Enterprise.wim"
-Mount-DiskImage -ImagePath $ISO
+﻿# Script to extract the Windows 11 Enterprise index from a Windows 11 media.
+# Update line 5 - 8 to match your environment
+
+# General parameteers
+$ISO = "F:\ISO\Windows 10 Business Editions x64 21H2 (updated April 2022).iso" # Path to Windows 10 media
+$WIMPath = "C:\WIM" # Target folder for extracted WIM file containing Windows 10 Enterprise only
+$WIMFile = "$WIMPath\REFW10-X64-21H2-Enterprise.wim" # Exported WIM File
+$Edition = "Windows 10 Enterprise" # Edition to export. Note: If using Evaluation Media, use: Windows 10 Enterprise Evaluation 
+
+# Goal is to have a single index WIM File, so checking if target WIM File exist, and abort if it does.
+If (Test-path $WIMFile){
+    Write-Warning "WIM File: $WimFile does already exist. Rename or delete the file, then try again. Aborting..."
+    Break 
+}
+
+# ISO Validation
+If (-not (Test-path $ISO)){
+    Write-Warning "ISO File: $ISO does not exist, aborting..."
+    Break 
+}
+
+# Mount ISO
+Mount-DiskImage -ImagePath $ISO | Out-Null
 $ISOImage = Get-DiskImage -ImagePath $ISO | Get-Volume
 $ISODrive = [string]$ISOImage.DriveLetter+":"
-Export-WindowsImage -SourceImagePath "$ISODrive\sources\install.wim" -SourceName "Windows 10 Enterprise" -DestinationImagePath $WIM 
-Dismount-DiskImage -ImagePath $ISO
+
+# Source WIM validation
+$SourceWIMFile = "$ISODrive\sources\install.wim"
+If (-not (Get-WindowsImage -ImagePath $SourceWIMFile | Where-Object {$_.ImageName -ilike "*$($Edition)"})){
+    Write-Warning "WIM Edition: $Edition does not exist in WIM: $SourceWIMFile, aborting..."
+    Dismount-DiskImage -ImagePath $ISO | Out-Null
+    Break
+}
+
+# Export WIM
+If (!(Test-path $WIMPath)){ New-Item -Path $WIMPath -ItemType Directory -Force | Out-Null } # Create folder if needed
+Export-WindowsImage -SourceImagePath $SourceWIMFile -SourceName $Edition -DestinationImagePath $WIMFile
+
+# Dismount ISO
+Dismount-DiskImage -ImagePath $ISO | Out-Null
+
