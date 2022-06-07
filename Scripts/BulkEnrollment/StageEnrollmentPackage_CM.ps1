@@ -23,8 +23,10 @@ If (Test-Path $DismLogfile){Remove-Item $DismLogfile -Force -ErrorAction Silentl
 Write-Log -Message "Starting process of staging Enrollment Package via dism.exe"
 Write-Log -Message "Note that full DISM Output will be logged to a separate log: $DISMLogFile"
 
-$EnrollmentPackage = $TSEnv.Value("EnrollmentPackage")
-$OSVolume = $TSEnv.Value("OSDisk")
+$ContentLocation = Split-Path -Parent $PSCommandPath
+$EnrollmentPackage = Get-ChildItem $ContentLocation -Filter *.ppkg
+$OSVolume = $TSEnv.Value("OSDTargetSystemDrive")
+Write-Log -Message "Current content path is: $ContentLocation"
 Write-Log -Message "Current Enrollment Package is: $EnrollmentPackage"
 Write-Log -Message "The target OS Volume in WinPE is: $OSVolume"
 
