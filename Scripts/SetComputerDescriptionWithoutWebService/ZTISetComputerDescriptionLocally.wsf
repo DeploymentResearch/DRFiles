@@ -1,0 +1,51 @@
+<job id="ZTISetComputerDescriptionLocally">
+<script language="VBScript" src="ZTIUtility.vbs"/>
+<script language="VBScript">
+
+'//////////////////////////////////////////////////
+'//
+'// Script File:
+'//
+'//   ZTISetComputerDescriptionLocally.wsf
+'//
+'//   This script sets the computer description value 
+'//   locally on the computer (system properties) 
+'//
+'//   Author: Johan Arwidmark	
+'//   URL: http://www.deployvista.com
+'//
+'//   Disclaimer
+'//   This script is provided "AS IS" without express 
+'//   or implied warranty of any kind
+'//
+'//////////////////////////////////////////////////
+
+
+Dim sReturn
+Dim sCmd
+
+If oEnvironment.Item("ComputerDescription") = "" Then
+
+	oLogging.CreateEntry "No Computer Description set...", LogTypeWarning
+
+Else
+
+	oLogging.CreateEntry "Computer Description variable set to: " & oEnvironment.Item("ComputerDescription"), LogTypeInfo
+
+
+	' Create the cmd to set computer description
+	sCmd="cmd /c net config server /srvcomment:""" & oEnvironment.Item("ComputerDescription") & """ "
+
+	' Log the cmd we are going to run
+	oLogging.CreateEntry "About to run " & sCmd,LogTypeInfo
+
+	' Set the Computer Description
+	sReturn=oShell.run (sCmd,1,False)
+
+	' Log the return code from starting net command
+	oLogging.CreateEntry "Return code from " & sCmd & " was : " & sReturn,LogTypeInfo
+
+End If
+
+</script>
+</job>

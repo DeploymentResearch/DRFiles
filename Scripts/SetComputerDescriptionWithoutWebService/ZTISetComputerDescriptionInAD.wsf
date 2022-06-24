@@ -1,0 +1,54 @@
+<job id="ZTISetComputerDescriptionInAD">
+<script language="VBScript" src="ZTIUtility.vbs"/>
+<script language="VBScript">
+
+'//////////////////////////////////////////////////
+'//
+'// Script File:
+'//
+'//   ZTISetComputerDescriptionInAD.wsf
+'//
+'//   This script sets the computer description value 
+'//   on the computer object in Active Directory
+'//
+'//   Author: Johan Arwidmark	
+'//   URL: http://www.deployvista.com
+'//
+'//   Disclaimer
+'//   This script is provided "AS IS" without express 
+'//   or implied warranty of any kind
+'//
+'//////////////////////////////////////////////////
+
+If oEnvironment.Item("ComputerDescription") = "" Then
+
+	oLogging.CreateEntry "No Computer Description set...", LogTypeWarning
+
+Else
+
+	oLogging.CreateEntry "Computer Description variable set to: " & oEnvironment.Item("ComputerDescription"), LogTypeInfo
+
+	' Get Computer Information
+
+	Dim oADSystemInfo
+	Dim oComputer
+
+	Set oADSystemInfo = CreateObject("ADSystemInfo") 
+
+	oLogging.CreateEntry "Distinguished computer name is: " & oADSystemInfo.ComputerName, LogTypeInfo
+
+	' Set Computer Description
+	On Error Resume Next 
+
+	Set oComputer = GetObject("LDAP://" & oADSystemInfo.ComputerName)
+	oComputer.put "description", oEnvironment.Item("ComputerDescription")
+	oComputer.Setinfo
+	If Err Then
+		oLogging.CreateEntry "GetObject Error: " & Err.Number & ") (Error Description: " & Err.Description & ").", LogTypeError
+		oLogging.CreateEntry "Could not update object, most likley due to missing permissions in Active Directory. Configure this action to run as a user with permissions to update computer accounts in Active Directory (select to Load the users profile).", LogTypeError
+	End If
+
+End If
+
+</script>
+</job>
