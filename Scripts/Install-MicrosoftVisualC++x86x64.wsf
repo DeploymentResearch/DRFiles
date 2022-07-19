@@ -1,4 +1,4 @@
-<job id="Install-MicrosoftVisualC++x86x64">
+﻿<job id="Install-MicrosoftVisualC++x86x64">
 <script language="VBScript" src="..\..\scripts\ZTIUtility.vbs"/>
 <script language="VBScript"> 
 
@@ -14,6 +14,7 @@
 '// Version: 2.5 - October 4, 2018 - Johan Arwidmark
 '// Version: 2.5.1 - August 12, 2019 - Baard Hermansen
 '// Version: 2.6 - November 27, 2019 - Ramón Isasi
+'// Version: 22.7.18.1 - Sean Huggans
 '// 
 '// Twitter: @jarwidmark
 '// Blog   : http://deploymentresearch.com
@@ -26,6 +27,9 @@
 '//
 '// Twitter: @spucktier
 '// 
+'// Twitter: @Bahusafoo
+'// Blog   : https://bahusa.net/
+'//
 '// Disclaimer:
 '// This script is provided "AS IS" with no warranties, confers no rights and 
 '// is not supported by the authors or Deployment Artist.
@@ -52,9 +56,9 @@ Function ZTIProcess()
 	'// Removed Visual C++ 2008 since it's no longer supported (and don't get security updates)
 	'Dim sSetupFile2008x86
 	'Dim sSetupFile2008x64
-	'//
-	Dim sSetupFile2010x86
-	Dim sSetupFile2010x64
+	'// Removed Visual C++ 2010 since it's no longer supported (and don't get security updates)
+	'Dim sSetupFile2010x86
+	'Dim sSetupFile2010x64
 	Dim sSetupFile2012x86
 	Dim sSetupFile2012x64
 	Dim sSetupFile2013x86
@@ -67,9 +71,12 @@ Function ZTIProcess()
 	'// (Visual C++ 2019 is a binary-compatible in-place upgrade of Visual C++ 2015 and 2017)
 	'Dim sSetupFile2017x86
 	'Dim sSetupFile2017x64
-
-	Dim sSetupFile2019x86
-	Dim sSetupFile2019x64
+	'// Removed Visual C++ 2019 since it's replaced with 2022
+	'// (Visual C++ 2022 is a binary-compatible in-place upgrade of Visual C++ 2015, 2017 ans 2019)
+	'Dim sSetupFile2019x86
+	'Dim sSetupFile2019x64
+	Dim sSetupFile2022x86
+	Dim sSetupFile2022x64
 	
 
 	Dim sArguments
@@ -87,9 +94,9 @@ Function ZTIProcess()
 	'// Removed Visual C++ 2008 since it's no longer supported (and don't get security updates)
 	'sSetupFile2008x86 = oUtility.ScriptDir & "\Source\VC2005\vcredist_x86.exe"
 	'sSetupFile2008x64 = oUtility.ScriptDir & "\Source\VC2005\vcredist_x64.exe"
-	'//
-	sSetupFile2010x86 = oUtility.ScriptDir & "\Source\VS2010\vcredist_x86.exe"
-	sSetupFile2010x64 = oUtility.ScriptDir & "\Source\VS2010\vcredist_x64.exe"
+	'// Removed Visual C++ 2010 since it's no longer supported (and don't get security updates)
+	'sSetupFile2010x86 = oUtility.ScriptDir & "\Source\VS2010\vcredist_x86.exe"
+	'sSetupFile2010x64 = oUtility.ScriptDir & "\Source\VS2010\vcredist_x64.exe"
 	sSetupFile2012x86 = oUtility.ScriptDir & "\Source\VS2012\vcredist_x86.exe"
 	sSetupFile2012x64 = oUtility.ScriptDir & "\Source\VS2012\vcredist_x64.exe"
 	sSetupFile2013x86 = oUtility.ScriptDir & "\Source\VS2013\vcredist_x86.exe"
@@ -99,8 +106,11 @@ Function ZTIProcess()
 	'sSetupFile2015x64 = oUtility.ScriptDir & "\Source\VS2015\mu_visual_cpp_2015_redistributable_update_3_x64_9052538.exe"
 	'sSetupFile2017x86 = oUtility.ScriptDir & "\Source\VS2017\mu_visual_cpp_redistributable_for_visual_studio_2017_version_15.3_x86_11100229.exe"
 	'sSetupFile2017x64 = oUtility.ScriptDir & "\Source\VS2017\mu_visual_cpp_redistributable_for_visual_studio_2017_version_15.3_x64_11100230.exe"
-	sSetupFile2019x86 = oUtility.ScriptDir & "\Source\VS2019\vc_redist.x86.exe"
-	sSetupFile2019x64 = oUtility.ScriptDir & "\Source\VS2019\vc_redist.x64.exe"
+	'// Removed Visual C++ 2019 since it's replaced with 2022
+	'sSetupFile2019x86 = oUtility.ScriptDir & "\Source\VS2019\vc_redist.x86.exe"
+	'sSetupFile2019x64 = oUtility.ScriptDir & "\Source\VS2019\vc_redist.x64.exe"
+	sSetupFile2022x86 = oUtility.ScriptDir & "\Source\VS2022\vc_redist.x86.exe"
+	sSetupFile2022x64 = oUtility.ScriptDir & "\Source\VS2022\vc_redist.x64.exe"
 	
 	sArguments = "/Q"
 
@@ -122,11 +132,13 @@ Function ZTIProcess()
 	'End if
 	'//
 
-	If not oFSO.FileExists(sSetupFile2010x86) then
-		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2010x86 & " was not found, unable to install", LogTypeError
-		ZTIProcess = Failure
-		Exit Function
-	End if
+	'// Removed Visual C++ 2010 since it's no longer supported (and don't get security updates)
+	'If not oFSO.FileExists(sSetupFile2010x86) then
+	'	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2010x86 & " was not found, unable to install", LogTypeError
+	'	ZTIProcess = Failure
+	'	Exit Function
+	'End if
+        '//
 
 	If not oFSO.FileExists(sSetupFile2012x86) then
 		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2012x86 & " was not found, unable to install", LogTypeError
@@ -154,8 +166,15 @@ Function ZTIProcess()
 	'	Exit Function
 	'End if
 	
-	If not oFSO.FileExists(sSetupFile2019x86) then
-		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2019x86 & " was not found, unable to install", LogTypeError
+	'// Removed Visual C++ 2019 since it's replaced with 2022
+	'If not oFSO.FileExists(sSetupFile2019x86) then
+	'	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2019x86 & " was not found, unable to install", LogTypeError
+	'	ZTIProcess = Failure
+	'	Exit Function
+	'End if
+
+	If not oFSO.FileExists(sSetupFile2022x86) then
+		oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2022x86 & " was not found, unable to install", LogTypeError
 		ZTIProcess = Failure
 		Exit Function
 	End if
@@ -194,18 +213,20 @@ Function ZTIProcess()
 	' oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 	'//
 
+	'// Removed Visual C++ 2010 since it's no longer supported (and don't get security updates)
 	'// Installing Visual C++ 2010 x86
-	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2010x86, LogTypeInfo
-	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2010x86 & """ " & sArguments)
-	
-	if (iRetVal = 0) or (iRetVal = 3010) then
-		ZTIProcess = Success 
-	Else 
-		ZTIProcess = Failure
-	End If
-	
-	oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
-	oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+	'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2010x86, LogTypeInfo
+	'iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2010x86 & """ " & sArguments)
+	'
+	'if (iRetVal = 0) or (iRetVal = 3010) then
+	'	ZTIProcess = Success 
+	'Else 
+	'	ZTIProcess = Failure
+	'End If
+	'
+	'oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+	'oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+	'//
 
 	'// Installing Visual C++ 2012 x86
 	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2012x86, LogTypeInfo
@@ -262,9 +283,23 @@ Function ZTIProcess()
 	'	ZTIProcess = Failure
 	'End If
 
+	'// Removed Visual C++ 2019 since it's replaced with 2022
 	'// Installing Visual C++ 2019 x86
-	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2019x86, LogTypeInfo
-	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2019x86 & """ " & sArguments)
+	'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2019x86, LogTypeInfo
+	'iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2019x86 & """ " & sArguments)
+	'
+	'if (iRetVal = 0) or (iRetVal = 3010) then
+	'	ZTIProcess = Success 
+	'Else 
+	'	ZTIProcess = Failure
+	'End If
+	'
+	'oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+	'oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+
+	'// Installing Visual C++ 2022 x86
+	oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2022x86, LogTypeInfo
+	iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2022x86 & """ " & sArguments)
 	
 	if (iRetVal = 0) or (iRetVal = 3010) then
 		ZTIProcess = Success 
@@ -297,11 +332,12 @@ Function ZTIProcess()
 		'End if
 		'//
 
-		If not oFSO.FileExists(sSetupFile2010x64) then
-			oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2010x64 & " was not found, unable to install", LogTypeError
-			ZTIProcess = Failure
-			Exit Function
-		End if
+		'// Removed Visual C++ 2010 since it's no longer supported (and does not receive security updates anymore)
+		'If not oFSO.FileExists(sSetupFile2010x64) then
+		'	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2010x64 & " was not found, unable to install", LogTypeError
+		'	ZTIProcess = Failure
+		'	Exit Function
+		'End if
 
 		If not oFSO.FileExists(sSetupFile2012x64) then
 			oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2012x64 & " was not found, unable to install", LogTypeError
@@ -329,7 +365,14 @@ Function ZTIProcess()
 		'	Exit Function
 		'End if
 
-		If not oFSO.FileExists(sSetupFile2019x64) then
+		'// Removed Visual C++ 2019 since it's replaced with 2022 
+		'If not oFSO.FileExists(sSetupFile2019x64) then
+		'	oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2019x64 & " was not found, unable to install", LogTypeError
+		'	ZTIProcess = Failure
+		'	Exit Function
+		'End if
+
+		If not oFSO.FileExists(sSetupFile2022x64) then
 			oLogging.CreateEntry oUtility.ScriptName & ": " & sSetupFile2019x64 & " was not found, unable to install", LogTypeError
 			ZTIProcess = Failure
 			Exit Function
@@ -368,19 +411,19 @@ Function ZTIProcess()
 		'oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 		'oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 
-
+		'// Removed Visual C++ 2010 since it's no longer supported (and don't get security updates)
 		'// Installing Visual C++ 2010 x64
-		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2010x64, LogTypeInfo
-		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2010x64 & """ " & sArguments)
-		
-		if (iRetVal = 0) or (iRetVal = 3010) then
-			ZTIProcess = Success 
-		Else 
-			ZTIProcess = Failure
-		End If
-		
-		oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
-		oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+		'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2010x64, LogTypeInfo
+		'iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2010x64 & """ " & sArguments)
+		'
+		'if (iRetVal = 0) or (iRetVal = 3010) then
+		'	ZTIProcess = Success 
+		'Else 
+		'	ZTIProcess = Failure
+		'End If
+		'
+		'oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+		'oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
 
 
 		'// Installing Visual C++ 2012 x64
@@ -400,7 +443,7 @@ Function ZTIProcess()
 		'// Modified installation switch due to changes introduced from version 2013 and newer
 		sArguments = "/quiet /norestart"
 
-    '// Installing Visual C++ 2013 x64
+    		'// Installing Visual C++ 2013 x64
 		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2013x64, LogTypeInfo
 		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2013x64 & """ " & sArguments)
 		
@@ -438,16 +481,29 @@ Function ZTIProcess()
 		'	ZTIProcess = Failure
 		'End If
 
+		'// Removed Visual C++ 2019 since it's replaced with 2022
 		'// Installing Visual C++ 20019x64
-		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2019x64, LogTypeInfo
-		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2019x64 & """ " & sArguments)
+		'oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2019x64, LogTypeInfo
+		'iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2019x64 & """ " & sArguments)
+		'
+		'if (iRetVal = 0) or (iRetVal = 3010) then
+		'	ZTIProcess = Success 
+		'Else 
+		'	ZTIProcess = Failure
+		'End If
+		'
+		'oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
+		'oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
+
+		'// Installing Visual C++ 2022x64
+		oLogging.CreateEntry oUtility.ScriptName & ": About to install " & sSetupFile2022x64, LogTypeInfo
+		iRetVal = oUtility.RunWithHeartbeat("""" & sSetupFile2022x64 & """ " & sArguments)
 		
 		if (iRetVal = 0) or (iRetVal = 3010) then
 			ZTIProcess = Success 
 		Else 
 			ZTIProcess = Failure
 		End If
-		
 		
 		oLogging.CreateEntry oUtility.ScriptName & ": Return code from command = " & iRetVal, LogTypeInfo
 		oLogging.CreateEntry oUtility.ScriptName & ": Finished installation", LogTypeInfo
