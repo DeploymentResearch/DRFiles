@@ -1,12 +1,12 @@
-<job id="Configure-FinalCleanup">
+<job id="Invoke-FinalConfiguration">
    <script language="VBScript" src="..\..\scripts\ZTIUtility.vbs"/>
    <script language="VBScript">
  
 '//----------------------------------------------------------------------------
 '// Solution: Hydration
 '// Purpose: Used to do some custom configuration after task sequence completes
-'// Usage: cscript Configure-FinalConfig.wsf [/debug:true]
-'// Version: 1.5 - January 5, 2020 - Johan Arwidmark
+'// Usage: cscript Invoke-FinalConfiguration.wsf [/debug:true]
+'// Version: 1.6 - October 25, 2022 - Johan Arwidmark
 '//
 '// This script is provided "AS IS" with no warranties, confers no rights and 
 '// is not supported by the authors or Deployment Artist. 
@@ -69,10 +69,20 @@ Function ZTIProcess()
 	   Exit Function
 	End if
 
+	' Check for SkipFinalSummary value being set to YES
+	If UCASE(oEnvironment.Item("SkipFinalSummary")) = "YES" Then
+	   oLogging.CreateEntry sSName & "SkipFinalSummary set to YES, continuing",LogTypeInfo
+	Else
+	   oLogging.CreateEntry sSName & "SkipFinalSummary not set to YES, aborting",LogTypeError
+	   ZTIProcess = Failure
+	   Exit Function
+	End if
+
+	
 	'Copying script to local machine, temp folder
 	Const TemporaryFolder = 2
 	Set sTemporaryFolder = oFSO.GetSpecialFolder(TemporaryFolder)
-	sFile = oUtility.ScriptDir & "\FinalConfig.hta"
+	sFile = oUtility.ScriptDir & "\FinalConfiguration.hta"
     oFSO.GetFile(sFile).Copy sTemporaryFolder & "\" & oFSO.GetFileName(sFile),True
 	sFile = oUtility.ScriptDir & "\Servers.png"
     oFSO.GetFile(sFile).Copy sTemporaryFolder & "\" & oFSO.GetFileName(sFile),True
@@ -83,7 +93,7 @@ Function ZTIProcess()
 
 	'Create the cmd to start the HTA
 	sDomain = oEnvironment.Item("JOINDOMAIN")
-	sCmd="mshta.exe """ & sTemporaryFolder & "\FinalConfig.hta"" " & Chr(34) & sDomain & Chr(34) 
+	sCmd="mshta.exe """ & sTemporaryFolder & "\FinalConfiguration.hta"" " & Chr(34) & sDomain & Chr(34) 
 
 	'Log the cmd we are going to run
 	oLogging.CreateEntry "About to run " & sCmd,LogTypeInfo

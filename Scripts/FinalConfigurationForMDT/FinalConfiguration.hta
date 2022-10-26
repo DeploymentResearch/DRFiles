@@ -119,10 +119,6 @@ Function Configuration()
 	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\ForceAutoLogon", 1, "REG_SZ"
 	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\DisableCAD", 1, "REG_DWORD"
 
-	' Disable Microsoft Security Essentials Setup Wizard (if machine was sysprepped with MSE installed)
-	' Note: Commented out since MSE is no longer used in current Windows client versions
-	'oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft Security Client\OOBE", 0, "REG_DWORD"
-		
 	' Reboot the client
 	StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "Configuration Complete, rebooting client in 30 seconds... "
 	oShell.run "shutdown /f /r /t 30",1,False		
@@ -144,7 +140,7 @@ End Sub
             <tr valign="top">
                 <td width="10"></td>
 	<td>
-                        <H1><br>Final Configuration Utility for MDT 2013 Lite Touch</H1>
+                        <H1><br>Final Configuration Utility for MDT Lite Touch</H1>
                         <span style="width: 95%;">
                             <table cellpadding="0" cellspacing="0" border="0">
                                 <tr>Status:<br><br>
