@@ -69,11 +69,11 @@ Function ZTIProcess()
 	   Exit Function
 	End if
 
-	' Check for SkipFinalSummary value being set to YES
-	If UCASE(oEnvironment.Item("SkipFinalSummary")) = "YES" Then
-	   oLogging.CreateEntry sSName & "SkipFinalSummary set to YES, continuing",LogTypeInfo
+	' Check for FinishAction not being configured
+	If UCASE(oEnvironment.Item("FinishAction")) <> "" Then
+	   oLogging.CreateEntry sSName & "FinishAction is not set, continuing",LogTypeInfo
 	Else
-	   oLogging.CreateEntry sSName & "SkipFinalSummary not set to YES, aborting",LogTypeError
+	   oLogging.CreateEntry sSName & "FinishAction is configured, aborting",LogTypeError
 	   ZTIProcess = Failure
 	   Exit Function
 	End if
