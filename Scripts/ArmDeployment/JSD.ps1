@@ -50,7 +50,6 @@ DISM.exe /Apply-Image /ImageFile:$LocalCache\$DriverPackage /Index:1 /ApplyDir:W
 New-Item -Path W:\Windows\Panther -ItemType Directory
 Copy-Item -Path Z:\Unattend.xml -Destination W:\Windows\Panther
 New-Item -Path W:\ScratchSpace -ItemType Directory
-break
 dism.exe /Image:W:\ /Apply-Unattend:W:\Windows\Panther\Unattend.xml /ScratchDir:W:\ScratchSpace
 Remove-Item W:\ScratchSpace -Recurse -Force
 Remove-Item W:\Drivers -Recurse -Force
