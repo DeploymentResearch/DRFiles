@@ -4,7 +4,7 @@
 $TenantID = ""
 
 Select-MgProfile -Name "beta"
-$Tenant = Connect-MgGraph -TenantId $TenantID -Scopes "DeviceManagementManagedDevices.Read.All","DeviceManagementManagedDevices.ReadWrite.All"
+$Tenant = Connect-MgGraph -TenantId $TenantID -Scopes "DeviceManagementManagedDevices.Read.All","DeviceManagementManagedDevices.ReadWrite.All","DeviceManagementManagedDevices.PrivilegedOperations.All"
 # Get all Windows Devices
 $Devices = Get-MgDeviceManagementManagedDevice -Filter "contains(operatingsystem, 'Windows')" | Get-MSGraphAllPages
 
@@ -16,8 +16,8 @@ Foreach ($Device in $Devices)
 {
     Write-Host "Last Sync Time was: $($Device.lastSyncDateTime)"
     # Force sync
-    Sync-MgDeviceManagementManagedDevice -managedDeviceId $Device.managedDeviceId 
-    Write-Host "Sending Sync request to Device with DeviceID $($Device.managedDeviceId)" -ForegroundColor Yellow
+    Sync-MgDeviceManagementManagedDevice -ManagedDeviceId $Device.Id 
+    Write-Host "Sending Sync request to Device with DeviceID $($Device.Id)" -ForegroundColor Yellow
     Write-Host ""
 }
 
