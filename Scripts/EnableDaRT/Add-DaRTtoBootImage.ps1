@@ -10,10 +10,10 @@ $SiteServer = "CM01"
 $SiteCode = "PS1"
 
 # Connect to ConfigMgr
-if((Get-Module ConfigurationManager) -eq $null) {
+if($null -eq (Get-Module ConfigurationManager)) {
     Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1"
 }
-if((Get-PSDrive -Name $SiteCode -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
+if($null -eq (Get-PSDrive -Name $SiteCode -PSProvider CMSite -ErrorAction SilentlyContinue)) {
     New-PSDrive -Name $SiteCode -PSProvider CMSite -Root $SiteServer 
 }
 Set-Location "$($SiteCode):\" 
