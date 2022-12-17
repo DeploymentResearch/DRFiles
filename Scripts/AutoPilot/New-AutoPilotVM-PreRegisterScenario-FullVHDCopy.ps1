@@ -9,12 +9,12 @@
 # LinkedIn: https://www.linkedin.com/in/jarwidmark
 
 # Set some variables
-$VMName = "MMS2022-AP005"
+$VMName = "APTEST210"
 $VMLocation = "F:\VMs"
 $VMNetwork = "NoInternet"
 $VMMemory = 4096MB
-$RefVHD = "C:\VHDs\AP-W10-21H2.vhdx"
-#$RefVHD = "C:\VHDs\AP-W11-21H2.vhdx"
+#$RefVHD = "C:\VHDs\AP-W10-21H2.vhdx"
+$RefVHD = "C:\VHDs\AP-W11-22H2.vhdx"
 $Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_autopilot_registration_scenario.xml"
 $APScript = "C:\Setup\Scripts\Get-WindowsAutoPilotInfo.ps1"
 $RemoveUnattendScript = "C:\Setup\Scripts\Remove-APUnattend.ps1"
