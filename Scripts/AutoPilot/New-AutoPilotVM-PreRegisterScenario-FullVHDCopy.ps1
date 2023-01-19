@@ -9,7 +9,7 @@
 # LinkedIn: https://www.linkedin.com/in/jarwidmark
 
 # Set some variables
-$VMName = "APTEST210"
+$VMName = "APTEST212"
 $VMLocation = "F:\VMs"
 $VMNetwork = "NoInternet"
 $VMMemory = 4096MB
