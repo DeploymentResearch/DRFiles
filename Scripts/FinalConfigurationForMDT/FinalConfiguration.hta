@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>Final Configuration</title>
+
+<link href="Wizard.css" type="text/css" rel="stylesheet">
+
+<HTA:APPLICATION ID="oFinalConfig" 
+	APPLICATIONNAME="Final Configuration" 
+	ICON="Wizard.ico" 
+    SCROLL="no" 
+    SELECTION="no" 
+    INNERBORDER="no" 
+    BORDER="normal" 
+    SINGLEINSTANCE="no" 
+    SYSMENU="no" 
+    MAXIMIZEBUTTON="no" 
+    MINIMIZEBUTTON="no" 
+    />
+    
+<script language="vbscript" type="text/vbscript">
+<!--
+
+Dim iTimerID
+Dim stmp,iCount,bfound
+
+Sub Window_onload
+on error resume Next
+	CenterWindow 640,640
+	stmp=0
+	StatusArea.InnerHTML="Checking for Task Sequence process....<br><br>"
+	TestProcess
+End Sub	
+
+Sub CenterWindow( widthX, heightY )
+    self.ResizeTo widthX, heightY 
+    self.MoveTo (screen.Width - widthX)/2, (screen.Height - heightY)/2
+End Sub
+
+Function TestProcess()
+Dim objWMIService, colProcess
+Dim strComputer,objProcess
+window.clearInterval(iTimerID)
+strComputer = "."
+stmp=stmp+1
+Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+Set colProcess = objWMIService.ExecQuery ("Select * from Win32_Process WHERE name like 'TS%'")
+	bFound=1
+	For Each objProcess in colProcess
+		If UCase(objProcess.Name)="TSMANAGER.EXE" Then
+			bfound=0
+		End If
+	Next
+	If bFound=0 Then
+      	StatusArea.InnerHTML="Task Sequencer is still Running. <BR> Pass " & stmp
+		TestProcess=0
+	Else
+		bfound=1
+		TestProcess=1
+	End If
+	
+iCount=0
+iTimerID = window.setInterval("Progress",1000)
+   	
+End Function
+
+Function Progress()
+
+	If iCount<20 And bfound = 0 Then
+		CountArea.InnerHTML="Checking again in " & 20-iCount
+		iCount=iCount+1
+	Else
+		iCount=0
+		sTP=TestProcess()
+		If sTP=1 Then
+			CountArea.InnerHTML=""
+			window.clearInterval(iTimerID)
+
+		StatusArea.InnerHTML="Task Sequence process terminated, waiting 30 more seconds for LTICleanup.wsf to complete..."
+
+		iTimerID = window.setInterval("Configuration",30000)
+
+        	Exit Function
+		End If
+	End If
+End Function
+
+Function Configuration()
+
+	Set oShell = CreateObject ("WScript.shell")
+	Set oFSO = CreateObject("Scripting.FileSystemObject")
+
+	' Clean up any existing C:\MININT directory
+	StatusArea.InnerHTML=""
+	StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "Clean up any existing C:\MININT directory"
+	If oFSO.FolderExists("C:\MININT") then
+		On Error Resume Next
+		oFSO.DeleteFolder "C:\MININT", true
+               	StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "C:\MININT directory deleted"
+		On Error Goto 0
+	End if
+
+	' Clean up any existing C:\_SMSTaskSequence directory
+	StatusArea.InnerHTML=""
+	StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "Clean up any existing C:\_SMSTaskSequence directory"
+	If oFSO.FolderExists("C:\_SMSTaskSequence") then
+		On Error Resume Next
+		oFSO.DeleteFolder "C:\_SMSTaskSequence", true
+               	StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "C:\_SMSTaskSequence directory deleted"
+		On Error Goto 0
+	End if
+
+	' Enable autologon for another user account (comment out these lines)
+	' StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "Enable autologon for another user account."
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoAdminLogon", 1, "REG_SZ"
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\AutoLogonCount", 999, "REG_SZ"
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\DefaultUserName", "Johan", "REG_SZ"
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\DefaultDomainName", "VIAMONSTRA", "REG_SZ"
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\DefaultPassword", "P@ssw0rd", "REG_SZ"
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\ForceAutoLogon", 1, "REG_SZ"
+	' oShell.RegWrite "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\DisableCAD", 1, "REG_DWORD"
+
+	' Reboot the client
+	StatusArea.InnerHTML=StatusArea.InnerHTML & "<BR>" & "Configuration Complete, rebooting client in 30 seconds... "
+	oShell.run "shutdown /f /r /t 30",1,False		
+
+End Function
+
+Sub CloseWindow
+    self.close()
+End Sub
+
+-->
+</script>
+
+</head>
+
+<body Language="VBScript" background=Servers.png>
+
+        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr valign="top">
+                <td width="10"></td>
+	<td>
+                        <H1><br>Final Configuration Utility for MDT Lite Touch</H1>
+                        <span style="width: 95%;">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>Status:<br><br>
+			                        <td colspan="2" id="StatusArea"></td>
+                                </tr>
+                                <tr>
+	                                <td colspan="2" id="CountArea"></td>
+                                </tr>
+                            </table>
+                        </span>
+                </td>            
+            </tr>
+        </table>
+    </body>
+</html>
+

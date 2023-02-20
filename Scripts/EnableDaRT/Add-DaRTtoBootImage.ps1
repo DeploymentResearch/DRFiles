@@ -1,13 +1,4 @@
-﻿# Check for elevation
-Write-Host "Checking for elevation"
-
-If (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
-    [Security.Principal.WindowsBuiltInRole] "Administrator"))
-{
-    Write-Warning "Oupps, you need to run this script from an elevated PowerShell prompt!`nPlease start the PowerShell prompt as an Administrator and re-run the script."
-    Write-Warning "Aborting script..."
-    Break
-}
+﻿#Requires -RunAsAdministrator
 
 # Set some variables to resources
 $BootImageName = "Zero Touch WinPE 10 x64"
@@ -19,10 +10,10 @@ $SiteServer = "CM01"
 $SiteCode = "PS1"
 
 # Connect to ConfigMgr
-if((Get-Module ConfigurationManager) -eq $null) {
+if($null -eq (Get-Module ConfigurationManager)) {
     Import-Module "$($ENV:SMS_ADMIN_UI_PATH)\..\ConfigurationManager.psd1"
 }
-if((Get-PSDrive -Name $SiteCode -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
+if($null -eq (Get-PSDrive -Name $SiteCode -PSProvider CMSite -ErrorAction SilentlyContinue)) {
     New-PSDrive -Name $SiteCode -PSProvider CMSite -Root $SiteServer 
 }
 Set-Location "$($SiteCode):\" 
