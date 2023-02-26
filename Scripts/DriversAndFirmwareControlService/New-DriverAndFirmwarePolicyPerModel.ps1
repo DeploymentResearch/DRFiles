@@ -74,7 +74,7 @@ foreach ($devicetype in $devicetypes){
     $daAudience = Invoke-MgGraphRequest -Uri $uri -Method POST -Body @{} -ContentType 'application/json'
 
     # Add devices to the model-specific audience
-    # Figure out batching for later (up to 200 devices can be batched at a time)    
+    # Figure out batching for later 
     $devicestoadd = $alldevices | Where-Object { $_.model -eq $Model}
     foreach ($devicetoadd in $devicestoadd){
         $addMembersPostBody = @{
