@@ -71,7 +71,7 @@ Function ZTIProcess()
 
 	' Check for FinishAction not being configured
 	If UCASE(oEnvironment.Item("FinishAction")) <> "" or UCASE(oEnvironment.Item("FinishAction")) = "NONE" Then
-	   oLogging.CreateEntry sSName & "FinishAction is not set, continuing",LogTypeInfo
+	   oLogging.CreateEntry sSName & "FinishAction is not set, or set to NONE, continuing",LogTypeInfo
 	Else
 	   oLogging.CreateEntry sSName & "FinishAction is configured to: " & oEnvironment.Item("FinishAction") & ", aborting",LogTypeError
 	   ZTIProcess = Failure
