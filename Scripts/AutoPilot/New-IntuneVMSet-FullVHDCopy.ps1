@@ -10,10 +10,11 @@
 
 # Set some variables
 $VMLocation = "E:\VMs"
-$VMNetwork = "Chicago1"
+$VMNetwork = "LiverPool2"
 $VMMemory = 4096MB
 $RefVHD = "C:\VHDs\AP-W11-22H2.vhdx"
-$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only.xml"
+#$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only.xml"
+$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_OOBE.xml"
 
 
 $VMs = @(

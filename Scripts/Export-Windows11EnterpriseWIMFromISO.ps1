@@ -2,9 +2,9 @@
 # Update line 5 - 8 to match your environment
 
 # General parameteers
-$ISO = "F:\ISO\Windows 11 Business Editions x64 21H2 (updated April 2022).iso" # Path to Windows 11 media
+$ISO = "F:\iso\Windows 11 Business Editions x64 22H2 (updated April 2023).iso" # Path to Windows 11 media
 $WIMPath = "C:\WIM" # Target folder for extracted WIM file containing Windows 11 Enterprise only
-$WIMFile = "$WIMPath\REFW11-X64-21H2-Enterprise.wim" # Exported WIM File
+$WIMFile = "$WIMPath\REFW11-X64-22H2-Enterprise.wim" # Exported WIM File
 $Edition = "Windows 11 Enterprise" # Edition to export. Note: If using Evaluation Media, use: Windows 11 Enterprise Evaluation 
 
 # Goal is to have a single index WIM File, so checking if target WIM File exist, and abort if it does.
