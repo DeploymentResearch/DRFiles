@@ -4,7 +4,7 @@
 # General parameteers
 $ISO = "F:\ISO\Windows 10 Business Editions x64 22H2 (updated May 2023).iso" # Path to Windows 10 media
 $WIMPath = "C:\WIM" # Target folder for extracted WIM file containing Windows 10 Enterprise only
-$WIMFile = "$WIMPath\REFW10-X64-22H2-Enterprise.wim" # Exported WIM File
+$WIMFile = "$WIMPath\W10-X64-22H2-Enterprise.wim" # Exported WIM File
 $Edition = "Windows 10 Enterprise" # Edition to export. Note: If using Evaluation Media, use: Windows 10 Enterprise Evaluation 
 
 # Goal is to have a single index WIM File, so checking if target WIM File exist, and abort if it does.

@@ -12,22 +12,18 @@
 $VMLocation = "E:\VMs"
 $VMNetwork = "LiverPool2"
 $VMMemory = 4096MB
-$RefVHD = "C:\VHDs\AP-W11-22H2.vhdx"
-$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only.xml"
-#$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_OOBE.xml"
-
+#$RefVHD = "C:\VHD\W10-X64-22H2-Enterprise.vhdx"
+$RefVHD = "C:\VHD\W10-X64-22H2-Enterprise.vhdx"
+#$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only.xml"
+$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only_OOBE.xml"
 
 $VMs = @(
-    "APTEST205"
-    "APTEST206"
-    "APTEST207"
-    "APTEST208"
-    "APTEST209"
+    "LP2-001"
 )
 
 # Verify that specified files exist
 If (!(Test-Path $Unattend)){ Write-Warning "Unattend.xml file not found, aborting...";Break}
-If (!(Test-Path $RefVHD)){ Write-Warning "Parent VHDX file not found, aborting...";Break}
+If (!(Test-Path $RefVHD)){ Write-Warning "VHDX file not found, aborting...";Break}
 
 foreach ($VMName in $VMs){
 
