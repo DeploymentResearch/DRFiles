@@ -51,7 +51,7 @@ Function ZTIProcess()
      	iRetVal = Success 
      	ZTIProcess = iRetval 
 
-	Dim sSName,sCMD,sReturn,iZTIRetValue,sDomain,sFile,sTemporaryFolder,f
+	Dim sSName,sCMD,sReturn,iZTIRetValue,sDomain,sFile,sTemporaryFolder
 
 	sSName=oUtility.ScriptName
 	'set the return value to assume a failure
@@ -70,7 +70,7 @@ Function ZTIProcess()
 	End if
 
 	' Check for FinishAction not being configured
-	If UCASE(oEnvironment.Item("FinishAction")) <> "" or UCASE(oEnvironment.Item("FinishAction")) = "NONE" Then
+	If UCASE(oEnvironment.Item("FinishAction")) = "" or UCASE(oEnvironment.Item("FinishAction")) = "NONE" Then
 	   oLogging.CreateEntry sSName & "FinishAction is not set, or set to NONE, continuing",LogTypeInfo
 	Else
 	   oLogging.CreateEntry sSName & "FinishAction is configured to: " & oEnvironment.Item("FinishAction") & ", aborting",LogTypeError
