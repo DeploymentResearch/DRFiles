@@ -51,7 +51,14 @@
             <RegisteredOrganization>ViaMonstra</RegisteredOrganization>
             <RegisteredOwner>ViaMonstra</RegisteredOwner>
             <TimeZone>Central Standard Time</TimeZone>
-		<OOBE>
+        <FirstLogonCommands>
+			<SynchronousCommand wcm:action="add">
+				<CommandLine>PowerShell.exe -ExecutionPolicy ByPass -Command "C:\Windows\RemoveAutologonSettings.ps1</CommandLine>
+				<Description>Force removal of Autologon settings</Description>
+				<Order>1</Order>
+			</SynchronousCommand>
+		</FirstLogonCommands>
+        <OOBE>
 			<HideEULAPage>true</HideEULAPage>
 			<NetworkLocation>Work</NetworkLocation>
 			<ProtectYourPC>1</ProtectYourPC>

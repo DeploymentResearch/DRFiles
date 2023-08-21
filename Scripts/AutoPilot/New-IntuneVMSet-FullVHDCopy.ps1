@@ -10,15 +10,15 @@
 
 # Set some variables
 $VMLocation = "E:\VMs"
-$VMNetwork = "LiverPool2"
+$VMNetwork = "External"
 $VMMemory = 4096MB
 #$RefVHD = "C:\VHD\W10-X64-22H2-Enterprise.vhdx"
-$RefVHD = "C:\VHD\W10-X64-22H2-Enterprise.vhdx"
-#$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only.xml"
-$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_only_OOBE.xml"
+$RefVHD = "C:\VHD\W11-X64-22H2-Enterprise.vhdx"
+$Unattend = "E:\Demo\Intune\Scripts\Unattend_for_windows_only.xml"
+$RemoveAutologonSettings = "E:\Demo\Intune\Scripts\RemoveAutologonSettings.ps1"
 
 $VMs = @(
-    "LP2-001"
+    "INT-Q3-JA005"
 )
 
 # Verify that specified files exist
@@ -40,6 +40,7 @@ foreach ($VMName in $VMs){
 
     # Copy unattend.xml to the mounted disk
     Copy-Item -Path $Unattend -Destination "$VHDXVolume\Windows\system32\Sysprep\Unattend.xml"
+    Copy-Item -Path $RemoveAutologonSettings -Destination "$VHDXVolume\Windows"
     
     # Remove Convert-WindowsImageInfo.txt file
     If (Test-Path "$VHDXVolume\Convert-WindowsImageInfo.txt"){Remove-Item -Path "$VHDXVolume\Convert-WindowsImageInfo.txt" -Force}
