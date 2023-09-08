@@ -22,7 +22,7 @@ Function Write-Log{
 
 }
 
-# Rename Administrator to Whiskey
+# Rename Administrator
 Write-Log "Renaming current Administrator account to $OldAdminName"
 try {
     $CurrentAdminName = Get-LocalUser | Where-Object { $_.SID -like "S-1-5-*-500" } -ErrorAction Stop
@@ -57,7 +57,7 @@ catch{
 }
 
 
-# Create new Account named Foxtrot, set password to not expire.
+# Create new Account, set password to not expire.
 Write-Log "Create new Account named $NewAdminName"
 try {
     New-LocalUser -name $NewAdminName -password $Password -PasswordNeverExpires:$true -ErrorAction Stop
