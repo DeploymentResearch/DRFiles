@@ -71,7 +71,7 @@ catch{
     Break
 }
 
-# Add Foxtrot to Administrators group
+# Add new account to Administrators group
 Write-Log "Add $NewAdminName to Administrators group"
 try {
     $AdminGroup = Get-Localgroup | Where-Object { $_.SID -like "S-1-5-*-544" } -ErrorAction Stop
