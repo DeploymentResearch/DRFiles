@@ -13,11 +13,10 @@
 	Author:      Johan Arwidmark
     Contact:     @jarwidmarke
     Created:     September 29, 2023
-    Updated:     September 30, 2023
+    Updated:     September 29, 2023
 	
     Version history:
     1.0.0 - September 29, 2023 - Script created
-    1.0.1 - September 30, 2023 - Updated version info
 #>
 
 # Settings
