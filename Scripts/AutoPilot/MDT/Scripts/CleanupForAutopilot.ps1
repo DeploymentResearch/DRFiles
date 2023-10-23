@@ -6,7 +6,7 @@
     This script was written by Johan Arwidmark @jarwidmark
 
 .NOTES
-          FileName: PSDAutopilotDeviceRegistration.ps1
+          FileName: CleanupForAutopilot.ps1
           Contact: @jarwidmark
           Created: October 21, 2023
 
