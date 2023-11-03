@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <Display>
+                <ColorDepth>32</ColorDepth>
+                <HorizontalResolution>1024</HorizontalResolution>
+                <RefreshRate>60</RefreshRate>
+                <VerticalResolution>768</VerticalResolution>
+            </Display>
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Description>Show diskpart script</Description>
+                    <Order>1</Order>
+                    <Path>wscript.exe X:\Deploy\Scripts\DiskpartInWinPE.vbs</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Description>Lite Touch PE</Description>
+                    <Order>2</Order>
+                    <Path>wscript.exe X:\Deploy\Scripts\LiteTouch.wsf</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+        </component>
+    </settings>
+</unattend>
