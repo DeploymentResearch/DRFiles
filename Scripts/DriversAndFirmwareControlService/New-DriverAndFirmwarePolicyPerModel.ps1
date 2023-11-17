@@ -81,7 +81,7 @@ foreach ($devicetype in $devicetypes){
             addMembers = @(
                 @{
                     "@odata.type" = "#microsoft.graph.windowsUpdates.azureADDevice"
-                    id            = $devicestoadd.azureADDeviceId
+                    id            = $devicetoadd.azureADDeviceId
                 }
             )
         }
