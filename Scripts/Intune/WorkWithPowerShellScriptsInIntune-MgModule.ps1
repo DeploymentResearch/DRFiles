@@ -101,7 +101,7 @@ $Response = Invoke-MgGraphRequest -Uri $URI -Body $Json -Method PATCH -ContentTy
 
 $ScriptName = "Escrow Bitlocker Recovery Keys"
 $IntuneScript = Get-MgBetaDeviceManagementScript -Filter "displayName eq '$ScriptName'"
-$GroupName = "sg-dept-Accounting"
+$GroupName = "Intune - [Prod] Bitlocker Key Escrow"
 $Group = Get-MgBetaGroup -Filter "DisplayName eq '$GroupName'"
 
 # Then we prepare the necessary JSON and post the assignment
