@@ -3,8 +3,12 @@
 Import-Module Microsoft.Graph.Authentication
 Import-Module Microsoft.Graph.Reports
 $TenantID = ""
+$Scopes = @(
+    "AuditLog.Read.All",
+    "Directory.Read.All"
+)
 
-$Tenant = Connect-MgGraph -TenantId $TenantID -Scopes "AuditLog.Read.All","Directory.Read.All"
+$Tenant = Connect-MgGraph -TenantId $TenantID -Scopes $Scopes
 
 #Get all device logs
 Get-MgAuditLogDirectoryAudit -Filter "category eq 'Device'"
