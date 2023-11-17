@@ -1,10 +1,14 @@
-#Requires -Modules Microsoft.Graph
 # Install the module. (You need admin on the machine.)
 # Install-Module Microsoft.Graph
+Import-Module Microsoft.Graph.Authentication
+Import-Module Microsoft.Graph.Reports
 $TenantID = ""
+$Scopes = @(
+    "AuditLog.Read.All",
+    "Directory.Read.All"
+)
 
-Select-MgProfile -Name "beta"
-$Tenant = Connect-MgGraph -TenantId $TenantID -Scopes "AuditLog.Read.All","Directory.Read.All"
+$Tenant = Connect-MgGraph -TenantId $TenantID -Scopes $Scopes
 
 #Get all device logs
 Get-MgAuditLogDirectoryAudit -Filter "category eq 'Device'"
