@@ -1,0 +1,106 @@
+<Definition>
+  <WindowsPE>
+	
+	<!-- Settings -->
+	<Version />
+	<Source />
+	<ScratchSpace>512</ScratchSpace>
+	<ImageName />
+	<ImageDescription />
+	
+	<!-- Components -->
+	<Components>
+	</Components>
+
+	<!-- Driver and packages -->
+	<Drivers />
+	<Packages />
+	
+	<!-- Content -->
+	<Content>
+
+	  <!-- Configuration -->
+	  <Copy source="%DEPLOYROOT%\Control\Bootstrap.ini" dest="Deploy\Scripts\Bootstrap.ini" />
+	  <Copy source="%INSTALLDIR%\Templates\Unattend_PE_%PLATFORM%.xml" dest="Unattend.xml" />
+	  <Copy source="%INSTALLDIR%\Templates\winpeshl.ini" dest="Windows\system32\winpeshl.ini" />
+
+	  <!-- Scripts -->
+	  <Copy source="%DEPLOYROOT%\Scripts\LiteTouch.wsf" dest="Deploy\Scripts\LiteTouch.wsf" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIUtility.vbs" dest="Deploy\Scripts\ZTIUtility.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIBCDUtility.vbs" dest="Deploy\Scripts\ZTIBCDUtility.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIDiskUtility.vbs" dest="Deploy\Scripts\ZTIDiskUtility.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIDataAccess.vbs" dest="Deploy\Scripts\ZTIDataAccess.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIConfigFile.vbs" dest="Deploy\Scripts\ZTIConfigFile.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIGather.wsf" dest="Deploy\Scripts\ZTIGather.wsf" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTIGather.xml" dest="Deploy\Scripts\ZTIGather.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Wizard.hta" dest="Deploy\Scripts\Wizard.hta" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Credentials_ENU.xml" dest="Deploy\Scripts\Credentials_ENU.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Credentials_scripts.vbs" dest="Deploy\Scripts\Credentials_scripts.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WizUtility.vbs" dest="Deploy\Scripts\WizUtility.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Wizard.css" dest="Deploy\Scripts\Wizard.css" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Wizard.ico" dest="Deploy\Scripts\Wizard.ico" />
+	  <Copy source="%DEPLOYROOT%\Scripts\BackButton.jpg" dest="Deploy\Scripts\BackButton.jpg" />
+	  <Copy source="%DEPLOYROOT%\Scripts\plusicon.gif" dest="Deploy\Scripts\plusicon.gif" />
+	  <Copy source="%DEPLOYROOT%\Scripts\minusico.gif" dest="Deploy\Scripts\minusico.gif" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Summary_Definition_ENU.xml" dest="Deploy\Scripts\Summary_Definition_ENU.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Summary_scripts.vbs" dest="Deploy\Scripts\Summary_scripts.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\LTICleanup.wsf" dest="Deploy\Scripts\LTICleanup.wsf" />
+	  <Copy source="%DEPLOYROOT%\Scripts\BDD_Welcome_ENU.xml" dest="Deploy\Scripts\BDD_Welcome_ENU.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_Choice.xml" dest="Deploy\Scripts\WelcomeWiz_Choice.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_Choice.vbs" dest="Deploy\Scripts\WelcomeWiz_Choice.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_DeployRoot.xml" dest="Deploy\Scripts\WelcomeWiz_DeployRoot.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_DeployRoot.vbs" dest="Deploy\Scripts\WelcomeWiz_DeployRoot.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_Initialize.xml" dest="Deploy\Scripts\WelcomeWiz_Initialize.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_Initialize.vbs" dest="Deploy\Scripts\WelcomeWiz_Initialize.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\SelectItem.jpg" dest="Deploy\Scripts\SelectItem.jpg" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeBanner.jpg" dest="Deploy\Scripts\WelcomeBanner.jpg" />
+	  <Copy source="%DEPLOYROOT%\Scripts\btnout.png" dest="Deploy\Scripts\btnout.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\btnover.png" dest="Deploy\Scripts\btnover.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\btnsel.png" dest="Deploy\Scripts\btnsel.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\LTIGetFolder.wsf" dest="Deploy\Scripts\LTIGetFolder.wsf" />
+	  <Copy source="%DEPLOYROOT%\Scripts\NICSettings_Definition_ENU.xml" dest="Deploy\Scripts\NICSettings_Definition_ENU.xml" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTINicUtility.vbs" dest="Deploy\Scripts\ZTINicUtility.vbs" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ZTINicConfig.wsf" dest="Deploy\Scripts\ZTINicConfig.wsf" />
+	  <Copy source="%DEPLOYROOT%\Scripts\BackButton.png" dest="Deploy\Scripts\BackButton.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\FolderIcon.png" dest="Deploy\Scripts\FolderIcon.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\ItemIcon1.png" dest="Deploy\Scripts\ItemIcon1.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\MinusIcon1.png" dest="Deploy\Scripts\MinusIcon1.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\PlusIcon1.png" dest="Deploy\Scripts\PlusIcon1.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\SelectItem.png" dest="Deploy\Scripts\SelectItem.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\header-image.png" dest="Deploy\Scripts\header-image.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\NavBar.png" dest="Deploy\Scripts\NavBar.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\Computer.png" dest="Deploy\Scripts\Computer.png" />
+	  <Copy source="%DEPLOYROOT%\Scripts\WelcomeWiz_Background.jpg" dest="Deploy\Scripts\WelcomeWiz_Background.jpg" />
+	  <Copy source="%DEPLOYROOT%\Scripts\DeployWiz_Administrator.png" dest="Deploy\Scripts\DeployWiz_Administrator.png" />
+
+	  <!-- Tools -->
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\BDDRUN.exe" dest="Windows\system32\BDDRUN.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\WinRERUN.exe" dest="Deploy\Tools\%PLATFORM%\WinRERUN.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\CcmCore.dll" dest="Deploy\Tools\%PLATFORM%\CcmCore.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\CcmUtilLib.dll" dest="Deploy\Tools\%PLATFORM%\CcmUtilLib.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\Smsboot.exe" dest="Deploy\Tools\%PLATFORM%\Smsboot.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\SmsCore.dll" dest="Deploy\Tools\%PLATFORM%\SmsCore.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TsCore.dll" dest="Deploy\Tools\%PLATFORM%\TsCore.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TSEnv.exe" dest="Deploy\Tools\%PLATFORM%\TSEnv.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TsManager.exe" dest="Deploy\Tools\%PLATFORM%\TsManager.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TsmBootstrap.exe" dest="Deploy\Tools\%PLATFORM%\TsmBootstrap.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TsMessaging.dll" dest="Deploy\Tools\%PLATFORM%\TsMessaging.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TsmBootstrap.exe" dest="Deploy\Tools\%PLATFORM%\TsmBootstrap.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TsProgressUI.exe" dest="Deploy\Tools\%PLATFORM%\TsProgressUI.exe" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\TSResNlc.dll" dest="Deploy\Tools\%PLATFORM%\TSResNlc.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\CommonUtils.dll" dest="Deploy\Tools\%PLATFORM%\CommonUtils.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\ccmgencert.dll" dest="Deploy\Tools\%PLATFORM%\ccmgencert.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\msvcp120.dll" dest="Deploy\Tools\%PLATFORM%\msvcp120.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\msvcr120.dll" dest="Deploy\Tools\%PLATFORM%\msvcr120.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\00000409\tsres.dll" dest="Deploy\Tools\%PLATFORM%\00000409\tsres.dll" />
+	  <Copy source="%DEPLOYROOT%\Tools\%PLATFORM%\Microsoft.BDD.Utility.dll" dest="Deploy\Tools\%PLATFORM%\Microsoft.BDD.Utility.dll" />
+
+	</Content>
+
+	<!-- Exits -->
+	<Exits>
+	  <Exit>cscript.exe "%INSTALLDIR%\Samples\UpdateExit.vbs"</Exit>
+	</Exits>
+
+  </WindowsPE>
+</Definition>
