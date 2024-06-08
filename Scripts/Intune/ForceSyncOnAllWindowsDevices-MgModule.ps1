@@ -32,7 +32,7 @@ Foreach ($Device in $Devices) {
 #
 
 # Get all devices
-Get-MgDeviceManagementManagedDevice | Get-MSGraphAllPages
+Get-MgDeviceManagementManagedDevice -All
 
 # Get devices for a specific user
 $Devices = Get-MgDeviceManagementManagedDevice | Where-Object { $_.userDisplayName -eq "Bob Smith" }
