@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<Startup>
+	<Option Name="SiteCode" >PS1</Option>
+	<Option Name="CacheSize">25600</Option>
+	<Option Name="AgentVersion">5.00.9120.1000</Option>
+	<Option Name="MinimumInterval">0</Option>
+	<Option Name="ClientLocation">\\cm01\sccm_sources$\CMClient</Option>
+	<Option Name="MaxLogFile">2048</Option>
+	<Option Name="Delay" >5</Option>
+	<InstallProperty Name="SMSMP">CM01.corp.viamonstra.com</InstallProperty>
+	<CCMSetupParameter Name="BITSPriority">HIGH</CCMSetupParameter>
+	<CCMSetupParameter Name="noservice" />
+	<ServiceCheck Name="BITS" State="Running" StartMode="Auto" Enforce="True" />
+	<ServiceCheck Name="winmgmt" State="Running" StartMode="Auto" Enforce="True" />
+	<ServiceCheck Name="wuauserv" State="Running" StartMode="Auto" Enforce="True" />
+	<ServiceCheck Name="lanmanserver" State="Running" StartMode="Auto" Enforce="True" />
+	<ServiceCheck Name="RpcSs" State="Running" StartMode="Auto" Enforce="True" />
+	<RegistryValueCheck Key="HKLM\SOFTWARE\Microsoft\Ole" Value="EnableDCOM" Expected="Y" Enforce="True" Type="REG_SZ"/>
+	<RegistryValueCheck Key="HKLM\SOFTWARE\Microsoft\Ole" Value="EnableRemoteConnect" Expected="Y" Enforce="False" Type="REG_SZ"/>
+	<RegistryValueCheck Key="HKLM\SOFTWARE\Microsoft\Ole" Value="LegacyAuthenticationLevel" Expected="2" Enforce="False" Type="REG_DWORD"/>
+	<RegistryValueCheck Key="HKLM\SOFTWARE\Microsoft\Ole" Value="LegacyImpersonationLevel" Expected="2" Enforce="False" Type="REG_DWORD"/>
+</Startup>
+                         
