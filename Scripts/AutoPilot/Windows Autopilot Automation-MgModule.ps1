@@ -1,5 +1,5 @@
 # Import the PowerShell modules
-Import-Module WindowsAutopilotIntuneCommunity -MinimumVersion 3.0
+Import-Module WindowsAutopilotIntuneCommunity -MinimumVersion 2.5
 Import-Module Microsoft.Graph.Groups
 Import-Module Microsoft.Graph.Authentication
 Import-Module Microsoft.Graph.Identity.DirectoryManagement
