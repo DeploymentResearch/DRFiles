@@ -1,14 +1,13 @@
 SELECT p.Name, 
 	p.Description, 
-	n.SourceCompressedSize, 
-	n.SourceSize, 
+	n.SourceSize as SourceInKB, 
 	dp.LastRefreshTime, 
 	p.Manufacturer, 
 	p.Version, 
 	p.Language, 
 	p.SourceSite, 
 	p.PackageID, 
-	dp.ServerNALPath as DP,
+	SUBSTRING(dp.ServerNALPath, CHARINDEX('\\', dp.ServerNALPath)+2,(CHARINDEX('"]', dp.ServerNALPath) - CHARINDEX('\\', dp.ServerNALPath))-3) AS DP,
 	psd.InstallStatus
 FROM v_Package p
 INNER JOIN v_DistributionPoint dp ON p.PackageID = dp.PackageID
