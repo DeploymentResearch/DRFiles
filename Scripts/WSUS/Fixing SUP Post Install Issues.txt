@@ -1,0 +1,15 @@
+In an elevated command prompt, navigate to C:\windows\System32\ServerManager\ComponentConfiguration
+
+Open UpdateServices-Services.xml and add VALUE>E:\WSUS</VALUE> to the ContentDirectory property
+
+<?xml version="1.0" encoding="utf-16"?><INSTANCE CLASSNAME="ServerComponent_UpdateServices_Services"><PROPERTY NAME="ContentDirectory" TYPE="string">VALUE>E:\WSUS</VALUE></PROPERTY><PROPERTY NAME="ContentLocal" TYPE="boolean"></PROPERTY></INSTANCE>
+
+Open UpdateServices-DB.xml and add VALUE>SUSDB</VALUE> to the InstanceName property
+
+<?xml version="1.0" encoding="utf-16"?><INSTANCE CLASSNAME="ServerComponent_UpdateServices_Database"><PROPERTY NAME="InstanceName" TYPE="string"><VALUE>SUSDB</VALUE></PROPERTY></INSTANCE>
+
+
+cd "C:\Program Files\Update Services\Tools"
+
+wsusutil.exe postinstall CONTENT_DIR=E:\WSUS SQL_INSTANCE_NAME=cm01.corp.viamonstra.com
+wsusutil.exe postinstall SQL_INSTANCE_NAME=cm01.corp.viamonstra.com
