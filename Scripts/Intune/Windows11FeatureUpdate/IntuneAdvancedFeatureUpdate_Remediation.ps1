@@ -96,8 +96,12 @@ Function Export-IniFile {
 Write-Log "Creating Scripts Folder: $FeatureUpdatePath\scripts"
 New-Item -Path "$FeatureUpdatePath\Scripts" -ItemType Directory -Force
 
-Write-Log "Creating Drivers Folder: $FeatureUpdatePath\Driverrs"
+Write-Log "Creating Drivers Folder: $FeatureUpdatePath\Drivers"
 New-Item -Path "$FeatureUpdatePath\Drivers" -ItemType Directory -Force
+
+Write-Log "Creating Reflect Drivers Folder: $FeatureUpdatePath\ReflectDrivers"
+New-Item -Path "$FeatureUpdatePath\ReflectDrivers" -ItemType Directory -Force
+
 
 # Generate a SetupConfig.ini file
 [System.Collections.Specialized.OrderedDictionary]$AddSettings = [ordered]@{
@@ -114,6 +118,7 @@ New-Item -Path "$FeatureUpdatePath\Drivers" -ItemType Directory -Force
         "DiagnosticPrompt"      =   "Enable" #{Enable | Disable}
         "PKey"                  =   "NPPR9-FWDCX-D2C8J-H872K-2YT43" #<product key>
         "InstallDrivers"        =   "$FeatureUpdatePath\Drivers"
+        "ReflectDrivers"        =   "$FeatureUpdatePath\ReflectDrivers"
         "PostOOBE"              =   "$FeatureUpdatePath\Scripts\PostOOBE.cmd"
         "CopyLogs"              =   "$FeatureUpdatePath\Logs"
         #"ReflectDrivers"       =   ""
@@ -132,6 +137,7 @@ Write-Log "Creating SetupConfig.ini in: $SetupConfigPath"
 $NewIniDictionary = $AddSettings
 $ExportedFile = Export-IniFile -Content $NewIniDictionary -NewFile $SetupConfigPath
 $PostOOBECMDContent = $null
+
 # Create PostOOBE.cmd script
 Write-Log "Creating PostOOBE.cmd in $FeatureUpdatePath\Scripts"
 $PostOOBECMDContent = @(
