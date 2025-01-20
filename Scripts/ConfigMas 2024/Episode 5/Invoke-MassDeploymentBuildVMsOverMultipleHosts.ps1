@@ -72,18 +72,15 @@ foreach ($Server in $Servers){
 
     Write-Host "Working on Hyper-V Host: $Server" -ForegroundColor Green
 
-    # Get last octet of local IP address (used for HyperVHostId portion of mac address range)
     # Note: Current Mac Address range supports a maximum of 256 VMs per host       
-    $IPAddress = Invoke-Command -ComputerName $Server -Command { (Get-NetIPConfiguration).IPv4Address.IPAddress }
-    $LastOctetInIPAddress = ([IPAddress]$IPAddress).GetAddressBytes()[3]
-    $HyperVHostId = $Server.Substring(7,2) + ":" + $LastOctetInIPAddress
+    $HyperVHostId = $Server.Substring(7,2) 
 
     # Create the VM List
     $i = 1
     do {
             
         $VMName = $VMNamePrefix + $Server.Substring(6,3) + "-" + ($i | %{"{0:D3}" -f $_})
-        $MacAddress = "00:15:5D:" + $HyperVHostId + ":" + ($i | %{"{0:X2}" -f $_}) 
+        $MacAddress = "00:15:5D:" + $HyperVHostId + ":" + ($i | %{"{0:X2}" -f $_}) + ":" + ($i | %{"{0:X2}" -f $_}) 
         Write-Host " - Adding VM $i of $NumberOfVMsPerHost to list, VM Name is: $VMName, Mac Address is: $MacAddress"
     
         $obj = [PSCustomObject]@{
