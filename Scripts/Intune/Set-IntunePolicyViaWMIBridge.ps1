@@ -1,0 +1,2 @@
+﻿# Sample to configure a MDM policy via the WMI Bridge
+New-CimInstance -Namespace 'root\cimv2\mdm\dmmap' -ClassName 'MDM_Policy_Config01_NetworkListManager02' -Property @{ InstanceID='NetworkListManager'; ParentID='./Vendor/MSFT/Policy/Config'; 'AllowedTlsAuthenticationEndpoints'='<![CDATA[https://mdt01.corp.viamonstra.com]]>' } -ErrorAction Stop
