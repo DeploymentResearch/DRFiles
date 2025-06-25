@@ -1,0 +1,1 @@
+﻿(Get-WmiObject -Class Lenovo_BiosSetting -Namespace root\wmi).CurrentSetting | Where-Object {$_ -ne ""} | Sort-Object | Out-GridView
