@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <DiskConfiguration>
+                <Disk wcm:action="add">
+                    <DiskID>0</DiskID>
+                    <WillWipeDisk>true</WillWipeDisk>
+                    <CreatePartitions>
+                        <CreatePartition wcm:action="add">
+                            <Order>1</Order>
+                            <Size>1024</Size>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>2</Order>
+                            <Size>512</Size>
+                            <Type>EFI</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>3</Order>
+                            <Size>128</Size>
+                            <Type>MSR</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>4</Order>
+                            <Extend>true</Extend>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                    </CreatePartitions>
+                    <ModifyPartitions>
+                        <ModifyPartition wcm:action="add">
+                            <Order>1</Order>
+                            <PartitionID>1</PartitionID>
+                            <Label>Recovery</Label>
+                            <Format>NTFS</Format>
+                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>2</Order>
+                            <PartitionID>2</PartitionID>
+                            <Label>System</Label>
+                            <Format>FAT32</Format>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>3</Order>
+                            <PartitionID>3</PartitionID>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>4</Order>
+                            <PartitionID>4</PartitionID>
+                            <Format>NTFS</Format>
+                        </ModifyPartition>
+                    </ModifyPartitions>
+                </Disk>
+                <WillShowUI>OnError</WillShowUI>
+            </DiskConfiguration>
+            <ImageInstall>
+                <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows 11 Enterprise</Value>
+                        </MetaData>
+                    </InstallFrom>
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>4</PartitionID>
+                    </InstallTo>
+                    <WillShowUI>Always</WillShowUI>
+                </OSImage>
+            </ImageInstall>
+            <UserData>
+                <AcceptEula>true</AcceptEula>
+                <ProductKey>
+                    <Key>NPPR9-FWDCX-D2C8J-H872K-2YT43</Key>
+                    <WillShowUI>OnError</WillShowUI>
+                </ProductKey>
+            </UserData>
+        </component>
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-UnattendedJoin" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <Identification>
+                <JoinWorkgroup>WORKGROUP</JoinWorkgroup>
+            </Identification>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <ComputerName>*</ComputerName>
+            <RegisteredOrganization>ViaMonstra</RegisteredOrganization>
+            <RegisteredOwner>ViaMonstra</RegisteredOwner>
+            <DoNotCleanTaskBar>true</DoNotCleanTaskBar>
+            <TimeZone>Central Standard Time</TimeZone>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>P@ssw0rd</Value>
+                    <PlainText>True</PlainText>
+                </AdministratorPassword>
+            </UserAccounts>
+            <AutoLogon>
+                <Enabled>true</Enabled>
+                <Username>Administrator</Username>
+                <Domain>.</Domain>
+                <Password>
+                    <Value>P@ssw0rd</Value>
+                    <PlainText>true</PlainText>
+                </Password>
+                <LogonCount>1</LogonCount>
+            </AutoLogon>
+            <RegisteredOrganization>ViaMonstra</RegisteredOrganization>
+            <RegisteredOwner>ViaMonstra</RegisteredOwner>
+            <TimeZone>Central Standard Time</TimeZone>
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>PowerShell.exe -ExecutionPolicy ByPass -Command "C:\Windows\Setup\Scripts\RemoveAutologonSettings.ps1</CommandLine>
+                    <Description>Force removal of Autologon settings</Description>
+                    <Order>1</Order>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <NetworkLocation>Work</NetworkLocation>
+                <ProtectYourPC>1</ProtectYourPC>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+            </OOBE>
+        </component>
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS"
+            xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>en-US</UserLocale>
+        </component>
+    </settings>
+</unattend>
