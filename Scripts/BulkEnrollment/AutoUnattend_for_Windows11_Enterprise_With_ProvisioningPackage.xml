@@ -138,7 +138,7 @@
             <TimeZone>Central Standard Time</TimeZone>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>PowerShell.exe -ExecutionPolicy ByPass -Command "C:\Windows\Setup\Scripts\RemoveAutologonSettings.ps1</CommandLine>
+                    <CommandLine>PowerShell.exe -ExecutionPolicy ByPass -Command "C:\Windows\Setup\Scripts\Remove-AutologonSettings.ps1</CommandLine>
                     <Description>Force removal of Autologon settings</Description>
                     <Order>1</Order>
                 </SynchronousCommand>
