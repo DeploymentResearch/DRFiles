@@ -1,0 +1,62 @@
+# Details on a failing MSI install based on the MSI logfile
+FileContent('C:\temp\DSIAPC_1.4.1.353_Install.log')
+| where Content contains 'Return value 3'
+| summarize MaxLineNumber = max(Line) by Device
+| join kind=inner (
+ FileContent('C:\temp\DSIAPC_1.4.1.353_Install.log')
+    | order by Line
+)
+| where Line > MaxLineNumber -10 and Line < MaxLineNumber +4
+| order by Device, Line asc
+| project Device, Line, Content
+
+Registry('hklm:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Client') | where Property == 'Version' and Value == '4.8.04084'
+
+Device | summarize dcount( Device ) by Model
+
+Disk
+| where Name == 'C:'
+| project Device,Name,Description,TotalSizeInGB=(Size/1024/1024/1024),FreeSpaceInGB=(FreeSpace/1024/1024/1024)
+
+Disk
+| where Name == 'C:' and FreeSpace < 10737418240 //10GB
+| project Device,Name,Description,TotalSizeInGB=(Size/1024/1024/1024),FreeSpaceInGB=(FreeSpace/1024/1024/1024)
+
+
+InstalledSoftware | where (ProductName like '%Stifler%') 
+
+InstalledSoftware | summarize count() by ProductName, ProductVersion | where (ProductName like '%Stifler%')
+
+InstalledSoftware | summarize countif( (ProductName like '%Stifler%') ) by Device | where (countif_ > 0)
+
+AppCrash | summarize dcount(Device) by FileName
+
+- List all Active directory user that are administrator of their machine
+Administrators | where (ObjectClass == 'User') | where (PrincipalSource == 'ActiveDirectory') 
+Administrators | where (ObjectClass == 'User') 
+
+- List all Auto Start Software on a specific device 
+AutoStartSoftware | where (Device == 'PC0001') 
+
+New in 1906, join etc:
+ComputerSystem
+| project Device, Manufacturer, Model
+| join (OperatingSystem | project Device, OSVersion=Caption)
+
+
+- List on which machine an admin is administrator 
+Administrators | where (Name == 'VIAMONSTRA\\admjoar') 
+
+- Active Tcp connection in or out of the device to a specific destination 
+Connection | where (Server == ''ServerName') 
+
+- List machines with a running services 
+Service | where (State == 'Running') 
+Service | where (Name == 'ServiceName') | where (State == 'Running') 
+
+CCMRecentlyUsedApplications | summarize dcount( device ) by ProductName | render columnchart
+
+File('c:\\temp\\Scaryfile.txt') | summarize count() by Hash,Version | order by count_
+
+Service | where (Name == 'PeerDistSvc') | where (State == 'Running') 
+
