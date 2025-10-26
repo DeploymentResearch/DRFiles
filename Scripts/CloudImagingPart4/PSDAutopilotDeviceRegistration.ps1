@@ -1,226 +1,227 @@
 ﻿<#
-.Synopsis
-    This script uploads Autopilot into to a RestPS web service
-    
-.Description
-    This script was written by Johan Arwidmark @jarwidmark
+.SYNOPSIS
+    Client-Side script for Cloud OS Deployment, Part 4
 
-.LINK
-    https://github.com/FriendsOfMDT/PSD
+.DESCRIPTION
+    Uploads Autopilot hardware hash, computer name, and Intune group info to a RestPS web service
+	Waits until the device is imported and assigned to an Autopilot profile
+	Stages a PSD cleanup script in C:\Windows\Temp
 
 .NOTES
-          FileName: PSDAutopilotDeviceRegistration.ps1
-          Solution: PowerShell Deployment for MDT
-          Author: PSD Development Team
-          Contact: @jarwidmark
-          Primary: @jarwidmark 
-          Created: 2020-11-09
-          Modified: 2020-11-18
+    Author: Johan Arwidmark / deploymentresearch.com
+    Twitter (X): @jarwidmark
+    License: MIT
+    Source:  https://github.com/DeploymentResearch/DRFiles
 
-          Version - 0.0.0.1 - () - Finalized functional version 1.
+.DISCLAIMER
+    This script is provided "as is" without warranty of any kind, express or implied.
+    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
+    issues, damages, or data loss resulting from its use or modification.
 
-.EXAMPLE
-	.\PSDAutopilotDeviceRegistration.ps1
+    This script is shared in the spirit of community learning and improvement.
+    You are welcome to adapt and redistribute it under the terms of the MIT License.
+
+.VERSION
+    1.0.2
+    Released: 2025-10-01
+    Change history:
+      1.0.2 - 2025-10-01 - Updated to use new start loader
+      1.0.1 - 2021-09-10 - Integration release for the PSD Cloud OS Deployment solution
+      1.0.0 - 2020-05-12 - Initial release
 #>
 
-#Requires -RunAsAdministrator
-[CmdletBinding()]
-param (
+# Update PowerShell modules path with PSD modules and import the PSDUtility module
+$ModulePath = "C:\MININT\Cache\Tools\Modules"
+$env:PSModulePath += ";$ModulePath"
+Import-Module PSDUtility -Verbose:$false
 
-)
+# Replace PSDStartLoader with version for Autopilot and the Windows setup specialize pass
+Write-PSDLog -Message "Replacing PSDStartLoader with version for Autopilot and the Windows setup specialize pass"
+$SourceFile = "C:\MININT\Cache\PSDResources\Autopilot\PSDStartLoaderAutopilot.psm1"
+$DestinationFile = "$ModulePath\PSDStartLoader\PSDStartLoader.psm1"
+Write-PSDLog -Message "Copying $SourceFile to $DestinationFile"
+Copy-Item -Path $SourceFile -Destination $DestinationFile -Force
 
-$LogFile = "C:\Windows\Temp\PSDAutopilotDeviceRegistration.log"
+# Load core modules
+Import-Module PSDStartLoader -Global -Force -Verbose:$false
 
-# Delete any existing logfile if it exists
-If (Test-Path $Logfile){Remove-Item $Logfile -Force -ErrorAction SilentlyContinue -Confirm:$false}
-
-Function Write-Log{
-	param (
-    [Parameter(Mandatory = $true)]
-    [string]$Message
-   )
-
-   $TimeGenerated = $(Get-Date -UFormat "%D %T")
-   $Line = "$TimeGenerated $Message"
-   Add-Content -Value $Line -Path $LogFile -Encoding Ascii
-
+# Install PSD Root CA certificate 
+Write-PSDLog -Message "Entering certificate block..."
+$Certificates = @()
+$CertificateLocations = "$($env:SYSTEMDRIVE)\Deploy\Certificates","$($env:SYSTEMDRIVE)\MININT\Certificates"
+foreach($CertificateLocation in $CertificateLocations){
+    if((Test-Path -Path $CertificateLocation) -eq $true){
+        Write-PSDLog -Message "Looking for certificates in $CertificateLocation"
+        $Certificates += Get-ChildItem -Path "$CertificateLocation" -Filter *.cer
+    }
+}
+foreach($Certificate in $Certificates){
+    Write-PSDLog -Message "Found $($Certificate.FullName), trying to add as root certificate"
+    $Return = Import-PSDCertificate -Path $Certificate.FullName -CertStoreScope "LocalMachine" -CertStoreName "Root"
+    If($Return -eq "0"){
+        Write-PSDLog -Message "Succesfully imported $($Certificate.FullName)"
+    }
+    else{
+        Write-PSDLog -Message "Failed to import $($Certificate.FullName)"
+    }
 }
 
+# Start the splashscreen
+$PSDStartLoader = New-PSDStartLoader -LogoImgPath "C:\MININT\Cache\scripts\powershell.png" -FullScreen
 
-#Write-Log -Message "$($MyInvocation.MyCommand.Name): Starting..."
+# wait for UI to loaded on screen
+Do{
+    Start-Sleep -Milliseconds 300
+}
+Until($PSDStartLoader.isLoaded)
 
-# Remove any unattend.xml files
-Write-Log -Message "Starting to remove existing unattend.xml files"
-If (Test-Path "C:\Windows\Panther\unattend.xml" ){Remove-Item "C:\Windows\Panther\unattend.xml" -Force } 
-If (Test-Path "C:\Windows\System32\Sysprep\unattend.xml" ){Remove-Item "C:\Windows\System32\Sysprep\unattend.xml" -Force } 
+# Start the progress bar scrolling
+Update-PSDStartLoaderProgressBar -Runspace $PSDStartLoader -Status "Gathering device details..." -Indeterminate
+
+$DeviceInfo = Get-PSDLocalInfo -Passthru
+$primaryinterface = Get-PSDStartLoaderInterfaceDetails
+
+Update-PSDStartLoaderProgressBar -Runspace $PSDStartLoader -Status "Populating device details..." -PercentComplete 10
+# Update UI with device details
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtManufacturer -Value $DeviceInfo.Manufacturer
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtModel -Value $DeviceInfo.Model
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtSerialNumber -Value $DeviceInfo.SerialNumber
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtAssetTag -Value $DeviceInfo.assettag
+
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtMac -Value $primaryinterface.MacAddress
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtIP -Value $primaryinterface.IPAddress
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtSubnet -Value $primaryinterface.SubnetMask
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtGateway -Value $primaryinterface.GatewayAddresses
+Set-PSDStartLoaderElement -Runspace $PSDStartLoader -ElementName txtDHCP -Value $primaryinterface.DhcpServer
+
+Start-Sleep -Seconds 2
+Update-PSDStartLoaderProgressBar -Status "Gathering Hardware Hash for device" -Runspace $PSDStartLoader -PercentComplete 20
 
 
-# Get Intune Group from GroupTag variable        
+# Get variables stored in Variables.dat (TS environment not available at this point)
 $path = "C:\MININT\Variables.dat"
 if (Test-Path -Path $path) {
     [xml] $v = Get-Content -Path $path
     $v | Select-Xml -Xpath "//var" | foreach { 
-        If ($($_.Node.name) -eq "GroupTag"){ $GroupTag = $($_.Node.'#cdata-section') }  
-        If ($($_.Node.name) -eq "DeployRoot"){ $DeployRoot = $($_.Node.'#cdata-section') }  
+        If ($($_.Node.name) -eq "INTUNEGROUP"){ $INTUNEGROUP = $($_.Node.'#cdata-section') }  
+        If ($($_.Node.name) -eq "OSDCOMPUTERNAME"){ $OSDCOMPUTERNAME = $($_.Node.'#cdata-section') }  
+        If ($($_.Node.name) -eq "USERID"){ $USERID = $($_.Node.'#cdata-section') }  
+        If ($($_.Node.name) -eq "USERPASSWORD"){ $USERPASSWORD = $($_.Node.'#cdata-section') }  
+        If ($($_.Node.name) -eq "DEPLOYROOT"){ $DEPLOYROOT = $($_.Node.'#cdata-section') }  
     } 
 }
+Write-PSDLog -Message "Intune Group from PSD deployment is $INTUNEGROUP"
+Write-PSDLog -Message "Computer Name from PSD deployment is $OSDCOMPUTERNAME"
+Write-PSDLog -Message "Username from PSD deployment is $USERID"
+Write-PSDLog -Message "Password from PSD deployment is **SUPRESSED**"
+Write-PSDLog -Message "Deployroot from PSD deployment is $DEPLOYROOT"
 
-Write-Log -Message "GroupTag from PSD deployment wizard is $GroupTag"
-Write-Log -Message "Autopilot result will be saved in $AutopilotOutputFile"
-$AutopilotOutputFile = "C:\Windows\Temp\AutoPilotInfo.csv"
-$AutopilotScriptPath = "C:\Windows\Temp\Get-WindowsAutoPilotInfo.ps1"
-$GetAutoPilotArguments = "$AutopilotScriptPath -GroupTag $GroupTag -OutputFile $AutopilotOutputFile"
-Write-Log -Message "About to run the command: $GetAutoPilotArguments"
+# Get Autopilot Hardware Hash
+$AutopilotOutputFile = "C:\Windows\Temp\AutopilotInfo.csv"
+Write-PSDLog "Autopilot result will be saved in $AutopilotOutputFile"
+$AutopilotScriptPath = "C:\MININT\Cache\PSDResources\Autopilot\Get-WindowsAutopilotInfo.ps1"
+$GetAutoPilotArguments = "$AutopilotScriptPath -OutputFile $AutopilotOutputFile"
+Write-PSDLog -Message "About to run the command: $GetAutoPilotArguments"
 $GetAutoPilotProcess = Start-Process PowerShell -ArgumentList $GetAutoPilotArguments -NoNewWindow -PassThru -Wait
 
 if(-not($GetAutoPilotProcess.ExitCode -eq 0)){
-    Write-Log -Message "Something went wrong running Get-WindowsAutoPilotInfo.ps1. Exit code $($GetAutoPilotProcess.ExitCode)"
-    Write-Log -Message "Aborting script..."
+    Write-PSDLog -Message "Something went wrong running Get-WindowsAutopilotInfo.ps1. Exit code $($GetAutoPilotProcess.ExitCode)"
+    Write-PSDLog -Message "Aborting script..."
+
+    Show-PSDInfo -Message "Something went wrong running Get-WindowsAutopilotInfo.ps1. Exit code $($GetAutoPilotProcess.ExitCode). Aborting script..." -Severity Error -OSDComputername $Env:COMPUTERNAME -Deployroot "C:\MININT\CACHE "
+    Start-Process PowerShell -Wait
     Break
 }
 
-Write-Log -Message "Results saved to $AutopilotOutputFile"
+Write-PSDLog -Message "Results saved to $AutopilotOutputFile"
 
 # Log the result 
 $AutopilotCSV = Import-Csv $AutopilotOutputFile
 $SerialNumber = ($AutopilotCSV | Select -First 1)."Device Serial Number"
-Write-Log -Message "Device Serial Number is: $SerialNumber"
-Write-Log -Message "Device GroupTag is: $GroupTag" 
+Write-PSDLog "Device Serial Number is: $SerialNumber"
+
+# Add ComputerName and IntuneGroup to CSV 
+$AutopilotCSV | Add-Member -Type NoteProperty -Name 'ComputerName' -Value $OSDCOMPUTERNAME
+$AutopilotCSV | Add-Member -Type NoteProperty -Name 'IntuneGroup' -Value $INTUNEGROUP
 
 # Convert the CSV file to JSON 
-Write-Log -Message "Converting the CSV file to JSON"
+Write-PSDLog -Message "Converting the CSV file to JSON"
 $AutopilotJSON = $AutopilotCSV | ConvertTo-Json 
-Write-Log -Message "JSON object created for computer: $env:COMPUTERNAME"
+Write-PSDLog -Message "JSON object created for computer: $OSDCOMPUTERNAME"
 
 # Cleanup
-#Write-Log -Message "Removing $AutopilotOutputFile file"
+#Write-PSDLog -Message "Removing $AutopilotOutputFile file"
 #Remove-item -Path $AutopilotOutputFile -Force 
 
-Function Show-PSDBackgroundInfo{
-    Param
-    (
-        $Message,
-        $ImagePath
-    )
+# Workaround for "The underlying connection was closed" error
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls12
 
-    $BackColor = "#F0F0F0"
-    $Label1Text = "Information"
-
-    try {
-        Add-Type -AssemblyName System.Windows.Forms -IgnoreWarnings
-        [System.Windows.Forms.Application]::EnableVisualStyles()
-    }
-    catch [System.UnauthorizedAccessException] {
-        # This should never happen, but we're catching if it does anyway.
-        Start-Process PowerShell -ArgumentList {
-            Write-warning -Message 'Access denied when trying to load required assemblies, cannot display the summary window.'
-            Pause
-        } -Wait
-        exit 1
-    }
-    catch [System.Exception] {
-        # This should never happen either, but we're catching if it does anyway.
-        Start-Process PowerShell -ArgumentList {
-            Write-warning -Message 'Unable to load required assemblies, cannot display the summary window.'
-            Pause
-        } -Wait
-        exit 1
-    }
-
-    $Form                            = New-Object system.Windows.Forms.Form
-    $Form.WindowState                = 'Maximized'
-    $Form.FormBorderStyle            = 'None'
-    $Form.text                       = "PSD"
-    $Form.StartPosition              = "CenterScreen"
-    $Form.MaximizeBox                = $false
-    $Form.BackColor                  = $BackColor
-    $Form.TopMost                    = $true
-    $Form.Icon                       = [System.Drawing.Icon]::ExtractAssociatedIcon($PSHome + "\powershell.exe")
-
-    $BackgroundImage = [system.drawing.image]::FromFile($ImagePath)
-    
-   
-    $Form.BackgroundImage = $BackgroundImage
-    $Form.BackgroundImageLayout = "Stretch" # None, Tile, Center, Stretch, Zoom
-
-    # Show overlay with GIF progress animation
-    #$pic = New-Object System.Windows.Forms.PictureBox
-    #$pic.BackColor = [System.Drawing.Color]::Transparent
-    #$pic.Dock = [System.Windows.Forms.DockStyle]::Fill
-    #$pic.ImageLocation = "https://i.stack.imgur.com/repwc.gif"
-    #$pic.SizeMode = [System.Windows.Forms.PictureBoxSizeMode]::CenterImage
-
-    $Label1                          = New-Object system.Windows.Forms.Label
-    $Label1.text                     = "$Label1Text"
-    $Label1.AutoSize                 = $true
-    $Label1.width                    = 25
-    $Label1.height                   = 10
-    $Label1.location                 = New-Object System.Drawing.Point(25,10)
-    $Label1.Font                     = 'Segoe UI,14'
-
-    $TextBox1                        = New-Object system.Windows.Forms.TextBox
-    $TextBox1.multiline              = $True
-    $TextBox1.width                  = 550
-    $TextBox1.height                 = 100
-    $TextBox1.location               = New-Object System.Drawing.Point(25,60)
-    $TextBox1.Font                   = 'Segoe UI,12'
-    $TextBox1.Text                   = $Message
-    $TextBox1.ReadOnly               = $True
-
-    $Button1                         = New-Object system.Windows.Forms.Button
-    $Button1.text                    = "Ok"
-    $Button1.width                   = 60
-    $Button1.height                  = 30
-    $Button1.location                = New-Object System.Drawing.Point(500,300)
-    $Button1.Font                    = 'Segoe UI,12'
-
-    
-    $Form.controls.AddRange(@($TextBox1))
-
-    #$Form.controls.AddRange(@($TextBox1,$pic))
-
-    $script:MainForm_textbox1 = $textbox1.Text
-
-    [void]$Form.Show()
-
-    return $Form
-
-}
-
-$ImageLocation = "C:\Windows\Temp\PSDBackground.bmp"
-$PSDBackgroundInfo = Show-PSDBackgroundInfo -Message "Preparing Windows Autopilot" -ImagePath $ImageLocation 
-Start-Sleep -Seconds 10
-$PSDBackgroundInfo.Close()
-### Auth
-$Username = 'MDT_BA'
-$Password = 'P@ssw0rd'
-$pass = ConvertTo-SecureString -AsPlainText $Password -Force
-$Cred = New-Object System.Management.Automation.PSCredential -ArgumentList $Username,$pass
+# Authentication
+$pass = ConvertTo-SecureString -AsPlainText $USERPASSWORD -Force
+$Cred = New-Object System.Management.Automation.PSCredential -ArgumentList $USERID,$pass
 
 $bytes = [System.Text.Encoding]::UTF8.GetBytes(
     ('{0}:{1}' -f $Cred.UserName, $Cred.GetNetworkCredential().Password)
 )
 $Authorization = 'Basic {0}' -f ([Convert]::ToBase64String($bytes))
 $Headers = @{ Authorization = $Authorization }
-### Auth
 
 
 # Upload the JSON object to the Autopilot registration webservice script on your deployment server
 # Max allowed time is 30 minutes
-$DeployRootUri = [System.Uri]"$DeployRoot)"
-#$RestPSServer = $DeployRootUri.Host 
-$RestPSServer = "mdt04.corp.viamonstra.com" 
-$RestPSMethod = "RPSDAutopilotRegistration"
-$RestPSPort = "8080"
-Write-Log -Message "Connecting to $RestPSServer on port $RestPSPort, using method $RestPSMethod"
-$Return = Invoke-RestMethod -Method POST -Uri "http://$RestPSServer`:$RestPSPort/$RestPSMethod" -Body $AutopilotJSON -TimeoutSec 1800 -Headers $Headers 
+try {
+    # Construct full Uri
+    $DeployRootUri = [System.Uri]"$DeployRoot)"
+    $RestPSServer = $DeployRootUri.Host 
+    $RestPSMethod = "PSDAutopilotRegistration"
+    $RestPSPort = "8080"
+    $RestPSProtocol = "https"
+    $Uri = "$RestPSProtocol`://$RestPSServer`:$RestPSPort/$RestPSMethod"
+    Write-PSDLog -Message "Connecting to $RestPSServer on port $RestPSPort, protocol: $RestPSProtocol, using method $RestPSMethod"
+    Write-PSDLog -Message "Full Uri is: $Uri"
 
-Write-Log "Webservice returned: $Return" 
+    # Update UI with progress details
+    Start-Sleep -Seconds 2
+    Update-PSDStartLoaderProgressBar -Status "Connecting to RestPS web service at $("$RestPSProtocol`://$RestPSServer") ...." -Runspace $PSDStartLoader -PercentComplete 30
 
+    # Update UI with progress details
+    Start-Sleep -Seconds 5
+    Update-PSDStartLoaderProgressBar -Status "Registering device with Windows Autopilot, this can take up to 20 minutes...." -Runspace $PSDStartLoader -PercentComplete 50
+
+    # Call RestPS webservice
+    $Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $AutopilotJSON -TimeoutSec 1800 -Headers $Headers 
+
+    # Log result
+    Write-PSDLog "Webservice returned: $Return" 
+    
+}
+catch [System.Exception] {
+
+    # Log and show error message
+    Write-PSDLog -Message "Request to $($Uri) failed with HTTP Status $($_.Exception.Response.StatusCode) and description: $($_.Exception.Response.StatusDescription)"
+
+    Show-PSDInfo -Message "Request to $($Uri) failed with HTTP Status $($_.Exception.Response.StatusCode) and description: $($_.Exception.Response.StatusDescription). Aborting script..." -Severity Error -OSDComputername $Env:COMPUTERNAME -Deployroot "C:\MININT\CACHE "
+    Start-Process PowerShell -Wait
+    Break
+}
+
+# Update UI with progress details
+Start-Sleep -Seconds 2
+Update-PSDStartLoaderProgressBar -Status "Device registered with Windows Autopilot, assigned computer name is $OSDCOMPUTERNAME..." -Runspace $PSDStartLoader -PercentComplete 90
+
+Start-Sleep -Seconds 5
+Update-PSDStartLoaderProgressBar -Status "Starting PSD cleanup..." -Runspace $PSDStartLoader -PercentComplete 100
+# Note the above just notifies the user, the cleanup happens a little bit later, initated from the unattend.xml file.
+
+Start-Sleep -Seconds 3
 # Close the splash screen
-$PSDBackgroundInfo.Close()
+If($PSDStartLoader.isLoaded){
+    Close-PSDStartLoader -Runspace $PSDStartLoader 
+}
 
+# Copy Cleanup script to C:\Windows\Temp
+$CleanupScript = "C:\MININT\Cache\PSDResources\Autopilot\PSDCleanupForAutopilot.ps1"
+Copy-Item -path $CleanupScript -Destination "C:\Windows\Temp" -Force
 
-
-
+Exit 0
 
