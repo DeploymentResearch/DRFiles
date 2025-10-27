@@ -84,7 +84,7 @@ $kp = New-HgsKeyProtector -Owner $owner -AllowUntrustedRoot
 Set-VMKeyProtector -VMName $VMName -KeyProtector $kp.RawData
 Enable-VMTPM -VMName $VMName
 
-# Add DVD Drive with Windows 11 ISO
+# Add DVD Drive with the FFU Deployment ISO
 Add-VMDvdDrive -VMName $VMName -Path $FFUDeployISO
 
 # Add a fixed drive with the correct settings for the FFU
