@@ -10,6 +10,7 @@
 .NOTES
     Author: Johan Arwidmark / deploymentresearch.com
     Twitter (X): @jarwidmark
+    LinkedIn: https://www.linkedin.com/in/jarwidmark
     License: MIT
     Source:  https://github.com/DeploymentResearch/DRFiles
 

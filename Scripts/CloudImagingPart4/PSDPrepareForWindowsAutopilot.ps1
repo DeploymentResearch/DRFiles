@@ -10,6 +10,7 @@
     Author: Johan Arwidmark / deploymentresearch.com
     Twitter (X): @jarwidmark
     License: MIT
+    LinkedIn: https://www.linkedin.com/in/jarwidmark
     Source:  https://github.com/DeploymentResearch/DRFiles
 
 .DISCLAIMER
