@@ -5,6 +5,12 @@
 .DESCRIPTION
     Invokes Autopilot registration using WindowsAutopilotIntuneCommunity PowerShell module
 
+    The script requires the following PowerShell Modules
+    WindowsAutopilotIntuneCommunity
+    Microsoft.Graph.Groups
+    Microsoft.Graph.Authentication
+    Microsoft.Graph.Identity.DirectoryManagement
+
 .NOTES
     Author: Johan Arwidmark / deploymentresearch.com
     Twitter (X): @jarwidmark
