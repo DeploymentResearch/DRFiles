@@ -193,7 +193,7 @@ try {
     Update-PSDStartLoaderProgressBar -Status "Registering device with Windows Autopilot, this can take up to 20 minutes...." -Runspace $PSDStartLoader -PercentComplete 50
 
     # Call RestPS webservice
-    $Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $AutopilotJSON -TimeoutSec 1800 -Headers $Headers -DisableKeepAlive
+    $Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $AutopilotJSON -TimeoutSec 1800 -Headers $Headers -DisableKeepAlive  -ErrorAction Stop
 
     # Log result
     Write-PSDLog "Webservice returned: $Return" 
