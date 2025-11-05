@@ -157,6 +157,9 @@ Write-PSDLog -Message "JSON object created for computer: $OSDCOMPUTERNAME"
 # Workaround for "The underlying connection was closed" error
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls -bor [Net.SecurityProtocolType]::Tls11 -bor [Net.SecurityProtocolType]::Tls12
 
+# Add support for servers, proxies, load balancers, or API gateways that don’t handle the 100-Continue handshake correctly.
+[System.Net.ServicePointManager]::Expect100Continue = $false
+
 # Authentication
 $pass = ConvertTo-SecureString -AsPlainText $USERPASSWORD -Force
 $Cred = New-Object System.Management.Automation.PSCredential -ArgumentList $USERID,$pass
@@ -190,7 +193,7 @@ try {
     Update-PSDStartLoaderProgressBar -Status "Registering device with Windows Autopilot, this can take up to 20 minutes...." -Runspace $PSDStartLoader -PercentComplete 50
 
     # Call RestPS webservice
-    $Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $AutopilotJSON -TimeoutSec 1800 -Headers $Headers 
+    $Return = Invoke-RestMethod -Method POST -Uri $Uri -Body $AutopilotJSON -TimeoutSec 1800 -Headers $Headers -DisableKeepAlive
 
     # Log result
     Write-PSDLog "Webservice returned: $Return" 
