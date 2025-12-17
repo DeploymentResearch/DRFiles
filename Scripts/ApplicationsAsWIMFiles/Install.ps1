@@ -1,4 +1,5 @@
-﻿$WimFile = Get-ChildItem Source.wim
+﻿# Define path
+$WimFile = Get-ChildItem Source.wim
 $MountPath = "C:\Users\Public\mount_" + $WimFile.BaseName
 $ScriptDir = split-path -parent $MyInvocation.MyCommand.Path
 
