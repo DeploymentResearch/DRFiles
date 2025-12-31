@@ -79,8 +79,8 @@ try {
     $FilesToCopy = @()
     $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Panther\Setupact.log"; TargetFolder = "$source\tmp\Panther"}
     $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Panther\Setuperr.log"; TargetFolder = "$source\tmp\Panther"}
-    $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Panther\\UnattendGC\Setupact.log"; TargetFolder = "$source\tmp\Panther\UnattendGC"}
-    $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Panther\\UnattendGC\Setuperr.log"; TargetFolder = "$source\tmp\Panther\UnattendGC"}
+    $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Panther\UnattendGC\Setupact.log"; TargetFolder = "$source\tmp\Panther\UnattendGC"}
+    $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Panther\UnattendGC\Setuperr.log"; TargetFolder = "$source\tmp\Panther\UnattendGC"}
     $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Debug\NetSetup.LOG"; TargetFolder = "$source\tmp"}
     $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\Logs\DISM\dism.log"; TargetFolder = "$source\tmp"}
     $FilesToCopy += [pscustomobject]@{ SourceFile = "$Env:SystemRoot\System32\wpeinit.log"; TargetFolder = "$source\tmp"}
