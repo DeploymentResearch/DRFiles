@@ -1,5 +1,5 @@
 # Script to create a VM for Autopilot testing
-# Requirements: VHDX file of sysprepped Windows 10 setup (can be default from Microsoft)
+# Requirements: VHDX file of sysprepped Windows 11 setup (can be default from Microsoft)
 #
 # TIP: To convert an existing WIM image to VHDX file, use Convert-WindowsImage.ps1 from https://github.com/nerdile/convert-windowsimage 
 # For example syntax, see  https://github.com/DeploymentResearch/DRFiles/blob/master/Scripts/AutoPilot/Convert-WindowsImage-Syntax.ps1
@@ -10,12 +10,11 @@
 
 # Set some variables
 $VMName = "APTEST212"
-$VMLocation = "F:\VMs"
+$VMLocation = "E:\VMs"
 $VMNetwork = "NoInternet"
 $VMMemory = 4096MB
-#$RefVHD = "C:\VHDs\AP-W10-21H2.vhdx"
-$RefVHD = "C:\VHDs\AP-W11-22H2.vhdx"
-$Unattend = "E:\Demo\Windows Autopilot\Unattend_for_windows_autopilot_registration_scenario.xml"
+$RefVHD = "C:\VHD\W11-X64-25H2-Enterprise-2025-09.vhdx"
+$Unattend = "F:\GitHub\DRFiles\Scripts\AutoPilot\Unattend.xml"
 $APScript = "C:\Setup\Scripts\Get-WindowsAutoPilotInfo.ps1"
 $RemoveUnattendScript = "C:\Setup\Scripts\Remove-APUnattend.ps1"
 
