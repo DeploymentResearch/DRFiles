@@ -1,10 +1,18 @@
 $SiteCode = "PS1"
+$ExportPath = "C:\Temp\ExportedTaskSequences"
 
-# List Task Sequences
+# Create path if needed  
+If (!(Test-Path $ExportPath)){New-Item -Path $ExportPath -ItemType Directory -Force }
+
+
+# List all task sequences
+Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode 
+
+# List a specific task sequence
 Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode | Where-Object { $_.Name -eq "Windows 11 Enterprise x64 23H2 Native"}
 
-# Export Task Sequences
-Set-Location E:\Demo\ExportedTaskSequences
+# Export all task sequences (remove comment to specify specifc task sequence)
+Set-Location $ExportPath
 
 $TsList = Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode # | Where-Object { $_.Name -eq "Windows 11 Enterprise x64 23H2 Native MDM SQL"}
 ForEach ($Ts in $TsList){
@@ -13,10 +21,8 @@ ForEach ($Ts in $TsList){
 }
 
 
-
 # Search for MDT Templates
-$SearchString = "BDD"
-$Path = "E:\Demo\ExportedTaskSequences"
-$FilesWithMDTThings = Get-ChildItem -Path $Path -Filter *.XML -recurse | Select-String -pattern $SearchString | Group-Object path | Select-Object name
+$SearchString = "BDD_"
+$FilesWithMDTThings = Get-ChildItem -Path $ExportPath -Filter *.XML -recurse | Select-String -pattern $SearchString | Group-Object path | Select-Object name
 
 $FilesWithMDTThings.count
