@@ -6,10 +6,12 @@ If (!(Test-Path $ExportPath)){New-Item -Path $ExportPath -ItemType Directory -Fo
 
 
 # List all task sequences
-Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode 
+Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode | Select-Object Name, PackageID
 
 # List a specific task sequence
-Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode | Where-Object { $_.Name -eq "Windows 11 Enterprise x64 23H2 Native"}
+Get-WmiObject SMS_TaskSequencePackage -Namespace root\sms\site_$SiteCode | 
+    Where-Object { $_.Name -eq "Windows 11 Enterprise x64 23H2 Native"} | 
+    Select-Object Name, PackageID
 
 # Export all task sequences (remove comment to specify specifc task sequence)
 Set-Location $ExportPath
