@@ -1,4 +1,4 @@
-﻿$ExportPath = "C:\Temp8"
+﻿$ExportPath = "C:\Temp"
 $ExportFile = "$ExportPath\SmbShares.csv"
 
 If (!(Test-Path $ExportPath)){New-Item -Path $ExportPath -ItemType Directory -Force  }
