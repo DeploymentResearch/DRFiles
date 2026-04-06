@@ -21,10 +21,11 @@
     You are welcome to adapt and redistribute it under the terms of the MIT License.
 
 .VERSION
-    1.0.0
+    1.0.1
     Released: 2026-01-01
     Change history:
       1.0.0 - 2026-01-01 - Initial release
+      1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
 #>
 
 # Figure out if we can use the task sequence object
@@ -168,4 +169,15 @@ Enable-AndStartService -ServiceName "edgeupdate"
 
 # Disable and stopping edgeupdatem
 Enable-AndStartService -ServiceName "edgeupdatem"
+
+# Enable WaaSMedicSvc
+Enable-AndStartService -ServiceName "WaaSMedicSvc"
+
+############# Enable Scheduled Tasks ####################
+
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /Enable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /Enable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Backup Scan" /Enable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /Enable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /Enable
 

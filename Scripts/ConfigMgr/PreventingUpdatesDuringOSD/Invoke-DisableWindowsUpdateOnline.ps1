@@ -21,10 +21,11 @@
     You are welcome to adapt and redistribute it under the terms of the MIT License.
 
 .VERSION
-    1.0.0
+    1.0.1
     Released: 2025-11-25
     Change history:
       1.0.0 - 2025-11-25 - Initial release
+      1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
 #>
 
 # Set WSUS Server for SUP, protocol (http/https) and port (8530/8531)
@@ -262,3 +263,13 @@ Disable-AndStopService -ServiceName "edgeupdate"
 # Disable and stopping edgeupdatem
 Disable-AndStopService -ServiceName "edgeupdatem"
 
+# Disable and stopping WaaSMedicSvc
+Disable-AndStopService -ServiceName "WaaSMedicSvc"
+
+############# Disable Scheduled Tasks ####################
+
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /Disable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /Disable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Backup Scan" /Disable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /Disable
+schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /Disable
