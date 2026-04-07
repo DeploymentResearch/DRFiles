@@ -1,3 +1,5 @@
+USE CM_PS1 -- Change to your ConfigMgr database
+
 SELECT DISTINCT 
        CS.Manufacturer0 'Manufacturer',
        CS.Model0 Model,
