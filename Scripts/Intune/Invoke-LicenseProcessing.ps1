@@ -1,6 +1,5 @@
 # Install the module. (You need admin on the machine.)
 # Install-Module Microsoft.Graph
-# Install-Module Microsoft.Graph.DeviceManagement
 Import-Module Microsoft.Graph.Authentication 
 $TenantID = "<tenant-id>"
 
