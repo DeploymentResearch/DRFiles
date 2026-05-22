@@ -26,11 +26,11 @@
     Change history:
       1.0.0 - 2025-11-25 - Initial release
       1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
+      1.0.2 - 2026-05-21 - Added function for disabling tasks with better error handling, and other minor improvements
 #>
 
 # Set WSUS Server for SUP, protocol (http/https) and port (8530/8531)
 $WSUSServer = "http://cm01.corp.viamonstra.com:8530"
-
 
 # Figure out if we can use the task sequence object
 try {
@@ -43,7 +43,6 @@ catch [System.Exception] {
     $LogPath = "C:\Windows\Temp" 
     $Logfile = "$LogPath\DisableWindowsUpdatesOnline.log"
 }
-
 
 function Write-Log {
     [CmdletBinding()]
@@ -142,6 +141,16 @@ function Disable-AndStopService {
         [string]$ServiceName = 'wuauserv'
     )
 
+    $svc = Get-CimInstance -ClassName Win32_Service -Filter "Name='$ServiceName'" -ErrorAction SilentlyContinue
+
+    if (-not $svc) {
+        Write-Log "Service $ServiceName not found, nothing to do."
+        return
+    }
+
+    Write-Log "Service $ServiceName current status: $($svc.State)"
+    Write-Log "Service $ServiceName current startup type: $($svc.StartMode)"
+
     Write-Log "Disabling $ServiceName"
     & sc.exe config $ServiceName start= disabled | Out-Null
     if ($LASTEXITCODE -ne 0) {
@@ -167,6 +176,36 @@ function Disable-AndStopService {
     }
     else {
         Write-Log "$ServiceName is already stopped."
+    }
+}
+
+function Disable-ScheduledTaskIfExists {
+    param(
+        [Parameter(Mandatory)]
+        [string]$FullTaskPath
+    )
+
+    $TaskName = Split-Path $FullTaskPath -Leaf
+    $TaskPath = Split-Path $FullTaskPath -Parent
+
+    if ($TaskPath -ne "\") {
+        $TaskPath += "\"
+    }
+
+    $Task = Get-ScheduledTask `
+        -TaskName $TaskName `
+        -TaskPath $TaskPath `
+        -ErrorAction SilentlyContinue
+
+    if ($Task) {
+        Disable-ScheduledTask `
+            -TaskName $TaskName `
+            -TaskPath $TaskPath
+
+        Write-Log "Task disabled: $FullTaskPath"
+    }
+    else {
+        Write-Log "Task not found: $FullTaskPath"
     }
 }
 
@@ -268,8 +307,8 @@ Disable-AndStopService -ServiceName "WaaSMedicSvc"
 
 ############# Disable Scheduled Tasks ####################
 
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /Disable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /Disable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Backup Scan" /Disable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /Disable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /Disable
+Disable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
+Disable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work"
+Disable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Backup Scan"
+Disable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Reboot"
+Disable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"

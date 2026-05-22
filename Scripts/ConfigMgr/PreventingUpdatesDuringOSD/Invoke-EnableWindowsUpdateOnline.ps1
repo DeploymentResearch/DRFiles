@@ -26,6 +26,8 @@
     Change history:
       1.0.0 - 2026-01-01 - Initial release
       1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
+      1.0.2 - 2026-05-21 - Updated to restore services to their original state. Credits (thank you): Steven Kister
+      1.0.3 - 2026-05-22 - Added function for enabling tasks with better error handling
 #>
 
 # Figure out if we can use the task sequence object
@@ -72,8 +74,8 @@ function Enable-AndStartService {
     )
 
     # Enable + set to Automatic
-    Write-Log "Enabling $ServiceName (set start type to Automatic)"
-    & sc.exe config $ServiceName start= auto | Out-Null
+    Write-Log "Enabling $ServiceName (set start type to Automatic with delay)"
+    & sc.exe config $ServiceName start= delayed-auto | Out-Null
     if ($LASTEXITCODE -ne 0) {
         Write-Log "Warning: Failed to set $ServiceName start type to automatic. Exit code: $LASTEXITCODE"
     }
@@ -97,6 +99,50 @@ function Enable-AndStartService {
     }
     else {
         Write-Log "$ServiceName is already running."
+    }
+}
+
+function Set-ServiceToManual {
+    [CmdletBinding()]
+    param(
+        [string]$ServiceName = 'wuauserv'
+    )
+
+    # Enable + set to Manual
+    Write-Log "Enabling $ServiceName (set start type to manual)"
+    & sc.exe config $ServiceName start= demand | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Log "Warning: Failed to set $ServiceName start type to manual. Exit code: $LASTEXITCODE"
+    }
+}
+
+function Enable-ScheduledTaskIfExists {
+    param(
+        [Parameter(Mandatory)]
+        [string]$FullTaskPath
+    )
+
+    $TaskName = Split-Path $FullTaskPath -Leaf
+    $TaskPath = Split-Path $FullTaskPath -Parent
+
+    if ($TaskPath -ne "\") {
+        $TaskPath += "\"
+    }
+
+    $Task = Get-ScheduledTask `
+        -TaskName $TaskName `
+        -TaskPath $TaskPath `
+        -ErrorAction SilentlyContinue
+
+    if ($Task) {
+        Enable-ScheduledTask `
+            -TaskName $TaskName `
+            -TaskPath $TaskPath
+
+        Write-Log "Task disabled: $FullTaskPath"
+    }
+    else {
+        Write-Log "Task not found: $FullTaskPath"
     }
 }
 
@@ -159,25 +205,25 @@ $Name = "WUServer"
 Write-Log "Removing $Value from registry key $Path"
 Remove-ItemProperty -Path $Path -Name $Name -ErrorAction SilentlyContinue
 
-############# Disable and stop the Services  ####################
+############# Enable and configure the Services  ####################
 
-# Disable and Stopping WUAService"
-Enable-AndStartService -ServiceName "wuauserv"
+# Enable and set WUAService to Manual
+Set-ServiceToManual -ServiceName "wuauserv"
 
-# Disable and stopping edgeupdate
+# Enable and starting edgeupdate
 Enable-AndStartService -ServiceName "edgeupdate"
 
-# Disable and stopping edgeupdatem
-Enable-AndStartService -ServiceName "edgeupdatem"
+# Enable and set WUAService to Manual
+Set-ServiceToManual -ServiceName "edgeupdatem"
 
 # Enable WaaSMedicSvc
-Enable-AndStartService -ServiceName "WaaSMedicSvc"
+Set-ServiceToManual -ServiceName "WaaSMedicSvc"
 
 ############# Enable Scheduled Tasks ####################
 
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan" /Enable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work" /Enable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Backup Scan" /Enable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\Reboot" /Enable
-schtasks /Change /TN "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker" /Enable
+Enable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Schedule Scan"
+Enable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Schedule Maintenance Work"
+Enable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Backup Scan"
+Enable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\Reboot"
+Enable-ScheduledTaskIfExists -FullTaskPath "\Microsoft\Windows\UpdateOrchestrator\USO_UxBroker"
 
