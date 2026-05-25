@@ -29,9 +29,6 @@
       1.0.2 - 2026-05-21 - Added function for disabling tasks with better error handling, and other minor improvements
 #>
 
-# Set WSUS Server for SUP, protocol (http/https) and port (8530/8531)
-$WSUSServer = "http://cm01.corp.viamonstra.com:8530"
-
 # Figure out if we can use the task sequence object
 try {
 		$TSEnv = New-Object -ComObject Microsoft.SMS.TSEnvironment -ErrorAction Stop
@@ -301,9 +298,6 @@ Disable-AndStopService -ServiceName "edgeupdate"
 
 # Disable and stopping edgeupdatem
 Disable-AndStopService -ServiceName "edgeupdatem"
-
-# Disable and stopping WaaSMedicSvc
-Disable-AndStopService -ServiceName "WaaSMedicSvc"
 
 ############# Disable Scheduled Tasks ####################
 
