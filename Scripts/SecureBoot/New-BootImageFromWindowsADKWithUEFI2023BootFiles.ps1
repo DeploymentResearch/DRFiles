@@ -114,8 +114,7 @@ Copy-Item -Path "$OSCDIMG_Path\efisys_noprompt_EX.bin" -Destination "$WinPE_2023
 & $DISM_Path\dism.exe /Image:$WinPE_MountFolder /Add-Package /PackagePath:$WinPE_OCs_Path\en-us\WinPE-DismCmdlets_en-us.cab
 
 # Secure Boot Cmdlets (WinPE-SecureBootCmdlets) Requires WinPE-WMI, WinPE-NetFx, and WinPE-PowerShell
-& $DISM_Path\dism.exe /Image:$WinPE_MountFolder /Add-Package /PackagePath:$WinPE_OCs_Path\WinPE-DismCmdlets.cab
-& $DISM_Path\dism.exe /Image:$WinPE_MountFolder /Add-Package /PackagePath:$WinPE_OCs_Path\en-us\WinPE-DismCmdlets_en-us.cab
+& $DISM_Path\dism.exe /Image:$WinPE_MountFolder /Add-Package /PackagePath:$WinPE_OCs_Path\WinPE-SecureBootCmdlets.cab
 
 # # Windows PowerShell (WinPE-StorageWMI) Requires WinPE-WMI, WinPE-NetFx, and WinPE-PowerShell
 & $DISM_Path\dism.exe /Image:$WinPE_MountFolder /Add-Package /PackagePath:$WinPE_OCs_Path\WinPE-StorageWMI.cab
