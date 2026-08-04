@@ -16,6 +16,7 @@
 	
     Version history:
     1.0.0 - May 1, 2026 - Initital version
+    1.0.1 - July 21, 2026 - Fixed a bug in the secure boot command
 #>
 
 # Settings
