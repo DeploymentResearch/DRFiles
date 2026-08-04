@@ -1,0 +1,1 @@
+cmd.exe /c powershell.exe -ExecutionPolicy Bypass -Command "$ts=New-Object -ComObject Microsoft.SMS.TSEnvironment;$ts.Value('SMSTSPreferredAdvertID')='PS120001'"
