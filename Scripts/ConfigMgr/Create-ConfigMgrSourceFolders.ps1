@@ -25,5 +25,5 @@ New-Item -Path "E:\Sources\Software\Adobe" -ItemType Directory -Force
 New-Item -Path "E:\Sources\Software\Microsoft" -ItemType Directory -Force
 
 net share 'Logs$=E:\Logs' '/grant:EVERYONE,change'
-icacls E:\Logs /grant '"VIAMONSTRA\CM_NAA":(OI)(CI)(M)'
+icacls E:\Logs /grant '"VIAMONSTRA\CM_OSD":(OI)(CI)(M)'
 net share 'Sources=E:\Sources' '/grant:EVERYONE,full'
