@@ -6,11 +6,13 @@
     Avalonia replacement for the WPF version. Avoids the Microsoft.WindowsDesktop.App
     framework reference entirely, so it runs in any .NET host, and has no STA requirement.
 
+    Runs in both a WinPE boot image and a Linux boot image. The windowing backend and
+    the rendering options are selected at runtime based on the platform.
+
     Avalonia assemblies are loaded from -AvaloniaPath at runtime. XAML is parsed at
     runtime via AvaloniaRuntimeXamlLoader, so nothing here is precompiled.
 
-    The accepted name is written to -OutFile and to stdout. Set the task sequence
-    variable in the calling step, not here; this process has no TS environment.
+    The accepted name is written to -OutFile and to stdout.
 
 .PARAMETER AvaloniaPath
     Folder containing the Avalonia managed DLLs and their native dependencies.
@@ -27,7 +29,7 @@
 [CmdletBinding()]
 param(
     [string]$AvaloniaPath,
-    [string]$OutFile      = (Join-Path $env:TEMP "computername.txt"),
+    [string]$OutFile,
     [string]$LogPath
 )
 
@@ -40,9 +42,26 @@ $LogComponent   = "OSDComputerName"
 
 $ValidNamePattern = "^[A-Za-z0-9]$|^[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9]$"
 
+# ---------------------------------------------------------------- platform
+# $IsWindows and $IsLinux are automatic variables in PowerShell 6 and later. They are
+# not present in Windows PowerShell 5.1, so derive them if they are missing.
+if ($null -eq $IsWindows) {
+    $IsWindows = $true
+    $IsLinux   = $false
+}
+
+# $env:TEMP exists only on Windows. On Linux it is null, and Join-Path then fails with
+# "Cannot bind argument to parameter 'Path' because it is null". GetTempPath() honours
+# TMPDIR when set and falls back to /tmp, so it is safe on both platforms.
+$TempDir = [System.IO.Path]::GetTempPath()
+
+if ([string]::IsNullOrWhiteSpace($OutFile)) {
+    $OutFile = Join-Path $TempDir "computername.txt"
+}
+
 # ---------------------------------------------------------------- logging
 if ([string]::IsNullOrWhiteSpace($LogPath) -or -not (Test-Path $LogPath)) {
-    $LogPath = $env:TEMP
+    $LogPath = $TempDir
 }
 $LogFile = Join-Path $LogPath $LogFileName
 
@@ -64,7 +83,17 @@ function Write-Log {
 Write-Log "Starting Avalonia computer name prompt. Logging to $LogFile" -Component $LogComponent
 Write-Log "Host: $((Get-Process -Id $PID).Path)" -Component $LogComponent
 Write-Log "Runtime: $([System.Runtime.InteropServices.RuntimeInformation]::FrameworkDescription)" -Component $LogComponent
-Write-Log "Apartment: $([System.Threading.Thread]::CurrentThread.GetApartmentState())" -Component $LogComponent
+Write-Log "OS: $([System.Runtime.InteropServices.RuntimeInformation]::OSDescription)" -Component $LogComponent
+Write-Log "TempDir: $TempDir  OutFile: $OutFile" -Component $LogComponent
+
+# GetApartmentState is only meaningful on Windows. Guard it so a platform exception
+# cannot take the script down before the UI is even attempted.
+try {
+    Write-Log "Apartment: $([System.Threading.Thread]::CurrentThread.GetApartmentState())" -Component $LogComponent
+}
+catch {
+    Write-Log "Apartment state not available on this platform" -Component $LogComponent
+}
 
 # ---------------------------------------------------------------- assemblies
 
@@ -72,15 +101,26 @@ Write-Log "Apartment: $([System.Threading.Thread]::CurrentThread.GetApartmentSta
 # disk. Fall back through the likely locations rather than depending on it.
 Write-Log "PSScriptRoot: '$PSScriptRoot'  CurrentDir: '$($PWD.Path)'" -Component $LogComponent
 
-Import-Module DeployR.Utility 
+Import-Module DeployR.Utility
 $DeployRoot = ${TSEnv:DEPLOYRROOT}
-Write-Log "DeployRoot is: $DeployRoot"
+Write-Log "DeployRoot is: $DeployRoot" -Component $LogComponent
 
-$AvaloniaPath = "$DeployRoot\Client"
+# Join-Path, not "$DeployRoot\Client". A backslash is a literal filename character on
+# Linux, not a directory separator.
+if ([string]::IsNullOrWhiteSpace($AvaloniaPath)) {
+    $AvaloniaPath = Join-Path $DeployRoot "Client"
+}
 Write-Log "Using Avalonia path: $AvaloniaPath" -Component $LogComponent
+
+if (-not (Test-Path $AvaloniaPath)) {
+    Write-Log "Avalonia path does not exist" -ErrorMessage $AvaloniaPath -Component $LogComponent
+    exit 2
+}
 
 # Load only what we need. This folder may be a host application's directory containing
 # assemblies that conflict with the ones we want, so a blanket load is not safe.
+# The managed assemblies keep the .dll extension on Linux; only the native SkiaSharp
+# and HarfBuzzSharp payloads differ (libSkiaSharp.so / libHarfBuzzSharp.so).
 $Wanted = @(
     "Avalonia.Base.dll"
     "Avalonia.dll"
@@ -98,24 +138,37 @@ $Wanted = @(
     "Avalonia.Skia.dll"
     "Avalonia.Themes.Fluent.dll"
     "Avalonia.Themes.Simple.dll"
-    "Avalonia.Win32.dll"
     "HarfBuzzSharp.dll"
     "SkiaSharp.dll"
 )
 
-$Loaded = 0
+if ($IsWindows) {
+    $Wanted += "Avalonia.Win32.dll"
+}
+else {
+    # Without these two, UsePlatformDetect has no windowing backend to find and
+    # SetupWithoutStarting throws.
+    $Wanted += "Avalonia.X11.dll"
+    $Wanted += "Avalonia.FreeDesktop.dll"
+}
+
+$Loaded  = 0
+$Missing = @()
 foreach ($dll in $Wanted) {
     $Full = Join-Path $AvaloniaPath $dll
-    if (-not (Test-Path $Full)) { continue }
+    if (-not (Test-Path $Full)) { $Missing += $dll; continue }
     try {
         [System.Reflection.Assembly]::LoadFrom($Full) | Out-Null
         $Loaded++
     }
     catch {
-        Write-Log "Could not load $dll" -Component $LogComponent -Type 2
+        Write-Log "Could not load $dll" -ErrorMessage $_.Exception.Message -Component $LogComponent -Type 2
     }
 }
 Write-Log "Loaded $Loaded of $($Wanted.Count) candidate assemblies from $AvaloniaPath" -Component $LogComponent
+if ($Missing.Count -gt 0) {
+    Write-Log "Not present: $($Missing -join ', ')" -Component $LogComponent -Type 2
+}
 
 # Report the Avalonia version actually in play, and confirm the runtime XAML loader is
 # present. A published Avalonia app compiles its XAML and does not ship the loader.
@@ -135,6 +188,19 @@ if (-not ([System.Management.Automation.PSTypeName]'Avalonia.AppBuilder').Type) 
     exit 2
 }
 
+# ---------------------------------------------------------------- X11 display
+# The X server is running in the Linux boot image, but the process DeployR spawns does
+# not necessarily inherit DISPLAY. Without it, X11 platform initialisation fails.
+if (-not $IsWindows) {
+    if ([string]::IsNullOrWhiteSpace($env:DISPLAY)) {
+        $env:DISPLAY = ":0"
+        Write-Log "DISPLAY was not set, defaulting to :0" -Component $LogComponent -Type 2
+    }
+    else {
+        Write-Log "DISPLAY is: $($env:DISPLAY)" -Component $LogComponent
+    }
+}
+
 # ---------------------------------------------------------------- app bootstrap
 try {
     $Builder = [Avalonia.AppBuilder]::Configure[Avalonia.Application]()
@@ -143,20 +209,31 @@ try {
     # call extension methods with instance syntax, so they are invoked statically.
     $Builder = [Avalonia.AppBuilderDesktopExtensions]::UsePlatformDetect($Builder)
 
-    # Force software rendering. WinPE has no usable GPU.
+    # Force software rendering. Neither boot image has a usable GPU.
     try {
-        $Opts = [Avalonia.Win32PlatformOptions]::new()
-        $Modes = [System.Collections.Generic.List[Avalonia.Win32RenderingMode]]::new()
-        $Modes.Add([Avalonia.Win32RenderingMode]::Software)
-        $Opts.RenderingMode = $Modes
-        $Builder = $Builder.With[Avalonia.Win32PlatformOptions]($Opts)
-        Write-Log "Software rendering mode set" -Component $LogComponent
+        if ($IsWindows) {
+            $Opts  = [Avalonia.Win32PlatformOptions]::new()
+            $Modes = [System.Collections.Generic.List[Avalonia.Win32RenderingMode]]::new()
+            $Modes.Add([Avalonia.Win32RenderingMode]::Software)
+            $Opts.RenderingMode = $Modes
+            $Builder = $Builder.With[Avalonia.Win32PlatformOptions]($Opts)
+            Write-Log "Win32 software rendering mode set" -Component $LogComponent
+        }
+        else {
+            $Opts  = [Avalonia.X11PlatformOptions]::new()
+            $Modes = [System.Collections.Generic.List[Avalonia.X11RenderingMode]]::new()
+            $Modes.Add([Avalonia.X11RenderingMode]::Software)
+            $Opts.RenderingMode = $Modes
+            $Builder = $Builder.With[Avalonia.X11PlatformOptions]($Opts)
+            Write-Log "X11 software rendering mode set" -Component $LogComponent
+        }
     }
     catch {
-        Write-Log "Could not set software rendering, continuing with defaults" -Component $LogComponent -Type 2
+        Write-Log "Could not set software rendering, continuing with defaults" -ErrorMessage $_.Exception.Message -Component $LogComponent -Type 2
     }
 
-    # Embedded font, so the UI does not depend on WinPE having Segoe UI.
+    # Embedded font, so the UI does not depend on the boot image having any installed
+    # fonts. This matters more on Linux, where there may be no fontconfig cache at all.
     try {
         $Builder = [Avalonia.InterFontApplicationBuilderExtension]::WithInterFont($Builder)
         Write-Log "Inter font embedded" -Component $LogComponent
@@ -177,6 +254,8 @@ catch {
 
 # ---------------------------------------------------------------- ui
 # Note the Avalonia namespace URI, and CanResize in place of WPF's ResizeMode.
+# FontFamily is left to the theme rather than hard-coded to Consolas, which does not
+# exist in a Linux boot image.
 $Xaml = @"
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -204,7 +283,6 @@ $Xaml = @"
         <TextBox x:Name="NameBox"
                  Padding="8,6"
                  FontSize="16"
-                 FontFamily="Consolas"
                  BorderBrush="#FFB0B0B0"
                  BorderThickness="1"/>
 
@@ -319,13 +397,19 @@ $Validate = {
 $NameBox.Add_TextChanged($Validate)
 
 # Avalonia windows have no DialogResult. Track the outcome and close.
+# Hide() unmaps the X11 window and lets the dispatcher process the expose events for
+# whatever is underneath it. Win32 destroys synchronously and does not need this, but
+# it is harmless there. Without it, JWM has no compositor to repaint the region and a
+# ghost of the dialog stays on screen after the window is gone.
 $OkButton.Add_Click({
     $script:Accepted = $true
+    $Window.Hide()
     $Window.Close()
 })
 
 $CancelButton.Add_Click({
     $script:Accepted = $false
+    $Window.Hide()
     $Window.Close()
 })
 
@@ -338,7 +422,17 @@ $Window.Add_Opened({
 # SetupWithoutStarting does not spin a message loop. Drive one manually and stop it
 # when the window closes.
 $Cts = [System.Threading.CancellationTokenSource]::new()
-$Window.Add_Closed({ $Cts.Cancel() })
+
+# Post the cancel rather than calling it inline. Background priority runs after the
+# queued input, layout, render and platform teardown jobs, so the X11 backend gets to
+# flush the window destroy to the server before the loop stops. Cancelling inline
+# stops the loop first and the request is never sent.
+$Window.Add_Closed({
+    [Avalonia.Threading.Dispatcher]::UIThread.Post(
+        [System.Action]{ $Cts.Cancel() },
+        [Avalonia.Threading.DispatcherPriority]::Background
+    )
+})
 
 Write-Log "Displaying the computer name dialog" -Component $LogComponent
 
@@ -353,6 +447,9 @@ catch {
     Write-Log "Dispatcher loop failed" -ErrorMessage $_.Exception.ToString() -Component $LogComponent
     exit 2
 }
+
+# Flush any teardown jobs the loop did not reach before cancellation.
+try { [Avalonia.Threading.Dispatcher]::UIThread.RunJobs() } catch { }
 
 if (-not $script:Accepted) {
     Write-Log "User cancelled the computer name prompt." -Component $LogComponent -Type 2
@@ -375,19 +472,16 @@ catch {
 
 # Set Computer Name as variable
 try {
-    # Set the provided variables
-    if (Get-Module -name "DeployR.Utility"){
+    if (Get-Module -Name "DeployR.Utility") {
         ${TSEnv:ComputerName} = $ComputerName
     }
-    else{
+    else {
         $env:ComputerName = $ComputerName
     }
     Write-Log "OSDComputerName set to: $ComputerName" -Component $LogComponent -Type 1
 }
 catch {
     Write-Log "Failed to set the OSDComputerName task sequence variable" -ErrorMessage $_.Exception.Message -Component $LogComponent
-    # exit 2
 }
-
 
 exit 0
