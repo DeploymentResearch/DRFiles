@@ -1,33 +1,24 @@
 ﻿<#
 .SYNOPSIS
-    Script that enables Windows Updates again during the Windows (online) phase of ConfigMgr OSD
-    
+    Re-enables Windows Update at the end of a ConfigMgr OSD task sequence.
 .DESCRIPTION
-    Script that enables Windows Updates again during the Windows (online) phase of ConfigMgr OSD
-
+    Removes the policy values, re-enables the scheduled tasks, and restores the service startup
+    types changed by the disable script.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.3
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.1
-    Released: 2026-01-01
     Change history:
-      1.0.0 - 2026-01-01 - Initial release
-      1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
-      1.0.2 - 2026-05-21 - Updated to restore services to their original state. Credits (thank you): Steven Kister
       1.0.3 - 2026-05-22 - Added function for enabling tasks with better error handling
+      1.0.2 - 2026-05-21 - Updated to restore services to their original state. Credits (thank you): Steven Kister
+      1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
+      1.0.0 - 2026-01-01 - Initial release
 #>
 
 # Figure out if we can use the task sequence object

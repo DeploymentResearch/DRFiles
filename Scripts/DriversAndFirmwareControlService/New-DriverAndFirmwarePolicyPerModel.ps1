@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates Windows Update driver and firmware policies per hardware model.
+.DESCRIPTION
+    Uses the Graph API driver update profile endpoints to create one policy per model and
+    assign the matching devices. Requires the WindowsUpdates.ReadWrite.All scope.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
 # Requirements:
 # Permissions to connect to the Graph API with the following scope: WindowsUpdates.ReadWrite.All
 # Permission to view DeviceIDs in Azure AD

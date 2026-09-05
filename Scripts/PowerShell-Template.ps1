@@ -1,4 +1,24 @@
-﻿# Name:         PowerShell Template
+﻿<#
+.SYNOPSIS
+    Standard PowerShell script template with logging and error handling.
+.DESCRIPTION
+    Starting point for new scripts, with a Main function, trace logging, and structured error
+    handling already in place.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Name:         PowerShell Template
 # Description:  Standard PowerShell template
 # Author:       
 	

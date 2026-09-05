@@ -1,36 +1,22 @@
 <#
 .SYNOPSIS
-    Start or continue a PSD task sequence. 
+    Starts or continues a PSD task sequence.
 .DESCRIPTION
-    Start or continue a PSD task sequence.
+    Main entry point for PowerShell Deployment for MDT. Prepares the environment, connects to
+    the deployment share, and starts or resumes the task sequence.
 .LINK
-    https://github.com/FriendsOfMDT/PSD
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-          FileName: PSDStart.ps1
-          Solution: PowerShell Deployment for MDT
-          Author: PSD Development Team
-          Contact: @Mikael_Nystrom , @jarwidmark , @mniehaus , @SoupAtWork , @JordanTheItGuy
-          Primary: @Mikael_Nystrom 
-          Created: 
-          Modified: 2019-06-02
+    Author:  PSD Development Team
+    Credits: PSD Development Team
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 0.0.0
 
-          Version - 0.0.0 - () - Finalized functional version 1.
-          Version - 0.9.1 - Added check for network access when doing network deployment
-          Version - 0.9.2 - Check that needed files are in WinPE for XAML files to show correctly
-                            Logic for detection if running in WinPE
-                            Check for unsupported variables
-          Version - 0.9.2 - Added logic when removing tscore.dll and TSprogressUI to avoid errors in log files
-          Version - 0.9.3 - ZTINextPhase.wsf is now replaced with PSDNextPhase.ps1
-                            ZTIApplications.wsf is now replaced with PSDApplications.ps1
-          Version - 0.9.4 - Added partial support for HTTPS
-          version - 0.9.5 - Added detection if we can find certificate in certain folders, of so they will be imported as Root Cert's
-                            $($env:SYSTEMDRIVE)\Deploy\Certificates
-                            $($env:SYSTEMDRIVE)\MININT\Certificates
-          version - 0.9.6 - Added https condition for NTP, and set time
-          version - 0.9.7 - Debugging, logging, Write to screen has changed... alot...
-          TODO:
-
-.Example
+    Change history:
+      0.0.0 - 2022-01-02 - Initial release
 #>
 
 param (

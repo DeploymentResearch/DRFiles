@@ -1,4 +1,25 @@
-﻿# Name: OSDTattoo
+﻿<#
+.SYNOPSIS
+    Tattoos the registry with deployment variables during OS deployment.
+.DESCRIPTION
+    Writes the task sequence name, deployment time, and related values to a registry key so the
+    deployment history stays visible on the device after it is built.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Jorgen Nilsson, ccmexec.com
+    Credits: Original script by Jorgen Nilsson, ccmexec.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-12-31 - Initial release
+#>
+
+# Name: OSDTattoo
 # Authors: Jörgen Nilsson CCMEXEC
 # Script to tattoo the registry with deployment variables during OS deploymnet 
 $RegKeyName = "CMOSD"

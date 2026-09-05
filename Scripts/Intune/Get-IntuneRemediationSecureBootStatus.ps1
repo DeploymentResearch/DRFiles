@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Queries Intune remediation results for Secure Boot certificate status.
+.DESCRIPTION
+    Reads the results of the Microsoft published Secure Boot monitoring remediation through the
+    Graph API and reports the certificate status per device.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-04-21 - Initial release
+#>
+
 # Query Intune remediation results for Secure Boot status.
 # Reference:
 # https://support.microsoft.com/en-us/topic/monitoring-secure-boot-certificate-status-with-microsoft-intune-remediations-6696a27b-fa09-4570-b112-124965adc87f

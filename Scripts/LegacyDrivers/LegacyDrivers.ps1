@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Applies a legacy driver package from a WIM file during a task sequence.
+.DESCRIPTION
+    Mounts the driver WIM, injects the drivers into the offline operating system with DISM, and
+    logs to the task sequence log path.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-06-21 - Initial release
+#>
+
 # Create Task Sequence Environment Object 
 $TSEnv = New-Object -ComObject "Microsoft.SMS.TSEnvironment"
 

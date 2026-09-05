@@ -1,4 +1,24 @@
-﻿$Path = "\\CM01\Logs$"
+﻿<#
+.SYNOPSIS
+    Searches archived smsts.log files for BranchCache content hash mismatches.
+.DESCRIPTION
+    Scans a log archive share for the hash mismatch message, groups the hits by log file, and
+    exports the affected machines to a CSV file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-03-25 - Initial release
+#>
+
+$Path = "\\CM01\Logs$"
 $Search = "Hash could not be matched for the downloaded content"
 $LogFilesWithError = Get-ChildItem -Path $Path -Recurse -Filter smsts*.log | Select-String -pattern $Search | group path | select name
 $ExportFile = "E:\HealthCheck\Results\Result from failed packages search in SMSTSLog Logfiles.csv"

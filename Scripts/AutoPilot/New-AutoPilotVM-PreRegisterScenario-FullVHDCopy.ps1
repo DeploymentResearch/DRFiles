@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates a pre-registered Autopilot test virtual machine using a full VHDX copy.
+.DESCRIPTION
+    Copies the reference VHDX rather than using a differencing disk, boots the virtual machine
+    to capture the hardware hash, registers it with Autopilot, then resets it for testing.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-12-31 - Initial release
+#>
+
 # Script to create a VM for Autopilot testing
 # Requirements: VHDX file of sysprepped Windows 11 setup (can be default from Microsoft)
 #

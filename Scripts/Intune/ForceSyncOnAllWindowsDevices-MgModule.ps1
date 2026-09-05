@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Triggers an Intune sync on every managed Windows device.
+.DESCRIPTION
+    The Graph PowerShell Module version. Connects with the device management scopes, enumerates
+    all Windows devices, and requests a sync on each one.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-06-11 - Initial release
+#>
+
 # Install the module. (You need admin on the machine.)
 # Install-Module Microsoft.Graph
 Import-Module Microsoft.Graph.Authentication

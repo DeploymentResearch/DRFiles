@@ -1,4 +1,24 @@
-﻿# Note #1: 
+﻿<#
+.SYNOPSIS
+    Applies a cumulative update to a WinPE 25398 boot image.
+.DESCRIPTION
+    Mounts the boot image, applies the cumulative update, runs component cleanup, and saves the
+    changes. Use DISM from the latest Windows ADK when servicing a newer build.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-12-09 - Initial release
+#>
+
+# Note #1: 
 # To service a newer version of WinPE than the OS you are servicing from,you need a newer DISM version.
 # Solution, simply install the latest Windows ADK, and use DISM from that version
 #

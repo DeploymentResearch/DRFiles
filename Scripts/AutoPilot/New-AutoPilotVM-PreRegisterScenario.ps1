@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates a pre-registered Autopilot test virtual machine using a differencing disk.
+.DESCRIPTION
+    Builds the virtual machine from a differencing disk, captures the Autopilot hardware hash,
+    and registers the device before the test deployment starts.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 # Script to create a VM for Autopilot testing
 # Requirements: VHDX file of sysprepped Windows 10 setup (can be default from Microsoft)
 #

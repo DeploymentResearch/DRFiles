@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Imports a root CA certificate into the WinPE certificate store.
+.DESCRIPTION
+    Adds the certificate to the local machine root store from WinPE and writes a log file.
+    Assumes the certificate is already present in the boot image or downloaded first.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-12-14 - Initial release
+#>
+
 $Logfile = "X:\Windows\Temp\ImportRootCA.log"
 $CertStoreScope = "LocalMachine" # Location
 $CertStoreName  = "Root"

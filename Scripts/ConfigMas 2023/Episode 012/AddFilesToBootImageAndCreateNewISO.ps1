@@ -1,4 +1,24 @@
-﻿# Settings
+﻿<#
+.SYNOPSIS
+    Adds files to a boot image inside an ISO and rebuilds the ISO.
+.DESCRIPTION
+    Extracts the ISO, mounts the boot WIM, copies the extra files in, dismounts with changes
+    saved, and generates a new bootable ISO with oscdimg.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-01-05 - Initial release
+#>
+
+# Settings
 $WorkingFolder = "C:\ISO\DEMO-OSD-CM01"
 $InputISO =  "C:\ISO\DEMO-OSD-CM01\Bootimage.iso"
 $ISOSourceFolder = "$WorkingFolder\ISO"

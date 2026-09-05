@@ -1,4 +1,25 @@
-﻿# Generic variables
+﻿<#
+.SYNOPSIS
+    Tests Modern Driver Management against the ConfigMgr AdminService.
+.DESCRIPTION
+    Calls the AdminService directly with credentials and runs Invoke-CMApplyDriverPackage, with
+    basic logging added so the matching logic can be followed.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Borrows from Invoke-CMApplyDriverPackage.ps1 by Nickolaj Andersen and Maurice Daly
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-06-29 - Initial release
+#>
+
+# Generic variables
 $SiteServer = "cm01.corp.viamonstra.com"
 
 # Get Credential

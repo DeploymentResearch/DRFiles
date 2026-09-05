@@ -1,27 +1,24 @@
 ﻿<#
-.Synopsis
-    Sample script for Deployment Research
-    Script will generate videos of the screen from Hyper-V VMs, useful for troubleshooting and documentation
-
+.SYNOPSIS
+    Records Hyper-V virtual machine console output and saves it as video.
 .DESCRIPTION
-    Created: 2023-06-18
-    Version: 1.0
-     
-    Author   : Johan Arwidmark
-    Twitter  : @jarwidmark
-    Blog     : https://deploymentresearch.com
-    LinkedIn : https://www.linkedin.com/in/jarwidmark/ 
- 
-    Disclaimer: This script is provided "AS IS" with no warranties, confers no rights and 
-    is not supported by the author or DeploymentArtist..
-
-.NOTES
-    1. Credits to Eric2XU and Ben Armstrong for great sample scripts
-    2. Video conversion requires ffmpeg.exe (winget install ffmpeg)
-    3. The script requires, and checks for, that all VM names are unique across all hosts
-
+    Captures console screenshots from each virtual machine across a set of Hyper-V hosts and
+    converts the frames into a video file. Requires ffmpeg.
 .EXAMPLE
     N/A
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Credits to Eric2XU and Ben Armstrong for the original sample scripts
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-06-25 - Initial release
 #>
 
 $HyperVHosts = @(

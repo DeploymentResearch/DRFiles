@@ -1,24 +1,23 @@
 <#
-.Synopsis
-    Sample script for Deployment Research
-    For UEFI Deployments, modifies a WinPE ISO to not ask for "Press Any Key To Boot From..."
-
+.SYNOPSIS
+    Removes the press any key prompt from a WinPE boot ISO.
 .DESCRIPTION
-    Created: 2020-01-10
-    Version: 1.0
-     
-    Author : Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : https://deploymentresearch.com
- 
-    Disclaimer: This script is provided "AS IS" with no warranties, confers no rights and 
-    is not supported by the author or DeploymentArtist..
-
-.NOTES
-    Requires Windows AK 10 to be installed
-
+    Extracts the ISO, replaces the boot sector file with the no prompt variant from the Windows
+    ADK, and rebuilds the ISO so unattended virtual machines boot without a keypress.
 .EXAMPLE
     N/A
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
 #>
 
 # Settings

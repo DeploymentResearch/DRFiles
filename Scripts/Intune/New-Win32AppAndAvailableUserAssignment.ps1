@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Creates an Intune Win32 application with an available user assignment.
+.DESCRIPTION
+    Packages the source into an intunewin file, creates the application with detection and
+    requirement rules, creates a user group, and assigns the app as available.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Uses the IntuneWin32App module by Nickolaj Andersen
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-04-14 - Initial release
+#>
+
 #Script relies on IntuneWin32App module from Nickolaj Andersen (https://github.com/MSEndpointMgr/IntuneWin32App) 
 #App registration requires DeviceManagementApps.ReadWrite.All,DeviceManagementConfiguration.ReadWrite.All,DeviceManagementRBAC.Read.All,Group.Read.All
 

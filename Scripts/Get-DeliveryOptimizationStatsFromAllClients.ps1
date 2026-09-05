@@ -1,4 +1,24 @@
-﻿$Devices = @(
+﻿<#
+.SYNOPSIS
+    Collects Delivery Optimization statistics from a set of clients.
+.DESCRIPTION
+    Runs Get-DeliveryOptimizationPerfSnapThisMonth remotely on each device and reports the HTTP
+    and peer byte counts, so peer to peer efficiency can be compared across the fleet.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-04-26 - Initial release
+#>
+
+$Devices = @(
     "CH1-PC0004"
     "CH1-PC0005"
     "CH1-PC0006"

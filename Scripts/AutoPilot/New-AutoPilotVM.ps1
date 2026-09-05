@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates a basic Hyper-V virtual machine for Autopilot testing.
+.DESCRIPTION
+    Builds a Generation 2 virtual machine from a differencing disk based on a sysprepped
+    reference VHDX and applies an unattend file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 # Set some variables
 $VMName = "APTEST06"
 $VMLocation = "C:\VMs"

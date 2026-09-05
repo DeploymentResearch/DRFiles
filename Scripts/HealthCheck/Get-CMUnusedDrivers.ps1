@@ -1,9 +1,26 @@
-﻿<#.Synopsis   This script queries Configuration Manager 2012 Drivers that are not related with any Driver Packages.DESCRIPTION.EXAMPLE
+﻿<#
+.SYNOPSIS
+    Finds drivers in ConfigMgr that are not a member of any driver package.
+.DESCRIPTION
+    Health check variant that writes the report to an output folder rather than the console.
+    Queries the SMS_Driver class and reports drivers with no package membership.
+.EXAMPLE
     Get-CMUnusedDrivers.ps1 -SiteCode PS1 -SiteServer CM01
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Developed By Johan Arwidmark and Kaido Järvemets
-    Version 1.0
+    Author:  Johan Arwidmark and Kaido Jarvemets
+    Credits: Developed by Johan Arwidmark and Kaido Jarvemets
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
 #>
+
 $SiteServer = $env:COMPUTERNAME
 $SiteCode = "PS1"
 $OutputPath = "E:\Setup"

@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates the standard ConfigMgr content source folder structure.
+.DESCRIPTION
+    Creates the folder hierarchy used for applications, packages, drivers, and operating system
+    images, and sets the share and NTFS permissions.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-08-06 - Initial release
+#>
+
 # Check for elevation
 Write-Host "Checking for elevation"
 

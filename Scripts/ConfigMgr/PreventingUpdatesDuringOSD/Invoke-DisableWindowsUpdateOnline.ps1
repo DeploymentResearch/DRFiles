@@ -1,32 +1,23 @@
 ﻿<#
 .SYNOPSIS
-    Script that disables Windows Updates during the Windows (online) phase of ConfigMgr OSD
-    
+    Disables Windows Update during the Windows online phase of ConfigMgr OSD.
 .DESCRIPTION
-    Script that disables Windows Updates during the Windows (online) phase of ConfigMgr OSD
-
+    Sets the Windows Update policy values, disables the related scheduled tasks, and stops the
+    relevant services on the running operating system.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.2
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.1
-    Released: 2025-11-25
     Change history:
-      1.0.0 - 2025-11-25 - Initial release
-      1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
       1.0.2 - 2026-05-21 - Added function for disabling tasks with better error handling, and other minor improvements
+      1.0.1 - 2026-04-06 - Updated with more services and scheduled tasks. Credits (thank you): Jordan Mastel
+      1.0.0 - 2025-11-25 - Initial release
 #>
 
 # Figure out if we can use the task sequence object

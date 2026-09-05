@@ -1,21 +1,23 @@
 ﻿<#
-.Synopsis
-    This script removes any PSD references from a device. 
-    
-.Description
-    This script removes any PSD references from a device, typically used for Autopilot scenarios.
-    The script is intended to run in the specialize pass via unattend.xml
-
-.LINK
-    https://deploymentresearch.com
-
-.NOTES
-          FileName: PSDCleanupForAutopilot.ps1
-          Author: @jarwidmark
-          Version: Initial release
-
+.SYNOPSIS
+    Removes PSD deployment traces before handing a device over to Autopilot.
+.DESCRIPTION
+    Cleans up the folders, files, and registry values left behind by a PowerShell Deployment
+    for MDT deployment so the device can complete Autopilot enrollment cleanly.
 .EXAMPLE
-	.\PSDCleanupForAutopilot.ps1
+    .\PSDCleanupForAutopilot.ps1
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-06 - Initial release
 #>
 
 #Requires -RunAsAdministrator

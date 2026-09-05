@@ -1,4 +1,24 @@
-﻿# Script to cleanup Windows before an Inplace Upgrade
+﻿<#
+.SYNOPSIS
+    Cleans up a Windows installation before an in-place upgrade.
+.DESCRIPTION
+    Runs DISM component cleanup, disk cleanup, and Delivery Optimization cache removal, which
+    reclaims a substantial amount of disk space before the upgrade starts.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-09-16 - Initial release
+#>
+
+# Script to cleanup Windows before an Inplace Upgrade
 # Author: Johan Arwidmark
 # Twitter: @jarwidmark
 # LinkedIn: https://www.linkedin.com/in/jarwidmark

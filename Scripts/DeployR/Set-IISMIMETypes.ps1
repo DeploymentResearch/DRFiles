@@ -1,4 +1,24 @@
-﻿# Set the MIME types for the iPXE boot files, fonts etc.
+﻿<#
+.SYNOPSIS
+    Sets the IIS MIME types required by iPXE boot files.
+.DESCRIPTION
+    Adds the MIME type mappings for the iPXE boot files and fonts, so IIS serves them instead
+    of returning a 404.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-06-01 - Initial release
+#>
+
+# Set the MIME types for the iPXE boot files, fonts etc.
 
 # wimboot.bin file 
 # Note: BIN files are already added by default

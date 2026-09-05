@@ -1,4 +1,24 @@
-﻿# WSUS Administration Max Connections Should be Unlimited	
+﻿<#
+.SYNOPSIS
+    Applies the recommended IIS configuration for a WSUS server.
+.DESCRIPTION
+    Sets the WSUS Administration site connection limits and application pool settings that a
+    busy software update point needs.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# WSUS Administration Max Connections Should be Unlimited	
 Import-Module webadministration ; (get-itemproperty IIS:\Sites\'WSUS Administration' -name limits.maxConnections.Value)
 Import-Module webadministration ; set-Itemproperty IIS:\Sites\'WSUS Administration' -Name limits.maxConnections -Value 4294967295
 

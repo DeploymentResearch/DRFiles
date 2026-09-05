@@ -1,4 +1,24 @@
-﻿# Determine where to do the logging
+﻿<#
+.SYNOPSIS
+    Stages an enrollment provisioning package during ConfigMgr OSD.
+.DESCRIPTION
+    Applies the provisioning package to the target operating system from the WinPE phase, and
+    logs to the task sequence log path.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-06-07 - Initial release
+#>
+
+# Determine where to do the logging
 $TSEnv = New-Object -COMObject Microsoft.SMS.TSEnvironment
 $LogPath = $TSEnv.Value("_SMSTSLogPath")
 $Logfile = "$LogPath\$(($MyInvocation.MyCommand.Name).Replace(".ps1",".log"))"

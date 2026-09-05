@@ -1,4 +1,25 @@
-﻿# Export script for ConfigMgr queries, including folder structure
+﻿<#
+.SYNOPSIS
+    Exports ConfigMgr queries including their console folder structure.
+.DESCRIPTION
+    Enumerates the queries in the site, resolves the console folder each one lives in, and
+    writes the query definitions and folder paths to an export folder.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Get-ObjectLocation function based on work by Peter van der Woude, @pvanderwoude
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Export script for ConfigMgr queries, including folder structure
 # Credits to Peter van der Woude (@pvanderwoude) for original Get-ObjectLocation function
 
 $ExportPath = "E:\ExportedQueries"

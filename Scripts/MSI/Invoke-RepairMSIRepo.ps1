@@ -1,4 +1,24 @@
-﻿$StifleRClient = Get-CimInstance -Class Win32_Product | Where-Object Name -like "*StifleR Client*" 
+﻿<#
+.SYNOPSIS
+    Repairs a missing MSI in the Windows Installer cache.
+.DESCRIPTION
+    Detects the installed StifleR client version, downloads the matching MSI, and places it back
+    in the installer cache so future repairs and upgrades succeed.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-09-23 - Initial release
+#>
+
+$StifleRClient = Get-CimInstance -Class Win32_Product | Where-Object Name -like "*StifleR Client*" 
 
 $DP = "dp01.corp.viamonstra.com"
 $DownloadPath = "C:\Temp"

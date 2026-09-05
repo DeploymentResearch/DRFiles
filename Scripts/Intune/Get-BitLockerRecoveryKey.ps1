@@ -1,4 +1,25 @@
-﻿# Borrowed from https://github.com/petripaavola/IntuneDeviceDetailsGUI
+﻿<#
+.SYNOPSIS
+    Retrieves BitLocker recovery keys for Intune managed devices.
+.DESCRIPTION
+    Looks up the device in Intune, resolves the associated Entra ID device object, and returns
+    the escrowed BitLocker recovery keys through the Graph API.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Based on IntuneDeviceDetailsGUI by Petri Paavola
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-07-10 - Initial release
+#>
+
+# Borrowed from https://github.com/petripaavola/IntuneDeviceDetailsGUI
 # Thank you Petri
 
 function Invoke-MSGraphGetRequestWithMSGraphAllPages {

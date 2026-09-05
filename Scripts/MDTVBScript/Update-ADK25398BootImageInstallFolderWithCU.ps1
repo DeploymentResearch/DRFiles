@@ -1,4 +1,24 @@
-﻿# Note #1: 
+﻿<#
+.SYNOPSIS
+    Applies a cumulative update to the WinPE files in the Windows ADK install folder.
+.DESCRIPTION
+    Mounts each WinPE WIM in the ADK, applies the cumulative update, and saves the changes, so
+    newly created boot images are already patched. Use DISM from the latest ADK.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-12-27 - Initial release
+#>
+
+# Note #1: 
 # To service a newer version of WinPE than the OS you are servicing from,you need a newer DISM version.
 # Solution, simply install the latest Windows ADK, and use DISM from that version
 #

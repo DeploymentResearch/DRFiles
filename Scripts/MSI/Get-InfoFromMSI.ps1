@@ -1,4 +1,25 @@
-﻿function GetMSIVersion{
+﻿<#
+.SYNOPSIS
+    Reads product version and other properties from an MSI file.
+.DESCRIPTION
+    Opens the MSI database with the WindowsInstaller COM object and queries the property table,
+    without installing anything.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-10-09 - Initial release
+#>
+
+
+function GetMSIVersion{
 
     param (
         [parameter(Mandatory=$true)] 

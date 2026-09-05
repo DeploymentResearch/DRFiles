@@ -1,28 +1,21 @@
 ﻿<#
 .SYNOPSIS
-    Client-Side script for Cloud OS Deployment, Part 4
-
+    Removes PSD references from a device.
 .DESCRIPTION
-    This script removes any PSD references from a device. 
-
+    Client-side script for the Cloud OS Deployment series, Part 4. Removes the MININT and
+    PSD folders, the deployment registry keys, and the drivers staged during deployment.
+.EXAMPLE
+    .\Remove-PSDReferences.ps1
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.2
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.2
-    Released: 2025-10-01
     Change history:
       1.0.2 - 2025-10-01 - Added Drivers cleanup
       1.0.1 - 2021-09-10 - Integration release for the PSD Cloud OS Deployment solution

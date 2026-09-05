@@ -1,4 +1,24 @@
-﻿#Get Connection Type
+﻿<#
+.SYNOPSIS
+    Detects whether the device is on a wired, wireless, or VPN connection.
+.DESCRIPTION
+    Checks the active network adapters and returns the connection type. Uses Get-CimInstance on
+    PowerShell 3.0 and above, and falls back to Get-WmiObject on older versions.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+#Get Connection Type
 $WirelessConnected = $null
 $WiredConnected = $null
 $VPNConnected = $null

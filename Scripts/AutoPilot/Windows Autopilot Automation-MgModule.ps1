@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Autopilot automation samples using the Graph PowerShell Module.
+.DESCRIPTION
+    The Graph PowerShell Module version of the Autopilot automation snippets, covering profile
+    listing, JSON export, and device import.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-10-01 - Initial release
+#>
+
 # Import the PowerShell modules
 Import-Module WindowsAutopilotIntuneCommunity -MinimumVersion 2.5
 Import-Module Microsoft.Graph.Groups

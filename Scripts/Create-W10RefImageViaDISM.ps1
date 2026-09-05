@@ -1,4 +1,24 @@
-﻿# Note #1: 
+﻿<#
+.SYNOPSIS
+    Creates a Windows 10 reference image using DISM only.
+.DESCRIPTION
+    Mounts the operating system WIM, applies updates and optional components, runs component
+    cleanup, and exports the result. Use DISM from the latest Windows ADK when servicing.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Note #1: 
 # To service a newer version of WinPE than the OS you are servicing from, for example service Windows 10 v1709 
 # from a Windows Server 2016 server, you need a newer DISM version.
 # Solution, simply install the latest Windows ADK 10, and use DISM from that version

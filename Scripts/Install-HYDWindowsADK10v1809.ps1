@@ -1,20 +1,21 @@
 <#
+.SYNOPSIS
+    Installs the Windows ADK 10 version 1809 features needed for deployment.
+.DESCRIPTION
+    Checks for elevation, then runs the ADK setup silently with the deployment tools, WinPE,
+    and USMT features selected.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-************************************************************************************************************************
-
-Created:	October 2, 2018
-Version:	1.0
-
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the author or DeploymentArtist.
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-************************************************************************************************************************
-
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
 #>
 
 # Check for elevation

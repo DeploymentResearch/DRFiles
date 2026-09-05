@@ -1,4 +1,24 @@
-﻿# Set variables
+﻿<#
+.SYNOPSIS
+    Creates a ConfigMgr task sequence deployment to a collection.
+.DESCRIPTION
+    Deploys the named task sequence to the named collection, as a step in automating a mass
+    deployment lab run.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-05 - Initial release
+#>
+
+# Set variables
 $SiteCode = "PS1"
 $TaskSequenceName = "Windows 11 Enterprise x64 23H2 MDM BranchCache"
 $CollectionName = "MassDeployment - Windows 11 Enterprise x64 23H2"

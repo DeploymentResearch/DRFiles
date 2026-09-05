@@ -1,4 +1,24 @@
-﻿# Generiuc
+﻿<#
+.SYNOPSIS
+    Injects Microsoft Connected Cache settings into an offline registry hive.
+.DESCRIPTION
+    Loads the SOFTWARE hive from the applied operating system, writes the Delivery Optimization
+    cache host value, and unloads the hive. Runs from WinPE during a task sequence.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-01-29 - Initial release
+#>
+
+# Generiuc
 $MCCIPAddress = "192.168.0.5"
 
 # Load the offline registry hive from the mounted disk

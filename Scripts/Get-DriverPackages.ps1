@@ -1,4 +1,25 @@
-﻿# Name:         Get-DriverPackage
+﻿<#
+.SYNOPSIS
+    Gets the driver package ID to download during a task sequence.
+.DESCRIPTION
+    Matches the device against the driver package XML file and returns the package ID for the
+    Download Package Content step to use.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Matthew Teegarden
+    Credits: Original script by Matthew Teegarden
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Name:         Get-DriverPackage
 # Description:  Gets the driver package ID for download during a Task Sequence
 # Author:       Matthew Teegarden
 	

@@ -1,4 +1,24 @@
-﻿Connect-MSGraph -ForceInteractive
+﻿<#
+.SYNOPSIS
+    Updates Delivery Optimization settings on Intune Win32 app assignments, legacy version.
+.DESCRIPTION
+    Finds the matching applications and updates the assignment settings so content is
+    downloaded in foreground or background mode as required.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
+Connect-MSGraph -ForceInteractive
 $Apps = Get-DeviceAppManagement_MobileApps -Filter "contains(displayName, 'P2P')"
 ($Apps | Measure-Object).Count
 $Apps | select displayName

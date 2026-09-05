@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates, distributes, and deploys a ConfigMgr application end to end.
+.DESCRIPTION
+    Creates the application with an MSI deployment type, distributes the content, creates a
+    collection, adds members, and deploys the application to it.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 $ApplicationName = "TechSmith Snagit 2021"
 $ApplicationDescription = "Screen Capture Utility"
 $CollectionName = "TechSmith Snagit 2021"

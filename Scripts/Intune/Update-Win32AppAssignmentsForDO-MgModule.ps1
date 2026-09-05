@@ -1,4 +1,23 @@
-﻿
+﻿<#
+.SYNOPSIS
+    Updates Delivery Optimization settings on Intune Win32 app assignments.
+.DESCRIPTION
+    The Graph PowerShell Module beta version. Finds the matching applications and updates the
+    assignment settings so content is downloaded in foreground or background mode.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
 # Install the module. (You need admin on the machine.)
 # Install-Module Microsoft.Graph.Beta
 # Uncomment line 38 to perform updates

@@ -1,4 +1,24 @@
-﻿param (
+﻿<#
+.SYNOPSIS
+    Imports a previously exported ConfigMgr task sequence from XML.
+.DESCRIPTION
+    Reads a task sequence XML file exported with Get-CMTaskSequence and creates a new task
+    sequence from it under the specified name.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  David O'Brien, sepago
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+param (
 [string]$SiteCode,
 [string]$TaskSequenceName,
 [string]$InputFile

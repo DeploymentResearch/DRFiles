@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Creates a set of virtual machines for Intune and Autopilot testing.
+.DESCRIPTION
+    Builds multiple virtual machines from full copies of a sysprepped reference VHDX, which
+    gives each machine an independent disk for repeatable enrollment testing.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-08-21 - Initial release
+#>
+
 # Script to create a VM for Intune and Autopilot testing
 # Requirements: VHDX file of sysprepped Windows 10 or Windows 11 (can be default ISO from Microsoft)
 #

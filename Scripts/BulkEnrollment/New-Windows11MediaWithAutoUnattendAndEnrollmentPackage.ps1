@@ -1,34 +1,24 @@
 ﻿<#
 .SYNOPSIS
-    A sample script to generate an automated Windows 11 media 
-
+    Generates automated Windows 11 media with an unattend file and enrollment package.
 .DESCRIPTION
-    The script requires the Windows ADK to be installed. It creates a bootable Windows 11 ISO
-    with an existing AutoUnattend.xml file, a sample PowerShell script, and a Provisioning package
-    added to the $OEM$ folder structure for automatic execution during setup.
-
+    Creates a bootable Windows 11 ISO with an existing AutoUnattend.xml, a sample PowerShell
+    script, and a provisioning package added to the $OEM$ structure for automatic execution.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.1
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.1
-    Released: 2025-10-26
     Change history:
       1.0.1 - 2025-10-26 - Added more validation, script cleanup, and support for ARM64 media
       1.0.0 - 2025-08-18 - Initial release
 #>
+
 #Requires -RunAsAdministrator
 
 $TempFolder = "C:\ISO\Temp"

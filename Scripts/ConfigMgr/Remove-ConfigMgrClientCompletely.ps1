@@ -1,4 +1,24 @@
-﻿# Uninstall ConfigMgr agent via ccmsetup.exe
+﻿<#
+.SYNOPSIS
+    Removes the ConfigMgr client and every trace it leaves behind.
+.DESCRIPTION
+    Runs the ccmsetup uninstall, then stops WMI and removes the client folders, services, and
+    WMI namespaces so a clean reinstall is possible.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Uninstall ConfigMgr agent via ccmsetup.exe
 .\ccmsetup.exe /uninstall
 
 # Stop WMI Service

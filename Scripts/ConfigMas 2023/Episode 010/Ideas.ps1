@@ -1,4 +1,24 @@
-﻿### Single Application
+﻿<#
+.SYNOPSIS
+    Working notes and snippets for triggering application deployments remotely.
+.DESCRIPTION
+    Collection of reference snippets covering single application deployment triggers, static
+    machine lists, and collection membership queries.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-01-04 - Initial release
+#>
+
+### Single Application
 $AppDeploymentName = "P2P Test Application - 300 MB Single File"
 
 ### static List of machines

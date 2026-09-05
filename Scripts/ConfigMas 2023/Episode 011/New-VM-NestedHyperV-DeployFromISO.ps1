@@ -1,4 +1,24 @@
-﻿# Script to create nested VM
+﻿<#
+.SYNOPSIS
+    Creates a nested Hyper-V virtual machine that boots from an ISO.
+.DESCRIPTION
+    Builds a Generation 2 virtual machine with nested virtualization enabled and a generous
+    CPU and memory allocation, for running a lab host inside a virtual machine.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-01-05 - Initial release
+#>
+
+# Script to create nested VM
 # Author: Johan Arwidmark
 # Twitter: @jarwidmark
 # LinkedIn: https://www.linkedin.com/in/jarwidmark

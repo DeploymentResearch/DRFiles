@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Exports ConfigMgr task sequences to XML files.
+.DESCRIPTION
+    Lists the task sequence packages in the site and writes the task sequence XML for each one
+    to an export folder.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 $SiteCode = "PS1"
 
 # List Task Sequences

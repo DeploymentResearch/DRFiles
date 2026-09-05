@@ -1,13 +1,21 @@
 ﻿<#
-    Name: TSVarsSafeDump.ps1
-    Version: 2.0
-    Author: Johan Schrewelius, Onevinn AB
-    Date: 2020-09-03
-    Command: powershell.exe -executionpolicy bypass -file TSVarsSafeDump.ps1
-    Usage:  Run in MEMCM Task Sequence to Dump TS-Varibles to disk ("_SMSTSLogPath").
-            Variables known to contain sensitive information will be hidden.
-    Config: List of variables to exclude, edit as needed:
-            $HideVariables = @('_OSDOAF','_SMSTSReserved','_SMSTSTaskSequence')
+.SYNOPSIS
+    Dumps task sequence variables to a log file, excluding sensitive ones.
+.DESCRIPTION
+    Enumerates the task sequence environment and writes the values to the task sequence log
+    path, skipping the reserved and password bearing variables.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Schrewelius, Onevinn AB
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 2.0.0
+
+    Change history:
+      2.0.0 - 2025-07-29 - Initial release
 #>
 
 # Config Start

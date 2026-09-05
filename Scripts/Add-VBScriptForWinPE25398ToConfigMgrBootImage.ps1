@@ -1,22 +1,23 @@
 ﻿<#
 .SYNOPSIS
-	Script to create add VBScript support to a ConfigMgr boot image based on WinPE build 25398
-	
+    Adds VBScript support to a ConfigMgr boot image based on WinPE build 25398.
 .DESCRIPTION
-    This script will inject downloaded FODs for VBScript and add VBScript support to a ConfigMgr WinPE build 25398
-
+    Injects the downloaded VBScript Feature on Demand packages into a mounted ConfigMgr boot
+    image, then updates the boot image on the distribution points.
 .EXAMPLE
-	.\New-AddVBScriptForWinPE25398ToConfigMgrBootImage.ps1 
-
+    .\New-AddVBScriptForWinPE25398ToConfigMgrBootImage.ps1
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    FileName:    New-AddVBScriptForWinPE25398ToConfigMgrBootImage.ps1
-	Author:      Johan Arwidmark
-    Contact:     @jarwidmarke
-    Created:     September 29, 2023
-    Updated:     September 29, 2023
-	
-    Version history:
-    1.0.0 - September 29, 2023 - Script created
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-10-03 - Initial release
 #>
 
 # Settings

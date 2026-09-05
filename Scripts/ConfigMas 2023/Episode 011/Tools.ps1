@@ -1,4 +1,24 @@
-﻿# Script to files to a VM via the Hyper-V VMBus 
+﻿<#
+.SYNOPSIS
+    Copies files into a Hyper-V virtual machine over the VMBus.
+.DESCRIPTION
+    Enables the Guest Service Interface, which is not on by default, and then copies the listed
+    files into the guest without needing network connectivity.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-01-05 - Initial release
+#>
+
+# Script to files to a VM via the Hyper-V VMBus 
 
 $VMName = "ROGUE-033"
 

@@ -1,26 +1,22 @@
 <#
 .SYNOPSIS
-  Invoke-PGCopyOSDLogs.ps1
-
+    Archives OSD log files and uploads them to a network share.
 .DESCRIPTION
-  A Pretty Good Copy OSD Logs Script for ConfigMgr (SCCM). The script will archive multiple OSD-related
-  log files into a zip archive and upload it to the specified shared folder.
-
-  Script uses the following task sequence variables:
-  SLShare: UNC Path to shared folder
-  LogCopyUsername: User name to connect to shared folder
-  LogCopyPassword: Password for the LogCopyUsername
-
+    Collects the ConfigMgr and Windows setup logs relevant to a deployment, packs them into a
+    zip archive, and copies the archive to the share defined by task sequence variables.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-  Version:        1.0
-  Author:         @jarwidmark
-  Creation Date:  05/01/2025
-  Purpose/Change: Initial script development
-  Credits:        Johan Schrewelius, Onevinn AB for Authenticate and ZipFiles functions
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Based on work by Johan Schrewelius, Onevinn
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-  Version history:
-  1.0.0 - 05/01/2025 - Initial script development
-
+    Change history:
+      1.0.0 - 2025-12-31 - Initial release
 #>
 
 

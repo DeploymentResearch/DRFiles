@@ -1,4 +1,24 @@
-﻿$Clients = @(
+﻿<#
+.SYNOPSIS
+    Runs StifleR client CPU benchmarking across a set of machines.
+.DESCRIPTION
+    Copies the helper scripts to each client, clears the caches, starts the package downloads,
+    samples CPU usage during the transfer, and collects the results centrally.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-07-27 - Initial release
+#>
+
+$Clients = @(
     "CHI-W10PEER-001" # Hyper-V VM
     "DELL-3120-001"
     "DELL-3300-001"

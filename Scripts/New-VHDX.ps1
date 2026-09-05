@@ -1,20 +1,21 @@
 <#
-Created:	 2013-12-16
-Version:	 1.0
-Author       Mikael Nystrom and Johan Arwidmark       
-Homepage:    http://www.deploymentfundamentals.com
+.SYNOPSIS
+    Creates a bootable VHDX file from a WIM file.
+.DESCRIPTION
+    Creates the VHDX, partitions it for UEFI with diskpart, applies the operating system image,
+    and configures the boot files.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Mikael Nystrom and Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the authors or DeploymentArtist.
-
-Author - Mikael Nystrom
-    Twitter: @mikael_nystrom
-    Blog   : http://deploymentbunny.com
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
 #>
 
 Param(

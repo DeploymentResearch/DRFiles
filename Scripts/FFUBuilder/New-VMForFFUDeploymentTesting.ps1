@@ -1,30 +1,20 @@
 <#
 .SYNOPSIS
-    Script to create a VM for FFU Deployment testing
-
+    Creates a Hyper-V virtual machine for FFU deployment testing.
 .DESCRIPTION
-    Requirements: Populated C:\FFUDevelopment folder built by the FFU project - https://github.com/rbalsleyMSFT/FFU
-
-    Credits (and thanks): Tim Welch - https://github.com/rbalsleyMSFT/FFU/discussions/185
-
+    Builds a Generation 2 virtual machine with a virtual TPM, configured to work with the
+    FFUDevelopment folder produced by the FFU project.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Credits: Tim Welch, and the FFU project by https://github.com/rbalsleyMSFT/FFU
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.0
-    Released: 2025-10-26
     Change history:
       1.0.0 - 2026-10-26 - Initial release
 #>

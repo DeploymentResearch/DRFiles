@@ -1,4 +1,24 @@
-﻿# Run Set-BranchCacheEventLogSize.ps1 on all DPs, sets the BranchCache operational log size to 20 MB
+﻿<#
+.SYNOPSIS
+    Sets the BranchCache operational log size on all distribution points.
+.DESCRIPTION
+    Copies the log sizing script to each distribution point and runs it remotely, so that the
+    BranchCache operational log is large enough to survive a busy deployment window.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-03-25 - Initial release
+#>
+
+# Run Set-BranchCacheEventLogSize.ps1 on all DPs, sets the BranchCache operational log size to 20 MB
 
 $HealthCheckPath  = "\\CM01\HealthCheck$"
 $ExportPath = "C:\Windows\Temp"

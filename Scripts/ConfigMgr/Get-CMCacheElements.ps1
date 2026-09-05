@@ -1,4 +1,24 @@
-﻿$UIResourceMgr = New-Object -ComObject UIResource.UIResourceMgr
+﻿<#
+.SYNOPSIS
+    Lists the contents of the ConfigMgr client cache.
+.DESCRIPTION
+    Reports the number of cache elements and their details using the UIResourceMgr COM object,
+    and exits early when the cache is empty.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2021-12-12 - Initial release
+#>
+
+$UIResourceMgr = New-Object -ComObject UIResource.UIResourceMgr
 $Cache = $UIResourceMgr.GetCacheInfo()
 $CacheElements = $Cache.GetCacheElements() 
 

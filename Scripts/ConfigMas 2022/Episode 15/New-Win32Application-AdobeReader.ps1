@@ -1,4 +1,25 @@
-﻿# Create a Win32 App in Microsoft Intune and assign to a device group in Intune
+﻿<#
+.SYNOPSIS
+    Creates an Adobe Reader Win32 application in Intune and assigns it to a device group.
+.DESCRIPTION
+    Packages the source folder into an intunewin file, creates the application with detection
+    and requirement rules, and assigns it to the specified group.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Uses the IntuneWin32App module by Nickolaj Andersen
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-15 - Initial release
+#>
+
+# Create a Win32 App in Microsoft Intune and assign to a device group in Intune
 # The script uses/requires the IntuneWin32App module from @nickolaj 
 #
 # Author: Johan Arwidmark

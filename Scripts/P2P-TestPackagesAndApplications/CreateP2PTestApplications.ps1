@@ -1,4 +1,24 @@
-﻿#
+﻿<#
+.SYNOPSIS
+    Creates peer to peer test applications in ConfigMgr.
+.DESCRIPTION
+    Creates one application per source subfolder, adds a script deployment type, moves them
+    into a console folder, and distributes the content to a distribution point group.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2021-06-25 - Initial release
+#>
+
+#
 # Written by Johan Arwidmark, @jarwidmark on Twitter
 #
 

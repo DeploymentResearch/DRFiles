@@ -1,20 +1,21 @@
 <#
+.SYNOPSIS
+    Installs ConfigMgr site server prerequisites on Windows Server 2019.
+.DESCRIPTION
+    Adds the IIS, BITS, RDC, and .NET Framework features required by a primary site server.
+    Requires internet access unless a source path is supplied, and the server reboots.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.0
 
-************************************************************************************************************************
-
-Created:	2015-03-01
-Version:	1.1
-
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the author or DeploymentArtist.
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-************************************************************************************************************************
-
+    Change history:
+      1.1.0 - 2018-04-15 - Initial release
 #>
 
 # Requires Internet Access, if not, use source

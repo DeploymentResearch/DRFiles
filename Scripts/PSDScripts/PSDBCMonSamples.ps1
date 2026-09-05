@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    BCMon samples for verifying BranchCache content availability with PSD.
+.DESCRIPTION
+    Shows how to confirm that a PSD file is present in the local BranchCache cache, and that
+    the PSD server has generated the publication hash for it.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 # BCMon.exe example to verify:
 # 1: That a file from PSD is available in the local BranchCache cache
 # 2: That the PSD server has generated the publication hash for the file

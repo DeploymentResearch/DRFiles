@@ -1,4 +1,24 @@
-﻿#
+﻿<#
+.SYNOPSIS
+    Creates peer to peer test packages in ConfigMgr.
+.DESCRIPTION
+    Creates one package per source subfolder with a program, moves them into a console folder,
+    and distributes the content to a distribution point group.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2021-10-22 - Initial release
+#>
+
+#
 # Written by Johan Arwidmark, @jarwidmark on Twitter
 #
 

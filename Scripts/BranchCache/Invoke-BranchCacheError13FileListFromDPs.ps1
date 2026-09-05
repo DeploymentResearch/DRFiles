@@ -1,4 +1,24 @@
-﻿# Run data collector on all DPs
+﻿<#
+.SYNOPSIS
+    Collects BranchCache event 13 file lists from all distribution points.
+.DESCRIPTION
+    Copies the data collector script to each distribution point, runs it remotely, gathers the
+    CSV results back to a central share, and combines them into one report.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-03-25 - Initial release
+#>
+
+# Run data collector on all DPs
 
 $HealthCheckPath  = "\\CM01\HealthCheck$"
 $DPCollectorResultsPath = "$HealthCheckPath\BranchCacheError13DPs"

@@ -1,4 +1,24 @@
-﻿# Simple test, should return with status code 200
+﻿<#
+.SYNOPSIS
+    Tests and reports on a Microsoft Connected Cache server.
+.DESCRIPTION
+    Runs the standard connectivity test against the cache node, then reads the cache status and
+    hit ratio. Also documents where the relevant log files live.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-10-14 - Initial release
+#>
+
+# Simple test, should return with status code 200
 Invoke-WebRequest -URI "http://dp01.corp.viamonstra.com/mscomtest/wuidt.gif" -Headers @{"Host"="b1.download.windowsupdate.com"}
 
 # MCC Log files

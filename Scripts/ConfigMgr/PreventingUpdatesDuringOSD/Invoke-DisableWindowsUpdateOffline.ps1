@@ -1,28 +1,19 @@
 ﻿<#
 .SYNOPSIS
-    Script that disables Windows Updates during the WinPE (offline) phase of ConfigMgr OSD
-    
+    Disables Windows Update during the WinPE offline phase of ConfigMgr OSD.
 .DESCRIPTION
-    Script that disables Windows Updates during the WinPE (offline) phase of ConfigMgr OSD
-
+    Writes the Windows Update policy values into the offline registry hive of the applied
+    operating system, so no updates are attempted before the task sequence finishes.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.0
-    Released: 2025-11-25
     Change history:
       1.0.0 - 2025-11-25 - Initial release
 #>

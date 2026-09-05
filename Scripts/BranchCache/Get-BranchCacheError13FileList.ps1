@@ -1,4 +1,24 @@
-﻿# Get all the event 13 from the BC event log and returns the URL of each file
+﻿<#
+.SYNOPSIS
+    Lists the files behind BranchCache event 13 errors on a single machine.
+.DESCRIPTION
+    Reads event ID 13 from the BranchCache operational log, extracts the URL of each affected
+    file, and exports the result to a CSV file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-03-25 - Initial release
+#>
+
+# Get all the event 13 from the BC event log and returns the URL of each file
 
 [cmdletbinding()]
 param(

@@ -1,4 +1,25 @@
-﻿# The script creates the SetupConfig.ini, PostOOBE.cmd, and PostOOBE.ps1 scripts used by Feature Updates via Intune
+﻿<#
+.SYNOPSIS
+    Remediation script that stages the feature update customisation files.
+.DESCRIPTION
+    Creates SetupConfig.ini, PostOOBE.cmd, and PostOOBE.ps1, which are the files Windows Setup
+    uses to customise a feature update delivered through Intune.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Export-IniFile function credits: Adam Gross
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-12-17 - Initial release
+#>
+
+# The script creates the SetupConfig.ini, PostOOBE.cmd, and PostOOBE.ps1 scripts used by Feature Updates via Intune
 # Creds to Adam Gross for Export-IniFile function...
 
 $FeatureUpdatePath = "C:\ProgramData\FeatureUpdate" # Main customization folder, drivers, scripts and logs goes here

@@ -1,22 +1,24 @@
 ﻿<#
-Created:	 2014-01-08
-Version:	 1.1
-Author       Mikael Nystrom and Johan Arwidmark       
-Homepage:    http://www.deploymentfundamentals.com
-Credits:     Brian Wilhite
+.SYNOPSIS
+    Checks whether a computer has a reboot pending.
+.DESCRIPTION
+    Queries the Component Based Servicing, Windows Update, and pending file rename registry
+    locations, and returns true when any of them indicate a pending reboot.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Mikael Nystrom and Johan Arwidmark / deploymentresearch.com
+    Credits: Brian Wilhite
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.0
 
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the authors or DeploymentArtist.
-
-Author - Mikael Nystrom
-    Twitter: @mikael_nystrom
-    Blog   : http://deploymentbunny.com
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
+    Change history:
+      1.1.0 - 2022-01-02 - Initial release
 #>
+
 
 Function Check-PendingReboot{
 

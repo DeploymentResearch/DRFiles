@@ -1,4 +1,24 @@
-﻿# Prereqs: 
+﻿<#
+.SYNOPSIS
+    Builds mass deployment test virtual machines across multiple Hyper-V hosts.
+.DESCRIPTION
+    Creates the boot media, then remotely creates and starts virtual machines on each host in
+    the list, importing each one into ConfigMgr as it goes.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-19 - Initial release
+#>
+
+# Prereqs: 
 # Hyper-V Console and PowerShell cmdlets
 # ConfigMgr Console
 

@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Generates a provisioning package for bulk Entra ID enrollment.
+.DESCRIPTION
+    Creates a bulk enrollment provisioning package using the Windows Configuration Designer
+    command line tools, with the package expiry and paths set from the variables at the top.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Original script by Michael Niehaus. Path, filename, and XML modifications by Johan Arwidmark.
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-08-17 - Initial release
+#>
+
 # -----------------------------------------------------------------------------
 # File: Generate-Entra-PPKG.ps1
 # Credits: Michael Niehaus

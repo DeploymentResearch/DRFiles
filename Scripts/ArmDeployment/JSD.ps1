@@ -1,4 +1,24 @@
-﻿# Jurassic Deployment Start Script 
+﻿<#
+.SYNOPSIS
+    Jurassic Deployment start script, a minimal WinPE deployment sequence.
+.DESCRIPTION
+    Partitions the disk for UEFI with diskpart, applies the operating system and driver package
+    WIM files with DISM, applies the unattend file, and configures the boot files.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-11-04 - Initial release
+#>
+
+# Jurassic Deployment Start Script 
 $OSImage = "W11-ARM64-22H2-Enterprise.wim"
 $DriverPackage = "WindowsDevKit2023.wim"
 $LocalCache = "W:\Cache"

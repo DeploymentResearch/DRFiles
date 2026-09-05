@@ -1,4 +1,24 @@
-﻿param (
+﻿<#
+.SYNOPSIS
+    Triggers a Microsoft Store app update cycle and waits for it to finish.
+.DESCRIPTION
+    Starts the Store update scan, waits the specified time, and reads the relevant event log
+    entries to confirm the update cycle completed.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-02-14 - Initial release
+#>
+
+param (
     [Parameter(Mandatory = $true)]
     [string]$WaitTime
    )

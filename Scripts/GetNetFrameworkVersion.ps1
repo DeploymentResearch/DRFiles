@@ -1,4 +1,24 @@
-﻿$Version = Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full' -recurse | 
+﻿<#
+.SYNOPSIS
+    Reports the installed .NET Framework version.
+.DESCRIPTION
+    Reads the release value from the NDP registry key and translates it into the matching .NET
+    Framework version number.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+$Version = Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full' -recurse | 
 Get-ItemProperty -name Release -EA 0 | 
 #Where { $_.PSChildName -match '^(?![SW])\p{L}'} |
 Select @{

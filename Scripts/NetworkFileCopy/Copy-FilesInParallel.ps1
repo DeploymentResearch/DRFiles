@@ -1,4 +1,24 @@
-﻿# Generate list of 10 lab machine names 
+﻿<#
+.SYNOPSIS
+    Copies files to many machines in parallel using background jobs.
+.DESCRIPTION
+    Starts one background job per target machine so the copies run concurrently, then collects
+    the results when all jobs complete.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-02-26 - Initial release
+#>
+
+# Generate list of 10 lab machine names 
 $LowNumber  = 1
 $HighNumber = 10
 $LabMachinePrefix = "ROGUE-" 

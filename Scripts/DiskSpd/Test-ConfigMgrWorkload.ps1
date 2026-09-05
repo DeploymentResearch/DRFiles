@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Benchmarks disk performance against a ConfigMgr style workload.
+.DESCRIPTION
+    Runs diskspd against every volume on the server with a read and write profile that
+    approximates ConfigMgr content library activity, and exports the results to CSV.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-04-11 - Initial release
+#>
+
 #
 # Get Diskspd.exe at https://aka.ms/diskspd
 #

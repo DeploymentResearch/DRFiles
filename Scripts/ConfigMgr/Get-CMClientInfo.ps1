@@ -1,4 +1,24 @@
-﻿$resman = new-object -com "UIResource.UIResourceMgr"; $cacheInfo = $resman.GetCacheInfo()
+﻿<#
+.SYNOPSIS
+    Reports ConfigMgr client cache size and free space.
+.DESCRIPTION
+    Reads total, free, and used cache size from the UIResourceMgr COM object and returns the
+    values in megabytes.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2021-03-10 - Initial release
+#>
+
+$resman = new-object -com "UIResource.UIResourceMgr"; $cacheInfo = $resman.GetCacheInfo()
 
 $ccmcachetotal = ($cacheinfo.TotalSize)/1024
 $ccmcachetotal = [math]::Round($ccmcachetotal,2)

@@ -1,4 +1,24 @@
-﻿# Generate list of 10 lab machine names 
+﻿<#
+.SYNOPSIS
+    Copies files to many machines using a fan-out tree.
+.DESCRIPTION
+    Copies the content to a first tier of machines, then has those machines copy on to the next
+    tier, which spreads the load instead of saturating a single source.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-02-26 - Initial release
+#>
+
+# Generate list of 10 lab machine names 
 $LowNumber  = 1
 $HighNumber = 10
 $LabMachinePrefix = "ROGUE-" 

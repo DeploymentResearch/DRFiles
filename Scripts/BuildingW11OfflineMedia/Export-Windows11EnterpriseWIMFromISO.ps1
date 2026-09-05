@@ -1,4 +1,24 @@
-﻿# Script to extract the Windows 11 Enterprise index from a Windows 11 media.
+﻿<#
+.SYNOPSIS
+    Extracts the Windows 11 Enterprise index from a Windows 11 ISO.
+.DESCRIPTION
+    Mounts the ISO, locates the Enterprise index in install.wim, and exports it to a standalone
+    WIM file for use when building offline media.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-07-28 - Initial release
+#>
+
+# Script to extract the Windows 11 Enterprise index from a Windows 11 media.
 # Update line 5 - 8 to match your environment
 
 # General parameteers

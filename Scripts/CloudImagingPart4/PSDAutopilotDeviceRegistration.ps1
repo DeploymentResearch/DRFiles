@@ -1,29 +1,19 @@
 ﻿<#
 .SYNOPSIS
-    Client-Side script for Cloud OS Deployment, Part 4
-    
+    Client-side script for Cloud OS Deployment, Part 4.
 .DESCRIPTION
-    Uploads Autopilot hardware hash, computer name, and Intune group info to a RestPS web service
-	Waits until the device is imported and assigned to an Autopilot profile
-
+    Uploads the Autopilot hardware hash, computer name, and Intune group information to a
+    RestPS web service, then waits until the device is imported and assigned to a profile.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    License: MIT
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.3
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.3
-    Released: 2025-11-16
     Change history:
       1.0.3 - 2025-11-16 - Updated to remove need for long running REST API calls (having client the poll update status instead)
       1.0.2 - 2025-10-01 - Updated to use new start loader

@@ -1,4 +1,24 @@
-﻿# Application Install Wrapper sample for MDT and ConfigMg
+﻿<#
+.SYNOPSIS
+    Application install wrapper for the Visual C++ 2019 redistributable.
+.DESCRIPTION
+    Sample wrapper for MDT and ConfigMgr. Detects the task sequence environment for logging,
+    falls back to a local log path, and runs the installer silently.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Application Install Wrapper sample for MDT and ConfigMg
 
 # Determine where to do the logging 
 try {

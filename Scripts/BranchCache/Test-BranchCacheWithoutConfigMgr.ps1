@@ -1,4 +1,24 @@
-﻿# Clear ConfigMgr Cache
+﻿<#
+.SYNOPSIS
+    Tests BranchCache end to end without involving ConfigMgr.
+.DESCRIPTION
+    Clears the ConfigMgr and BranchCache caches, configures the firewall, downloads content,
+    and reads the BranchCache event log to confirm that peer sourcing actually happened.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-02-25 - Initial release
+#>
+
+# Clear ConfigMgr Cache
 $UIResourceMgr = New-Object -ComObject UIResource.UIResourceMgr
 $Cache = $UIResourceMgr.GetCacheInfo()
 $CacheElements = $Cache.GetCacheElements() 

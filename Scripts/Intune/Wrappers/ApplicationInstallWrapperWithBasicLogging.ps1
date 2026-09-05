@@ -1,4 +1,24 @@
-﻿# Initialize
+﻿<#
+.SYNOPSIS
+    Application install wrapper with a simple file based log.
+.DESCRIPTION
+    Sample wrapper for Intune Win32 applications. Detects script folder, culture, and
+    architecture, writes a plain log file, then runs the installer.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-05-05 - Initial release
+#>
+
+# Initialize
 $ScriptDir = split-path -parent $MyInvocation.MyCommand.Path
 $ScriptName = split-path -leaf $MyInvocation.MyCommand.Path
 $Lang = (Get-Culture).Name

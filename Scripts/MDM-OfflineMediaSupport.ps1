@@ -1,4 +1,24 @@
-﻿# Create Task Sequence Environment Object 
+﻿<#
+.SYNOPSIS
+    Adds MDM offline media support during a ConfigMgr task sequence.
+.DESCRIPTION
+    Expands the offline media support archive, injects the required drivers into the offline
+    operating system with DISM, and logs to the task sequence log path.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Create Task Sequence Environment Object 
 $TSEnv = New-Object -ComObject "Microsoft.SMS.TSEnvironment"
 
 # Set Log file

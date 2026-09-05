@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Installs the Microsoft Intune client software in a reference image.
+.DESCRIPTION
+    Copies the installer locally, runs it with the required arguments, and logs the result with
+    a transcript.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 #----------------------------------------------------------------------------
 # Purpose: Used to install the Microsoft Intune Client Software in a reference image
 # 

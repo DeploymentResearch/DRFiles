@@ -1,4 +1,24 @@
-﻿# Script to check for SetupConfig.ini file (with the correct version) 
+﻿<#
+.SYNOPSIS
+    Discovery script that checks for the expected SetupConfig.ini file.
+.DESCRIPTION
+    Verifies that SetupConfig.ini exists with the correct version marker, so the Intune
+    remediation only runs on devices that need it.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-12-01 - Initial release
+#>
+
+# Script to check for SetupConfig.ini file (with the correct version) 
 
 $SetupConfigPath = "C:\Users\Default\AppData\Local\Microsoft\Windows\WSUS\SetupConfig.ini"
 $CompliantVersion = "1.2"

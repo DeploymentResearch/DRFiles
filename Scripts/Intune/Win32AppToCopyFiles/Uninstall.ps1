@@ -1,3 +1,22 @@
+<#
+.SYNOPSIS
+    Uninstall script for an Intune Win32 app that copies a tools folder.
+.DESCRIPTION
+    Removes the target folder created by the install script and writes a log file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-02 - Initial release
+#>
+
 $LogFile = "C:\Windows\Temp\ViaMonstraTools_Uninstall.log"
 $TargetFolder = "C:\Tools"
 

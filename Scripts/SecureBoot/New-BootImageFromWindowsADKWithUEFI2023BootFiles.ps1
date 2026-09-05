@@ -1,22 +1,23 @@
 ﻿<#
 .SYNOPSIS
-	Script to create a boot image from Windows ADK, and apply LCU to reach specific patch-level
-	
+    Creates a boot image from the Windows ADK with the 2023 signed UEFI boot files.
 .DESCRIPTION
-    Script to create a boot image from Windows ADK, and apply LCU to reach specific patch-level
-
+    Builds the WinPE image, applies a cumulative update to reach the required patch level, and
+    replaces the boot files with the UEFI CA 2023 signed versions in all three locations.
 .EXAMPLE
-	.\New-BootImageFromWindowsADKWithUEFI2023BootFiles.ps1
-
+    .\New-BootImageFromWindowsADKWithUEFI2023BootFiles.ps1
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-	Author:      Johan Arwidmark
-    Contact:     @jarwidmark
-    Created:     May 1, 2026
-    Updated:     May 1, 2026
-	
-    Version history:
-    1.0.0 - May 1, 2026 - Initital version
-    1.0.1 - July 21, 2026 - Fixed a bug in the secure boot command
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-07-28 - Initial release
 #>
 
 # Settings

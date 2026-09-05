@@ -1,22 +1,24 @@
 ﻿<#
 .SYNOPSIS
-    Sample Prestart script to set computer name
+    Sample PSD prestart script that sets the computer name.
 .DESCRIPTION
-    Sample Prestart script to set computer name
+    Reads the MAC addresses of the device and sets the computer name from a lookup, before the
+    task sequence selection dialog appears.
 .LINK
-    https://github.com/FriendsOfMDT/PSD
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-          FileName: PSDSetComputerName.ps1
-          Solution: PowerShell Deployment for MDT
-          Author: PSD Development Team
-          Contact: @Mikael_Nystrom , @jarwidmark
-          Primary: @jarwidmark 
-          Created: 
-          Modified: 2021-09-17
-          Version: 1.0.1
+    Author:  PSD Development Team
+    Credits: PSD Development Team
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.1
 
-.Example
+    Change history:
+      1.0.1 - 2022-01-02 - Initial release
 #>
+
 param (
 
 )

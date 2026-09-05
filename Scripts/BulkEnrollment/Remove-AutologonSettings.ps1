@@ -1,4 +1,24 @@
-﻿# -------------------------------------------------------------------------------------------
+﻿<#
+.SYNOPSIS
+    Removes autologon settings from a device.
+.DESCRIPTION
+    Clears the AutoAdminLogon, DefaultUserName, DefaultPassword, and related Winlogon registry
+    values left behind after an automated build.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-08-18 - Initial release
+#>
+
+# -------------------------------------------------------------------------------------------
 # File: Remove-AutologonSettings.ps1
 # Credits: Johan Arwidmark (@jarwidmark)
 #

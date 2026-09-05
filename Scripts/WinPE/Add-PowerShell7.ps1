@@ -1,32 +1,24 @@
 <#
 .SYNOPSIS
-    Sample script for Deployment Research, adds PowerShell 7 to WinPE
-
+    Adds PowerShell 7 to a WinPE boot image.
 .DESCRIPTION
-    Sample script for Deployment Research, adds PowerShell 7 to WinPE
-
+    Builds the WinPE image from the Windows ADK, adds the optional components, unpacks a
+    PowerShell 7 zip into the image, sets the environment paths, and generates a bootable ISO.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    License: MIT
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.1
 
-.DISCLAIMER
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.
-
-.VERSION
-    1.0.1
-    Released: 2026-01-04
     Change history:
-        1.0.0 - 2022-07-01 - Initial release
-        1.0.1 - 2026-01-04 - Cleanup, and verified support for PowerShell 7.4 (LTS release) 
+      1.0.1 - 2026-01-04 - Cleanup, and verified support for PowerShell 7.4 (LTS release)
+      1.0.0 - 2022-07-01 - Initial release
 #>
+
 #Requires -RunAsAdministrator
 
 # Settings

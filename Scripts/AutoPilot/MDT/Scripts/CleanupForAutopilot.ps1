@@ -1,19 +1,23 @@
 ﻿<#
-.Synopsis
-    This script prepares for Windows Autopilot
-    
-.Description
-    This script was written by Johan Arwidmark @jarwidmark
-
-.NOTES
-          FileName: CleanupForAutopilot.ps1
-          Contact: @jarwidmark
-          Created: October 21, 2023
-
-          Version - 1.0 - Initial Version
-
+.SYNOPSIS
+    Removes MDT deployment traces before handing a device over to Autopilot.
+.DESCRIPTION
+    Cleans up the MDT folders, files, and registry values left behind by a Lite Touch
+    deployment so the device can complete Autopilot enrollment cleanly.
 .EXAMPLE
-	.\CleanupForAutopilot.ps1
+    .\CleanupForAutopilot.ps1
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-10-22 - Initial release
 #>
 
 #Requires -RunAsAdministrator

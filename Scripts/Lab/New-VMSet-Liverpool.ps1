@@ -1,4 +1,24 @@
-﻿$VMLocation = "E:\VMs"
+﻿<#
+.SYNOPSIS
+    Creates a numbered set of lab virtual machines on the Liverpool network.
+.DESCRIPTION
+    Builds Generation 1 or Generation 2 virtual machines configured for PXE or ISO boot,
+    imports them into ConfigMgr, and starts them in controlled waves.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-04-12 - Initial release
+#>
+
+$VMLocation = "E:\VMs"
 $VMNetwork = "Liverpool"
 $NumberOfVMs = '1'
 $VMType = "GEN2-CD" # Three options: GEN2-PXE, GEN2-CD, or GEN1-PXE

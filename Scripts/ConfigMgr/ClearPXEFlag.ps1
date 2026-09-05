@@ -1,4 +1,24 @@
-﻿# Global Settings
+﻿<#
+.SYNOPSIS
+    Clears the last PXE advertisement flag for devices in ConfigMgr.
+.DESCRIPTION
+    Finds devices with an active PXE flag and clears the deployment, so the machines will PXE
+    boot into the task sequence again.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-06-16 - Initial release
+#>
+
+# Global Settings
 $SiteCode = "PS1" 
 $SiteServer = "cm01.corp.viamonstra.com" 
 

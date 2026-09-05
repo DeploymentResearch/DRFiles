@@ -1,4 +1,24 @@
-﻿# Requires the script to be run under an administrative account context.
+﻿<#
+.SYNOPSIS
+    Creates a WinPE 11 boot image based on build 26100.
+.DESCRIPTION
+    Builds the image from the Windows ADK, adds the WinPE optional components including WMI,
+    PowerShell, DISM cmdlets, and Secure Boot cmdlets, and saves the result.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-06-26 - Initial release
+#>
+
+# Requires the script to be run under an administrative account context.
 #Requires -RunAsAdministrator
 
 # Location for updated optional components for WinPE

@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Extracts and injects drivers from a WIM file during ConfigMgr OSD.
+.DESCRIPTION
+    Mounts a driver WIM file, injects the drivers into the offline operating system with DISM,
+    and logs to the task sequence log path.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-10-31 - Initial release
+#>
+
 # Create Task Sequence Environment Object 
 $TSEnv = New-Object -ComObject "Microsoft.SMS.TSEnvironment"
 

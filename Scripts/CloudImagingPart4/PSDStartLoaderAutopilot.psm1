@@ -1,32 +1,27 @@
 <#
 .SYNOPSIS
-    Module for the PSD Start to Load a UI
+    Module for the PSD Start Loader user interface, with Autopilot additions.
 .DESCRIPTION
-    Module to replace the PSDstart BGInfo wallpaper with a WPF UI
-.LINK
-    https://github.com/FriendsOfMDT/PSD
-
-.NOTES
-        FileName: PSDStartLoader.psm1
-        Solution: PowerShell Deployment for MDT
-        Author: PSD Development Team
-        Contact: @PowershellCrack
-        Primary: @PowershellCrack
-        Created: 2022-02-21
-        Modified: 2025-10-01
-        Version: 1.1.2
-
-        SEE PSDSTARTLOADER.MD
-
-        NOTE: Modified by @jarwidmark for Autopilot use in Specialize pass of Windows.
-		Line 2586 was modified with Visibility="Hidden" for the Debug Mode button
-
+    Replaces the PSDStart BGInfo wallpaper with a WPF user interface, and adds the elements
+    used by the Cloud OS Deployment Autopilot registration flow.
 .EXAMPLE
     $PSDStartLoader = New-PSDStartLoader -LogoImgPath 'D:\DeploymentShares\PSDRestartUIv2\Scripts\powershell.png' -MenuPosition VerticalRight -FullScreen
     Update-PSDStartLoaderProgressBar -Runspace $PSDStartLoader -Status "Loading core PowerShell modules..." -Indeterminate
     Close-PSDStartLoader -Runspace $PSDStartLoader
-#>
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  PSD Development Team
+    Credits: PSD Development Team, @PowershellCrack
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.2
 
+    Change history:
+      1.1.2 - 2025-10-26 - Initial release
+#>
 
 #region FUNCTION: Check if running in ISE
 Function Test-PSDStartLoaderIsISE {

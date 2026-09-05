@@ -1,24 +1,21 @@
 <#
 .SYNOPSIS
-    Extract and inject drivers
-
+    Extracts and injects drivers during the WinPE phase of ConfigMgr OSD.
 .DESCRIPTION
-    Extract and inject drivers during the WinPE phase. Script intended for ConfigMgr OSD
-
+    Mounts a driver WIM file, injects the drivers into the offline operating system with DISM,
+    and logs to the task sequence log path. Intended for ARM64 deployments.
 .LINK
-    https://deploymentresearch.com
-
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    FileName: ExtractAndStageDrivers.ps1
-    Solution: ConfigMgr OSD for ARM64
-    Author: Johan Arwidmark
-    Contact: @jarwidmark on X (Twitter) or https://www.linkedin.com/in/jarwidmark
-    Created: 4/30/2024
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-    Version history:
-    1.0.0 - (4/30/2024) - Script created
-
-.EXAMPLE
+    Change history:
+      1.0.0 - 2024-04-30 - Initial release
 #>
 
 # Create Task Sequence Environment Object 

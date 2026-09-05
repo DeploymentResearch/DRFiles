@@ -1,125 +1,23 @@
 <#
 .SYNOPSIS
-    Enumerates applications in an MDT deployment share, lets you review and select
-    them in a UI, and creates the corresponding Application content items in DeployR.
-
+    Migrates MDT applications into DeployR as Application content items.
 .DESCRIPTION
-    The script reads Control\Applications.xml directly from the MDT deployment share,
-    so MDT itself does not need to be installed and the MDT PowerShell snap-in is not
-    required. Each application is analysed and classified:
-
-        Ready    The install command line is self contained and the source folder
-                 exists, so it can be created in DeployR as is.
-        Review   The application can be created, but something needs a human decision
-                 (MDT script tokens in the command line, dependencies, no source files,
-                 the application is disabled in MDT, and so on).
-        Blocked  There is no sensible one to one mapping. Application bundles fall in
-                 this category because DeployR models a bundle as a task sequence step
-                 that installs a list of applications, not as a content item.
-
-    Everything can be edited in the grid before creation. The DeployR name, version
-    and installation command line columns are all editable.
-
-    Creation in DeployR uses the documented pattern:
-
-        New-DeployRContentItem -Type Folder -Purpose Application
-        New-DeployRContentItemVersion -ContentItemId <id> -SourceFolder <path>
-                                      -InstallationCommandLine <cmd>
-
-    The new version is then set to Active with Set-DeployRMetadata, since a version
-    is not Active when it is created and an inactive version will not deploy.
-
-.PARAMETER DeploymentShare
-    Path to the MDT deployment share root, for example D:\MDTProduction or
-    \\MDT01\DeploymentShare$. The script expects Control\Applications.xml below it.
-
-.PARAMETER ShareCredential
-    Credential used to reach a remote MDT deployment share over UNC. The script
-    establishes a Windows authenticated session to the share with WNetAddConnection2,
-    which is what "net use" does, so the path stays a UNC path for every caller
-    including the DeployR module. No drive letter is mapped. The session is torn
-    down when the window closes.
-
-    Omit this and the script uses your current Windows identity, which is fine when
-    you already have access.
-
-.PARAMETER DeployRUrl
-    DeployR server URL, for example https://deployr01.corp.viamonstra.com:7281.
-    Leave this out and the field is prepopulated with the local server's fully
-    qualified name in that form, which is what you want when running on the DeployR
-    server itself. A bare host name is accepted and normalised: type deployr01 and
-    you get https://deployr01:7281.
-
-.PARAMETER DeployRPort
-    Port used when building the default URL. Defaults to 7281.
-
-.PARAMETER Passcode
-    Passcode used by Connect-DeployR. If omitted you can type it in the UI.
-
-.PARAMETER DeployRModulePath
-    Folder holding the DeployR.Utility module, or a direct path to the .psd1.
-    Normally leave this out. The script is intended to run on the DeployR server,
-    where the module is always installed, so it loads automatically at startup from
-    the standard install locations and shows the version in the UI. Use this only to
-    point at a non standard location.
-
-.PARAMETER SourcesRoot
-    Local folder that content is copied into before the DeployR content item is
-    created, for example D:\DeployRSources\Applications. This is not optional. Every
-    application is copied to <SourcesRoot>\<DeployR name>\<version>, which matches
-    the layout used in the 2Pint documentation, and the content item is always built
-    from that local copy rather than from the MDT share.
-
-    The result is a clean local source tree you can maintain going forward, and an
-    MDT share you can decommission afterwards without breaking DeployR.
-
-    Leave this out and the field is prefilled with a suggestion based on the fixed
-    drive with the most free space.
-
-.PARAMETER ReportPath
-    Default path offered when exporting the analysis to CSV.
-
-.PARAMETER SkipSizeCalculation
-    Skips the recursive size and file count calculation for each application source
-    folder. Useful when the deployment share is remote and slow.
-
+    Reads Control\Applications.xml directly from the MDT deployment share, so MDT itself does
+    not need to be installed. Presents the applications in a UI for review before importing.
 .EXAMPLE
     .\Convert-MDTAppsToDeployR.ps1 -DeploymentShare D:\MDTProduction
-
-.EXAMPLE
-    .\Convert-MDTAppsToDeployR.ps1 -DeploymentShare \\MDT01\DeploymentShare$ -Passcode 'P@ssw0rd' -SkipSizeCalculation
-
-.EXAMPLE
-    .\Convert-MDTAppsToDeployR.ps1 -DeploymentShare \\MDT01\DeploymentShare$ `
-                                   -ShareCredential (Get-Credential VIAMONSTRA\svc-mdt) `
-                                   -DeployRUrl 'https://deployr01.corp.viamonstra.com:7281'
-
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    Author: Johan Arwidmark / deploymentresearch.com
-    Twitter (X): @jarwidmark
-    License: MIT
-    LinkedIn: https://www.linkedin.com/in/jarwidmark
-    Source:  https://github.com/DeploymentResearch/DRFiles
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-    Requires: PowerShell 7 (DeployR.Utility requirement), Windows with the .NET
-              Desktop runtime for WPF, and STA. The script relaunches itself in STA
-              if it detects an MTA apartment.
-
-    Run this on the DeployR server. The DeployR.Utility module is installed there
-    already, so it loads automatically at startup and the version is shown in the
-    UI. The account needs read access to the MDT deployment share and write access
-    in DeployR.
-
-    Analysis and CSV export work without a DeployR connection, so you can survey a
-    customer share before touching anything.
-
-    DISCLAIMER: 
-    This script is provided "as is" without warranty of any kind, express or implied.
-    Use at your own risk — the author and DeploymentResearch assume no responsibility for any
-    issues, damages, or data loss resulting from its use or modification.
-
-    This script is shared in the spirit of community learning and improvement.
-    You are welcome to adapt and redistribute it under the terms of the MIT License.    
+    Change history:
+      1.0.0 - 2026-08-24 - Initial release
 #>
 
 #Requires -Version 7.0

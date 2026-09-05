@@ -1,4 +1,24 @@
-﻿#$VMList = CreateMultipleVMs -VMNamePrefix "TEST2" -HyperVHostID "C1" -NumberOfVMs 3 -VMType "GEN2-PXE"
+﻿<#
+.SYNOPSIS
+    Creates multiple Hyper-V virtual machines for batch deployment testing.
+.DESCRIPTION
+    Builds a numbered set of virtual machines from a name prefix, in Generation 1 or
+    Generation 2 form, configured either for PXE boot or to boot from an ISO.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+#$VMList = CreateMultipleVMs -VMNamePrefix "TEST2" -HyperVHostID "C1" -NumberOfVMs 3 -VMType "GEN2-PXE"
 
 #Requires -RunAsAdministrator
 [CmdletBinding(DefaultParameterSetName='None')]

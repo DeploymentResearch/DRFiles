@@ -1,33 +1,22 @@
 ﻿<#
 .SYNOPSIS
-  This script collects useful health information on distribution points. 
-
+    Collects health information from a single ConfigMgr distribution point.
 .DESCRIPTION
-  This script retrieves information on distribution points into a .CSV file.
-  The result of this script produces a CSV that is stored in a network share. There a consolidation script is executed to merge all of the CSV's together. The script uses a path variable 
-  called "ExportPath" to export all of the needed infromation.
-  
+    Gathers content library, disk, BranchCache, and IIS details on the local distribution point
+    and exports the result to a CSV file on a network share.
 .LINK
-  https://P2intSoftware.com
-
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-          FileName: DPInfo.ps1
-          Contact: @2PintSoftware
-          Created: 2019-07-11
-          Modified: 2019-07-11
+    Author:  2Pint Software health check series
+    Credits: Original 2Pint Software health check series
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-          Version - v1.0.0 - (2019-07-11)
-            - Updated to use hash table structure
-            - Updated to fix the gateway information
-            - updated to fix the DNS to use the .NET class to gather the info
-
-.PARAMETER EXPORTPATH
-    The export path variable is required and determines WHERE the content will go. If you would like to remove the parameter it is recommended that you instead change mandatory to FALSE and set the default value of ExportPath
-    instead. 
-
- .Example
-  .\DPInfo.PS1 -ExportPath "\\ServerName.DomainName.Com\DPInfo"
-
+    Change history:
+      1.0.0 - 2019-07-11 - Updated to use hash table structure
 #>
 
 [cmdletbinding()]

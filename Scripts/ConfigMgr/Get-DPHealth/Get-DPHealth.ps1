@@ -1,34 +1,24 @@
 ﻿<#
 .SYNOPSIS
-  This script collects useful health information on multiple distribution points. 
-
+    Collects health information from multiple ConfigMgr distribution points.
 .DESCRIPTION
-  This script copies and executes DPInfo.PS1 to each server in a list of DPs
-  Each DP will return the resulting .CSV file to the folder \DPs
-  Then once all DPs complete the script run - the resulting .CSV are combined into a single CSV in the /Results folder
-
-  
+    Copies DPInfo.ps1 to each distribution point in the list, runs it remotely, and combines the
+    returned CSV files into a single summary report.
 .LINK
-  https://P2intSoftware.com
-
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-          FileName: DPInfo.ps1
-          Contact: @2PintSoftware
-          Created: 2019-07-11
-          Modified: 2019-07-11
+    Author:  2Pint Software health check series
+    Credits: Original 2Pint Software health check series
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-          Version - v1.0.0 - (2019-07-11)
-.USAGE
-        Requires folder structure as follows:
-        \DPInfo - shared as DPInfo
-        \DPInfo\DPs
-        \DPInfo\Results
-        \DPInfo\Scripts
-
- .Example
-  .\Get-DPHealth.PS1 
-
+    Change history:
+      1.0.0 - 2019-11-20 - Initial release
 #>
+
 # Runs DPInfo.ps1 on all listed DPs
 
 $HealthCheckPath  = "\\cm02\DPInfo"

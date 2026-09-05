@@ -1,4 +1,24 @@
-﻿# Requires the script to be run under an administrative account context.
+﻿<#
+.SYNOPSIS
+    Adds extra tools to a ConfigMgr boot image.
+.DESCRIPTION
+    Mounts the boot image WIM, copies the tool files into it, dismounts with changes saved, and
+    updates the boot image on the distribution points.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-12-31 - Initial release
+#>
+
+# Requires the script to be run under an administrative account context.
 #Requires -RunAsAdministrator
 
 $BootImageName = "Zero Touch WinPE 11 x64"

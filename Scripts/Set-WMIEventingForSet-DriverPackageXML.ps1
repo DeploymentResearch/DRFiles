@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Registers WMI eventing to run the driver package XML update automatically.
+.DESCRIPTION
+    Creates the WMI event filter, consumer, and binding so the driver package XML is rewritten
+    whenever a relevant ConfigMgr package status change occurs.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Matthew Teegarden
+    Credits: Original script by Matthew Teegarden
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 # Name:         Get-DriverPackage
 # Description:  Gets the driver package ID for download during a Task Sequence
 # Author:       Matthew Teegarden

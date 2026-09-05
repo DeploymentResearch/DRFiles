@@ -1,21 +1,22 @@
 ﻿<#
-    Name: Gather.ps1
-    Actual version: 1.0.7
-    Author: Johan Schrewelius, Onevinn AB
-    Date: 2018-10-17 v. 1.0.0
-    Command: powershell.exe -executionpolicy bypass -file Gather.ps1 [-debug]
-    Usage: Run in SCCM Task Sequence as lightweight replacement for MDT Gather Step
-    Remark: Creates and sets a limited number of MDT Task Sequence variables, the most commonly used - subjectiveley
-    Updated by Sassan Fanai, Onevinn: Added switch parameter and logic to handle Lenovo models.
-    2018-12-24 v. 1.0.1: Added more variables and debug switch, aligned variable names with MDT.
-    2019-01-09 v. 1.0.2: Protected OSDComputerName from being overwritten if already set.
-    2019-01-27 v. 1.0.3: Added method for checking bitlocker status and encryption method.
-    2020-04-13 v. 1.0.4: Additional variables when executed in Full OS: OsLocale, WindowsInstallationType, WindowsProductName, TimeZone. 
-                         Added desktop chassis type "35".
-    2023-04-09 v. 1.0.5: Added variable 'SystemSKUNumber' (According to advice from Mike Terrill)
-    2023-11-21 - GARY BLOK - Added UBR for the OS on C:\
-    2023-15-12 v. 1.0.7: Various bug fixes to prevent error during TS
-    2024-02-28 - GARY BLOK - Adding MachineMatchID - a unique idea used to match devices to driver packs #MMS2024
+.SYNOPSIS
+    PowerShell replacement for the MDT gather step.
+.DESCRIPTION
+    Collects hardware, BIOS, operating system, chassis, and network information into task
+    sequence style variables, including the make and model alias values used for driver matching.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Schrewelius, Onevinn AB
+    Credits: Adapted for use alongside the DeploymentResearch script library
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-07-29 - Initial release
 #>
 
 param (

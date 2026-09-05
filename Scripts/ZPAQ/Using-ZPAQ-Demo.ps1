@@ -1,4 +1,24 @@
-﻿# Folder to archive
+﻿<#
+.SYNOPSIS
+    Compares ZPAQ and 7-Zip compression on the same source folder.
+.DESCRIPTION
+    Creates an archive with each tool, measures how long the operation takes and how large the
+    result is, so the trade-off between compression ratio and time is visible.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-08-27 - Initial release
+#>
+
+# Folder to archive
 $BackupPath = "G:\Demo\VMs"
 
 # Create a Zip Archive - Normal compression and Solid

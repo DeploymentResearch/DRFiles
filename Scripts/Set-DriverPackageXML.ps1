@@ -1,4 +1,25 @@
-﻿# Name:         Set-DriverPackageXML
+﻿<#
+.SYNOPSIS
+    Updates the driver package XML file when a package status changes.
+.DESCRIPTION
+    Runs from a ConfigMgr status filter rule and rewrites the driver package XML used by the
+    driver matching logic whenever a package is created, updated, or removed.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Matthew Teegarden
+    Credits: Original script by Matthew Teegarden
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Name:         Set-DriverPackageXML
 # Description:  updates the DriverPackage XML file whenever a package status changes according to Satatus Filter Rule Set-DriverPackageXML
 # Author:       Matthew Teegarden
 	

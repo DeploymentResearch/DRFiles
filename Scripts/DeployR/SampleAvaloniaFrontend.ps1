@@ -1,29 +1,21 @@
 <#
 .SYNOPSIS
-    Prompts for a computer name during OSD using Avalonia, hosted directly in PowerShell.
-
+    Prompts for a computer name during OSD using Avalonia, hosted in PowerShell.
 .DESCRIPTION
-    Avalonia replacement for the WPF version. Avoids the Microsoft.WindowsDesktop.App
-    framework reference entirely, so it runs in any .NET host, and has no STA requirement.
+    Avalonia replacement for the WPF version. Avoids the Microsoft.WindowsDesktop.App framework
+    reference entirely, so it runs in any .NET host and has no STA requirement.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-    Runs in both a WinPE boot image and a Linux boot image. The windowing backend and
-    the rendering options are selected at runtime based on the platform.
-
-    Avalonia assemblies are loaded from -AvaloniaPath at runtime. XAML is parsed at
-    runtime via AvaloniaRuntimeXamlLoader, so nothing here is precompiled.
-
-    The accepted name is written to -OutFile and to stdout.
-
-.PARAMETER AvaloniaPath
-    Folder containing the Avalonia managed DLLs and their native dependencies.
-
-.PARAMETER OutFile
-    File to receive the accepted computer name.
-
-.EXITCODES
-    0   Name accepted, written to OutFile
-    1   User cancelled or closed the window
-    2   Avalonia failed to initialise, or the UI failed to build
+    Change history:
+      1.0.0 - 2026-09-01 - Initial release
 #>
 
 [CmdletBinding()]

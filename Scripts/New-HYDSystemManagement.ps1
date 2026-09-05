@@ -1,25 +1,22 @@
 <#
+.SYNOPSIS
+    Creates the System Management container in Active Directory for ConfigMgr.
+.DESCRIPTION
+    Creates the container under the domain System container if it does not exist, and grants
+    the site server full control, which ConfigMgr needs for site publishing.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Original ACL code snippet by Michael Niehaus, @mniehaus
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.0
 
-************************************************************************************************************************
-
-Created:	2015-03-01
-Version:	1.1
-
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the author or DeploymentArtist.
-
-Credits: 
-Original ACL code snippet by Michael Niehaus (@mniehaus)
-Additional ACL updates by Olaf Gradin (@gradindotcom)
-http://blogs.technet.com/b/mniehaus/archive/2012/01/05/creating-the-configmgr-system-management-container-with-powershell.aspx
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-************************************************************************************************************************
-
+    Change history:
+      1.1.0 - 2026-08-06 - Initial release
 #>
 
 Param(

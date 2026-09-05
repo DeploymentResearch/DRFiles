@@ -1,4 +1,24 @@
-﻿# Setting variables for new and old admin accounts.
+﻿<#
+.SYNOPSIS
+    Renames and replaces the local administrator account.
+.DESCRIPTION
+    Renames the existing local administrator account, creates a replacement account with a new
+    name and password, and adds it to the local Administrators group. Logs to C:\Windows\Temp.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-09-08 - Initial release
+#>
+
+# Setting variables for new and old admin accounts.
 $OldAdminName = "Alpha"
 $NewAdminName = "Beta"
 $Password = ConvertTo-SecureString "P@ssw0rd" -AsPlainText -Force

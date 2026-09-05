@@ -1,4 +1,24 @@
-﻿$SiteServer = "cm01.corp.viamonstra.com"
+﻿<#
+.SYNOPSIS
+    Builds a pre-cache task sequence from an existing deployment task sequence.
+.DESCRIPTION
+    Reads the content referenced by the source task sequence and generates a new task sequence
+    containing only Download Package Content steps, for pre-caching before a deployment window.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-12-11 - Initial release
+#>
+
+$SiteServer = "cm01.corp.viamonstra.com"
 $SiteCode = "PS1"
 $DatabaseServer= "cm01.corp.viamonstra.com"
 $Database = "CM_PS1"

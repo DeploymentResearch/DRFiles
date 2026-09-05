@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Queries ConfigMgr site status messages for a given period.
+.DESCRIPTION
+    Raises the query result maximum and retrieves status messages within the viewing period,
+    filtered by message ID, for health check reporting.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
 # Increase Query Maximum (default is 1000)
 # Set-CMQueryResultMaximum -Maximum 5000
 # $Date = "2015-01-16"

@@ -1,26 +1,26 @@
 ﻿<#
-.Synopsis
-    Script to Customize Johan Arwidmarks Hydration kit for ConfigMgr
+.SYNOPSIS
+    Customises a hydration kit for a specific lab environment.
 .DESCRIPTION
-    Created: 2017-04-31
-    Version: 1.0
-
-    Author : Matt Benninge
-    Twitter: @matbg
-
-    Disclaimer: This script is provided "AS IS" with no warranties, confers no rights and 
-    is not supported by the author or DeploymentArtist..
-
-    This version is only tested with the following Hydration Kit:
-    http://deploymentresearch.com/Research/Post/580/Hydration-Kit-For-Windows-Server-2016-and-ConfigMgr-Current-Technical-Preview-Branch
-
-    This should be used before the Hydration Kit has been run and directly on the source files.
-
-    Uncomment any value that you do not whish to be customized and that value will be skipped.
-
+    Rewrites the paths, subnets, and naming inside an unpacked hydration kit so the kit builds
+    against the target deployment share and drive layout.
 .EXAMPLE
     NA
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Matt Benninge, @matbg
+    Credits: Original script by Matt Benninge, @matbg
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
 #>
+
 #Requires -RunAsAdministrator 
 #Requires -Version 3
 

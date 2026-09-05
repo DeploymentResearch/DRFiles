@@ -1,4 +1,24 @@
-﻿#
+﻿<#
+.SYNOPSIS
+    Triggers installation of available ConfigMgr packages on a client.
+.DESCRIPTION
+    Clears the BITS event log, then starts the listed packages and programs so download
+    behaviour can be measured from a known state. A user must be logged on.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+#
 # Note: A user must be logged on for the script to work.
 # 
 

@@ -1,4 +1,24 @@
-﻿$VMLocation = "E:\VMs"
+﻿<#
+.SYNOPSIS
+    Creates a Hyper-V virtual machine that boots from MDT Lite Touch media.
+.DESCRIPTION
+    Builds a Generation 2 virtual machine configured to boot from the LiteTouchMedia ISO, for
+    demonstrating media based deployments.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-15 - Initial release
+#>
+
+$VMLocation = "E:\VMs"
 $VMISO = "D:\ISO\LiteTouchMedia.iso"
 $VMNetwork = "Stockholm"
 

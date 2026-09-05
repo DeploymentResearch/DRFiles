@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Autopilot automation samples using the legacy AzureAD and WindowsAutopilotIntune modules.
+.DESCRIPTION
+    Reference snippets for connecting to Intune, listing Autopilot deployment profiles,
+    exporting a profile to JSON, and importing devices from a CSV file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
 # No registration scenario (Windows 10 v1809 or above)
 Install-Module AzureAD -Force
 Install-module WindowsAutopilotIntune -Force

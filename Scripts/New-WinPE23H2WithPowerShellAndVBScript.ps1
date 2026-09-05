@@ -1,22 +1,23 @@
 ﻿<#
 .SYNOPSIS
-	Script to create a WinPE 25398 incuding VBScript Support
-	
+    Creates a WinPE 23H2 boot image with PowerShell and VBScript support.
 .DESCRIPTION
-    This script will inject downloaded FODs for VBScript while creating a WinPE media that also includes PowerShell
-
+    Builds the image from the Windows ADK, adds the WinPE optional components, injects the
+    VBScript Feature on Demand packages, and generates a bootable ISO.
 .EXAMPLE
-	.\New-WinPE23H2WithPowerShellAndVBScript.ps1 
-
+    .\New-WinPE23H2WithPowerShellAndVBScript.ps1
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    FileName:    New-WinPE23H2WithPowerShellAndVBScript.ps1
-	Author:      Johan Arwidmark
-    Contact:     @jarwidmark
-    Created:     September 29, 2023
-    Updated:     September 29, 2023
-	
-    Version history:
-    1.0.0 - September 29, 2023 - Script created
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-09-29 - Initial release
 #>
 
 # Settings

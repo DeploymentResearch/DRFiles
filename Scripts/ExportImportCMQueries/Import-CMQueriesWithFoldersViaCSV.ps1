@@ -1,4 +1,24 @@
-﻿# Import script for ConfigMgr queries, including folder structure
+﻿<#
+.SYNOPSIS
+    Imports ConfigMgr queries from a CSV export, recreating the folder structure.
+.DESCRIPTION
+    Reads the CSV produced by the export script, creates the queries, recreates the console
+    folders, and moves each query into place.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Import script for ConfigMgr queries, including folder structure
 
 $ImportPath = "E:\ExportedQueries"
 $ImportFile = "ExportedQueries.csv"

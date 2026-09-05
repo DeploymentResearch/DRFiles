@@ -1,4 +1,24 @@
-﻿# Demo script for working with Intune managed devices
+﻿<#
+.SYNOPSIS
+    Demo script that triggers an Intune sync on every managed Windows device.
+.DESCRIPTION
+    Connects with the legacy Microsoft.Graph.Intune module, enumerates all Windows devices,
+    and requests a sync on each one.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-14 - Initial release
+#>
+
+# Demo script for working with Intune managed devices
 #
 # Author: Johan Arwidmark
 # Twitter: @jarwidmark

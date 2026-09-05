@@ -1,4 +1,24 @@
-﻿# Demo script for working with Windows Autopilot in VMs in Hyper-V
+﻿<#
+.SYNOPSIS
+    Demo script for collecting Autopilot hardware hashes from Hyper-V virtual machines.
+.DESCRIPTION
+    Enables Guest Services, copies the capture script into each virtual machine over the VMBus,
+    gathers the hardware hash, and copies the CSV results back to the host.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-14 - Initial release
+#>
+
+# Demo script for working with Windows Autopilot in VMs in Hyper-V
 #
 # Author: Johan Arwidmark
 # Twitter: @jarwidmark

@@ -1,26 +1,22 @@
 <#
 .SYNOPSIS
-  This script collects information on client computers for machines with 2Pint StifleR and BranchCache.
-
+    Collects StifleR and BranchCache health data points from a client.
 .DESCRIPTION
-  This script is designed to work for a specific customer at this point however it can be generalized by removing or adding a couple of fields specific to site information. 
-  The result of this script produces a CSV that is stored in a network share. There a consolidation script is executed to merge all of the CSV's together. 
-  
+    Gathers BranchCache service status, cache sizes, event log data, ConfigMgr client details,
+    and StifleR client information, and exports the result to a central share.
 .LINK
-  https://P2intSoftware.com
-
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-          FileName: CollectBranchcacheClientInfo.ps1
-          Authors: Todd Anderson, Jordan Benzing, and Johan Arwidmark
-          Contact: @2PintSoftware
-          Created: 2019-07-11
-          Modified: 2019-07-11
+    Author:  Todd Anderson, Jordan Benzing, and Johan Arwidmark
+    Credits: Authors: Todd Anderson, Jordan Benzing, and Johan Arwidmark
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.1
 
-          Version - v1.0.1 - (2019-09-17)
-
-.Example
-  .\CollectBranchCacheClientInfo.ps1
-
+    Change history:
+      1.0.1 - 2021-02-12 - Initial release
 #>
 
 $ExportPath = "\\cm01.corp.viamonstra.com\HealthCheck$\Clients"

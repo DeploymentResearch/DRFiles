@@ -1,4 +1,24 @@
-﻿#
+﻿<#
+.SYNOPSIS
+    Cancels running ConfigMgr package downloads on a client.
+.DESCRIPTION
+    Triggers cancellation for the listed packages and programs. A user must be logged on for
+    the script to work.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-07-26 - Initial release
+#>
+
+#
 # Note: A user must be logged on for the script to work.
 # 
 

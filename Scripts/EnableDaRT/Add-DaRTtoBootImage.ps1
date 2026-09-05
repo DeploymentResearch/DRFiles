@@ -1,4 +1,24 @@
-﻿#Requires -RunAsAdministrator
+﻿<#
+.SYNOPSIS
+    Adds the DaRT remote control tools to a ConfigMgr boot image.
+.DESCRIPTION
+    Extracts the DaRT toolset cab, injects the required files into the mounted boot image,
+    applies the DaRT configuration, and updates the boot image on the distribution points.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-01 - Initial release
+#>
+
+#Requires -RunAsAdministrator
 
 # Set some variables to resources
 $BootImageName = "Zero Touch WinPE 10 x64"

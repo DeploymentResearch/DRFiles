@@ -1,4 +1,25 @@
-﻿# Create P2P Test Applications for Microsoft Intune and assign them to a device group in Intune
+﻿<#
+.SYNOPSIS
+    Creates peer to peer test Win32 applications in Microsoft Intune.
+.DESCRIPTION
+    Creates one Win32 application for each first level subfolder in the source root, packages
+    them with the IntuneWin32App module, and assigns them to a device group.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Uses the IntuneWin32App module by Nickolaj Andersen
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2021-12-12 - Initial release
+#>
+
+# Create P2P Test Applications for Microsoft Intune and assign them to a device group in Intune
 # The script will create one application for each first level subfolder in the root source defined by the $RootSourceFolderForApplications variable
 # The script uses/requires the IntuneWin32App module from @nickolaj 
 

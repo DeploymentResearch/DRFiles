@@ -1,4 +1,24 @@
-﻿# Script to measure outbound traffic on a set of Hyper-V VMs, both individual and summarized for all VMs
+﻿<#
+.SYNOPSIS
+    Measures outbound network traffic on a set of Hyper-V virtual machines.
+.DESCRIPTION
+    Samples Hyper-V resource metering at a fixed interval and logs both the per machine and the
+    combined totals, for comparing deployment payload sizes.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Script to measure outbound traffic on a set of Hyper-V VMs, both individual and summarized for all VMs
 
 $Logfile = "C:\Setup\Lab-Networkinfo-ESD-Testing.log"
 $TimeInBetweenTests = 10 # Seconds

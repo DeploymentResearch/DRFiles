@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves Entra ID audit log entries using the legacy AzureADPreview module.
+.DESCRIPTION
+    Connects with the AzureADPreview module and queries the directory audit logs within a date
+    range. Superseded by the Graph PowerShell Module version.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
 #Azure AD PowerShell cmdlets for reporting - https://docs.microsoft.com/en-us/azure/active-directory/reports-monitoring/reference-powershell-reporting
 #Azure AD Preview module needed for the following commands
 Install-module AzureADPreview -AllowClobber -force

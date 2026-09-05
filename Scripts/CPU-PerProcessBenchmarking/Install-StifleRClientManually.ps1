@@ -1,4 +1,24 @@
-﻿# Find StifleR 2.6.9.0 install folder
+﻿<#
+.SYNOPSIS
+    Installs the StifleR client from a locally cached MSI.
+.DESCRIPTION
+    Searches the ConfigMgr cache and temp folders for the StifleR client MSI, identifies the
+    expected version by file size, and runs the installer.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-07-29 - Initial release
+#>
+
+# Find StifleR 2.6.9.0 install folder
 $Length = 12288000 # Assume 2.6.9.0 version based on filesize 
 $MSIName = "StifleR.ClientApp.Installer64.msi"
 $Installer = "RunPS.cmd"

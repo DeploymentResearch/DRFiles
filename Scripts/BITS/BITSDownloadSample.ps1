@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Downloads a file with BITS and reports transfer progress.
+.DESCRIPTION
+    Starts an asynchronous BITS transfer, polls the job state until it completes, and then
+    finalises the job. Useful for testing peer to peer download behaviour.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-03-04 - Initial release
+#>
+
 $URL = "http://dp01.corp.viamonstra.com/500MB.zip"
 
 $Job = Start-BitsTransfer -Source $URL -Destination C:\Temp -Priority Foreground -Asynchronous

@@ -1,4 +1,23 @@
-﻿$ExportPath = "C:\Temp"
+﻿<#
+.SYNOPSIS
+    Exports SMB share level permissions to a CSV file.
+.DESCRIPTION
+    Enumerates every non special share and writes the share access rules to a CSV file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-03-11 - Initial release
+#>
+
+$ExportPath = "C:\Temp"
 $ExportFile = "$ExportPath\SmbSharePermissions.csv"
 
 $shares = Get-SmbShare | Where-Object Special -eq $false

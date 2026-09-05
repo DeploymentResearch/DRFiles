@@ -1,4 +1,24 @@
-﻿# After uninstalling, close any PowerShell sessions
+﻿<#
+.SYNOPSIS
+    Removes the Graph PowerShell Module and the modules that depend on it.
+.DESCRIPTION
+    Uninstalls all versions of the Graph and related Intune modules, which is usually needed
+    before a clean reinstall. Close any open PowerShell sessions afterwards.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-05-22 - Initial release
+#>
+
+# After uninstalling, close any PowerShell sessions
 
 # Uninstall other Modules that may use it
 Uninstall-Module IntuneStuff -AllVersions

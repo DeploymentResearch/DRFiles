@@ -1,3 +1,22 @@
+<#
+.SYNOPSIS
+    Reference CMTrace compatible logging function for PowerShell scripts.
+.DESCRIPTION
+    Standalone Write-Log function that produces log entries readable in CMTrace, ready to be
+    copied into any deployment script.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-02-08 - Initial release
+#>
 
 $Logfile = "C:\Temp\LoggingDemo.log"
 

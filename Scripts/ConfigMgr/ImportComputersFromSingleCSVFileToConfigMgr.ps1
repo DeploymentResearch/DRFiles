@@ -1,4 +1,24 @@
-﻿# Global Settings
+﻿<#
+.SYNOPSIS
+    Imports computers into ConfigMgr from a single CSV file.
+.DESCRIPTION
+    Bulk imports the computer names and MAC addresses in the CSV file, adds them to the target
+    collection, and updates the collection membership.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-08 - Initial release
+#>
+
+# Global Settings
 $SiteCode = "PS1" 
 $ProviderMachineName = "cm01.corp.viamonstra.com" 
 #$CollectionName = "MassDeployment - iPXE Testing"

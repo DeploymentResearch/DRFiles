@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves Entra ID audit log entries using the Graph PowerShell Module.
+.DESCRIPTION
+    Connects with the AuditLog.Read.All and Directory.Read.All scopes and queries the directory
+    audit logs within a date range.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
 # Install the module. (You need admin on the machine.)
 # Install-Module Microsoft.Graph
 Import-Module Microsoft.Graph.Authentication

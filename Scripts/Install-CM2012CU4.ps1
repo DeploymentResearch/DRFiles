@@ -1,21 +1,20 @@
 <#
+.SYNOPSIS
+    Installs ConfigMgr 2012 R2 Cumulative Update 4.
+.DESCRIPTION
+    Validates that the update setup files are present, then runs the installer silently.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.0
 
-************************************************************************************************************************
-
-Created:	2015-03-01
-Version:	1.1
-Homepage:   http://deploymentfundamentals.com
-
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the authors or DeploymentArtist.
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-************************************************************************************************************************
-
+    Change history:
+      1.1.0 - 2022-01-02 - Initial release
 #>
 
 # Validation

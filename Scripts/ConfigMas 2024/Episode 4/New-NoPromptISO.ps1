@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Removes the press any key prompt from a WinPE boot ISO.
+.DESCRIPTION
+    Extracts the ISO, replaces the boot sector file with the no prompt variant from the Windows
+    ADK, and rebuilds the ISO so unattended virtual machines boot without a keypress.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-05 - Initial release
+#>
+
 # Requires the script to be run under an administrative account context.
 #Requires -RunAsAdministrator
 

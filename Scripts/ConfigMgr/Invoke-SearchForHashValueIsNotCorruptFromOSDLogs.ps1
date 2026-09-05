@@ -1,4 +1,24 @@
-﻿$Path = "E:\Logs\Archive"
+﻿<#
+.SYNOPSIS
+    Searches archived OSD logs for a specific message and reports the hits.
+.DESCRIPTION
+    Scans smsts.log files in the log archive within a date window, groups matches by log file,
+    and exports the affected deployments to a CSV file.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-03-09 - Initial release
+#>
+
+$Path = "E:\Logs\Archive"
 $StartDate = (Get-Date).AddDays(-3000)
 #$Search = "Hash could not be matched for the downloaded content"
 $Search = "ProgramName is being logged"

@@ -1,20 +1,21 @@
 <#
+.SYNOPSIS
+    Installs ConfigMgr site server prerequisites on Windows Server 2022.
+.DESCRIPTION
+    Adds the IIS, BITS, RDC, and .NET Framework features required by a primary site server.
+    Requires internet access unless the Source parameter is supplied.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-************************************************************************************************************************
-
-Created:	2025-11-25
-Version:	1.0
-
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the author or DeploymentArtist.
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-************************************************************************************************************************
-
+    Change history:
+      1.0.0 - 2026-08-09 - Initial release
 #>
 
 # Requires Internet Access, if not, use -Source parameter

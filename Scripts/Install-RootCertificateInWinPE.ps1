@@ -1,4 +1,24 @@
-﻿# Sample script to install a Root CA in WinPE. 
+﻿<#
+.SYNOPSIS
+    Installs a root CA certificate into the WinPE certificate store.
+.DESCRIPTION
+    Adds the certificate to the local machine root store from WinPE. Assumes the certificate is
+    either injected into the boot image or downloaded by the task sequence first.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-03-16 - Initial release
+#>
+
+# Sample script to install a Root CA in WinPE. 
 # This script assumes that you have either injected the certificate to the boot WIM image, or copied it down via the Task Sequence.
 
 $RootCACertFile = "X:\Windows\System32\ViaMonstraRootCA.cer"

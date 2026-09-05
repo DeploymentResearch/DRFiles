@@ -1,4 +1,24 @@
-﻿# Script to enable BranchCache on Windows 7 and Windows 10 clients
+﻿<#
+.SYNOPSIS
+    Enables and configures BranchCache on Windows clients.
+.DESCRIPTION
+    Resets BranchCache, sets a custom connect port and content time to live, enables distributed
+    cache mode, and sets the service to start automatically.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# Script to enable BranchCache on Windows 7 and Windows 10 clients
 
 $BCPort = "1337"
 $BCTTL = "365"

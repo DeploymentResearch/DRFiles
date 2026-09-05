@@ -1,4 +1,25 @@
-﻿# Great post by SMSAgent (Trevor Jones is an SCCM architect based in the UK)
+﻿<#
+.SYNOPSIS
+    Manages Intune PowerShell scripts using the legacy Graph modules.
+.DESCRIPTION
+    Reference snippets for listing, creating, updating, and assigning platform scripts through
+    the Graph API using the Microsoft.Graph.Intune module.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Based on posts by Trevor Jones, smsagent.blog
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-11-26 - Initial release
+#>
+
+# Great post by SMSAgent (Trevor Jones is an SCCM architect based in the UK)
 # https://smsagent.blog/tag/intune-powershell-scripts/
 
 # Install the Microsoft.Graph.Intune module

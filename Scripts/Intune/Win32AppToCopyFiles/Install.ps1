@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Install script for an Intune Win32 app that copies a tools folder.
+.DESCRIPTION
+    Copies the packaged files to the target folder on the device and writes a log file, as the
+    install command for a file copy style Win32 application.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-02 - Initial release
+#>
+
 $LogFile = "C:\Windows\Temp\ViaMonstraTools_Install.log"
 $TargetFolder = "C:\Tools"
 $SourceFolder = $PSScriptRoot

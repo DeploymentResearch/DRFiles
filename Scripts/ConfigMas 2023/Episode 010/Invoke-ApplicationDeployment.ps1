@@ -1,4 +1,25 @@
-﻿$RemoteComputer = "CHI-W10PEER-001"
+﻿<#
+.SYNOPSIS
+    Triggers a ConfigMgr application installation on a remote client and measures it.
+.DESCRIPTION
+    Starts the application install remotely, then reads the BITS client event log to report how
+    much content was transferred and how long the download took.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Trigger-AppInstallation function by Timmy Andersson, @TimmyITdotcom
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-01-04 - Initial release
+#>
+
+$RemoteComputer = "CHI-W10PEER-001"
 
 # Trigger-AppInstallation Function by Timmy Andersson (@TimmyITdotcom)
 Function Trigger-AppInstallation {

@@ -1,4 +1,25 @@
-﻿#
+﻿<#
+.SYNOPSIS
+    Tests the ConfigMgr AdminService and Modern Driver Management together.
+.DESCRIPTION
+    Queries the AdminService metadata endpoint to confirm connectivity, then runs
+    Invoke-CMApplyDriverPackage against it.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Modern Driver Management by Nickolaj Andersen and Maurice Daly, MSEndpointMgr
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-12-13 - Initial release
+#>
+
+#
 # Test Admin Service
 #
 

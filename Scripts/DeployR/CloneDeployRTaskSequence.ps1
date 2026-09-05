@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Clones a DeployR task sequence.
+.DESCRIPTION
+    Connects to the DeployR server, exports the selected task sequence, and imports it back
+    under a new name. Run without parameters to pick from a list.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Credits: Gary Blok
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2026-06-04 - Initial release
+#>
+
 # Sample DeployR Script to clone a task sequence
 # Run without parameter to prompt for a list of task sequences.
 # Credits: Gary Blok

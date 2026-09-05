@@ -1,4 +1,24 @@
-﻿# These sample assumes you have added additional meter actions to the network devices
+﻿<#
+.SYNOPSIS
+    Measures Hyper-V virtual machine network traffic split by subnet.
+.DESCRIPTION
+    Uses Hyper-V resource metering with per subnet ACL meter rules, so outbound traffic can be
+    attributed to the network it actually crossed.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-01-02 - Initial release
+#>
+
+# These sample assumes you have added additional meter actions to the network devices
 # Add-VMNetworkAdapterAcl –VMName $VMName –Action Meter –Direction Both –RemoteIpAddress 192.168.2.0/24
 # Add-VMNetworkAdapterAcl –VMName $VMName –Action Meter –Direction Both –RemoteIpAddress 192.168.28.0/24
 #

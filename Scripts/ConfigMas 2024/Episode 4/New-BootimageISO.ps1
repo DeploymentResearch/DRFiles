@@ -1,4 +1,24 @@
-﻿# Requires the script to be run under an administrative account context.
+﻿<#
+.SYNOPSIS
+    Creates a bootable media ISO from a ConfigMgr boot image.
+.DESCRIPTION
+    Generates ConfigMgr bootable media for the specified boot image, management point, and
+    distribution point.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-05 - Initial release
+#>
+
+# Requires the script to be run under an administrative account context.
 #Requires -RunAsAdministrator
 
 # Set variables

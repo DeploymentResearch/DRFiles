@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Replaces the default Windows desktop wallpaper from a WIM file.
+.DESCRIPTION
+    Extracts the wallpaper WIM, takes ownership of the default wallpaper files in the applied
+    operating system, and replaces them. Runs from WinPE during a task sequence.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2023-02-21 - Initial release
+#>
+
 [CmdletBinding()]
 Param(
     [Parameter(Position=0,mandatory=$true)]

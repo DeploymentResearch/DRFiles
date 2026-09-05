@@ -1,28 +1,21 @@
 <#
-Created:	 2013-01-08
-Updated:     2026-06-02 - Added -Type parameter to support computer principals
-Version:	 1.1
-Author       Mikael Nystrom and Johan Arwidmark
-Homepage:    http://www.deploymentfundamentals.com
+.SYNOPSIS
+    Delegates the permissions needed for offline domain join on a target OU.
+.DESCRIPTION
+    Grants an account create and delete computer objects, read and write all properties, change
+    and reset password, and validated write to DNS host name and service principal name.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Mikael Nystrom and Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.0
 
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and
-is not supported by the authors or DeploymentArtist.
-
-Author - Mikael Nystrom
-    Twitter: @mikael_nystrom
-    Blog   : http://deploymentbunny.com
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-Usage examples:
-    # Delegate to a user account (original behavior)
-    .\Set-OUPermissions.ps1 -Account CM_JD -TargetOU "OU=Workstations,OU=ViaMonstra" -Type User
-
-    # Delegate to a computer account (e.g., a server running an unattended service)
-    .\Set-OUPermissions.ps1 -Account DEPLOYR01 -TargetOU "OU=Workstations,OU=ViaMonstra" -Type Computer
+    Change history:
+      1.1.0 - 2026-06-02 - Initial release
 #>
 
 Param

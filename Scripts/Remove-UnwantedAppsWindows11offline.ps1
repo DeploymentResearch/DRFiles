@@ -1,27 +1,22 @@
 <#
 .SYNOPSIS
-    Remove unwanted apps from Windows 11
-
+    Removes unwanted provisioned apps from Windows 11 during the WinPE phase.
 .DESCRIPTION
-    Remove unwanted apps from Windows 11 during the WinPE phase. Script intended for ConfigMgr OSD
-
+    Removes the listed provisioned Appx packages from the offline operating system with DISM,
+    so the apps never appear for the first user. Intended for ConfigMgr OSD.
 .LINK
-    https://deploymentresearch.com
-
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
 .NOTES
-    FileName: Remove-UnwantedAppsWindows11offline.ps1
-    Solution: ConfigMgr OSD 
-    Author: Johan Arwidmark
-    Contact: @jarwidmark on X (Twitter) or https://www.linkedin.com/in/jarwidmark
-    Created: 4/20/2024
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
 
-    Version history:
-    1.0.0 - (4/20/2024) - Script created
-    1.0.1 - (4/21/2024) - Changed add/remove method to use dism.exe 
-
-.EXAMPLE
+    Change history:
+      1.0.0 - 2024-04-30 - Initial release
 #>
-
 
 $Apps = @(
     "Clipchamp.Clipchamp_2.2.8.0_neutral_~_yxz26nhyzhsrt",

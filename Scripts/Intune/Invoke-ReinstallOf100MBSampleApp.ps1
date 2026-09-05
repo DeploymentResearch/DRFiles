@@ -1,4 +1,24 @@
-﻿# Sample to delete a single app
+﻿<#
+.SYNOPSIS
+    Forces reinstallation of an Intune Win32 application on a device.
+.DESCRIPTION
+    Deletes the Intune Management Extension tracking data for the specified application and
+    clears the Delivery Optimization cache, so the next sync downloads and installs it again.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-08-22 - Initial release
+#>
+
+# Sample to delete a single app
 # Note: Don't got forget to delete any files/installs that the detection method uses on your machine
 # Deleting specific application based on its object id
 $Path = "HKLM:SOFTWARE\Microsoft\IntuneManagementExtension\Win32Apps"

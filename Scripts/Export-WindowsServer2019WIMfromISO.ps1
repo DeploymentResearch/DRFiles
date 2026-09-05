@@ -1,4 +1,24 @@
-﻿# Script to extract the Windows Server 2019 Standard index from a Windows Server 2019 media.
+﻿<#
+.SYNOPSIS
+    Extracts the Windows Server 2019 Standard index from a Windows Server ISO.
+.DESCRIPTION
+    Mounts the ISO, locates the Standard index in install.wim, and exports it to a standalone
+    WIM file. Update the variables at the top to match your environment.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-04-15 - Initial release
+#>
+
+# Script to extract the Windows Server 2019 Standard index from a Windows Server 2019 media.
 # Update line 5 - 9 to match your environment
 
 # General parameteers

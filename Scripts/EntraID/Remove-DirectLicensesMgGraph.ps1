@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Removes directly assigned licenses from user accounts.
+.DESCRIPTION
+    Reads the users from a CSV file and removes their direct license assignments, which is the
+    usual prerequisite for moving to group based licensing.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: Based on Microsoft Learn guidance for removing direct licenses
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-11-04 - Initial release
+#>
+
 #Based on https://learn.microsoft.com/en-us/microsoft-365/enterprise/remove-licenses-from-user-accounts-with-microsoft-365-powershell?view=o365-worldwide
 # Install the module. (You need admin on the machine.)
 # Install-Module Microsoft.Graph

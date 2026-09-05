@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Tests the ConfigMgr AdminService PowerShell module.
+.DESCRIPTION
+    Imports the module, initialises the AdminService connection with credentials, and runs a
+    device query to confirm the service is reachable and authenticating.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    Credits: ConfigMgr.AdminService module by Adam Gross, @AdamGrossTX
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2024-03-19 - Initial release
+#>
+
 # Testing the Johan Edition of the ConfigMgr.AdminService module
 # Download the module from https://github.com/AdamGrossTX/ConfigMgr.AdminService/tree/JohanEdition
 # Run the build.ps1 script to build the module and copy the result to a folder, C:\Setup in my example

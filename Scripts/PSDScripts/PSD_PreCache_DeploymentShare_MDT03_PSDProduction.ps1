@@ -1,4 +1,24 @@
-﻿# Install the Self-Signed Root Cert 
+﻿<#
+.SYNOPSIS
+    Pre-caches PSD deployment share content into the local BranchCache cache.
+.DESCRIPTION
+    Downloads the operating system, application, and driver content with BITS so it is present
+    in the BranchCache data cache before the deployment window opens.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-01-31 - Initial release
+#>
+
+# Install the Self-Signed Root Cert 
 #$RootCert = "\\MDT03\PSD-0227$\PSDResources\Certificates\PSDCert.cer"
 #Import-Certificate -FilePath $RootCert -CertStoreLocation Cert:\LocalMachine\Root
 

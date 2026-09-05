@@ -1,20 +1,21 @@
 <#
+.SYNOPSIS
+    Sets share and NTFS permissions on the MDT Build Lab deployment share.
+.DESCRIPTION
+    Checks for elevation, grants the MDT build account read and execute, tightens the share
+    level access, and removes the default Everyone permissions.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.1.0
 
-************************************************************************************************************************
-
-Created:	September 15, 2015
-Version:	1.1
-
-Disclaimer:
-This script is provided "AS IS" with no warranties, confers no rights and 
-is not supported by the author or DeploymentArtist.
-
-Author - Johan Arwidmark
-    Twitter: @jarwidmark
-    Blog   : http://deploymentresearch.com
-
-************************************************************************************************************************
-
+    Change history:
+      1.1.0 - 2022-01-02 - Initial release
 #>
 
 # Check for elevation

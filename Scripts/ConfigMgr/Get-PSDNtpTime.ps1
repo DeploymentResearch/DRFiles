@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Queries an NTP server and returns the current accurate time.
+.DESCRIPTION
+    Sends an NTP request and decodes the response, which gives WinPE a reliable clock even
+    when the hardware clock is wrong.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-06-11 - Initial release
+#>
+
+
 Function Get-PSDNtpTime {
     [CmdletBinding()]
     [OutputType()]

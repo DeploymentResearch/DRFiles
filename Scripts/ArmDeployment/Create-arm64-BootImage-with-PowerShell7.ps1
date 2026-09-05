@@ -1,4 +1,24 @@
-﻿# Settings
+﻿<#
+.SYNOPSIS
+    Creates an ARM64 WinPE boot image that includes PowerShell 7.
+.DESCRIPTION
+    Builds a WinPE 11 ARM64 image from the Windows ADK, adds the optional components, unpacks a
+    PowerShell 7 ARM64 zip into the image, and generates a bootable ISO with oscdimg.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2022-11-04 - Initial release
+#>
+
+# Settings
 $PowerShell7File = "C:\Setup\PowerShell-7.2.7-win-arm64.zip"
 $WinPE_BuildFolder = "C:\Setup\WinPE11_arm64"
 $WinPE_Architecture = "arm64"

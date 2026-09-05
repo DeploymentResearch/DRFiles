@@ -1,4 +1,24 @@
-﻿# This scripts assumes the WindowsAutopilotIntuneCommunity PowerShell module are installed on the server
+﻿<#
+.SYNOPSIS
+    Server-side script for Cloud OS Deployment, Part 4.
+.DESCRIPTION
+    Runs on the deployment server behind a RestPS web service. Receives an Autopilot hardware
+    hash from a client, imports the device into Intune, and assigns it to the requested group.
+.LINK
+    https://github.com/DeploymentResearch/DRFiles
+.LINK
+    https://www.linkedin.com/in/jarwidmark
+.NOTES
+    Author:  Johan Arwidmark / deploymentresearch.com
+    License: MIT. Provided as is, without warranty of any kind.
+             Use at your own risk. Shared in the spirit of community learning.
+    Version: 1.0.0
+
+    Change history:
+      1.0.0 - 2025-11-23 - Initial release
+#>
+
+# This scripts assumes the WindowsAutopilotIntuneCommunity PowerShell module are installed on the server
 # The WindowsAutopilotIntuneCommunity module also installs the following modules
 # - Microsoft.Graph.Groups
 # - Microsoft.Graph.Authentication
