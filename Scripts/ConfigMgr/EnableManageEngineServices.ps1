@@ -2,7 +2,7 @@
 
 # Script Settings
 $TempPath    = "C:\Windows\Temp"
-$LogFile     = Join-Path $TempPath "BCMon_Discovery.log"
+$LogFile     = Join-Path $TempPath "EnableManageEngineServices.log"
 $UEMS1Svc  = "ManageEngine Unified Endpoint Security - Agent"
 $UEMS2Svc = "ManageEngine UEMS - Agent"
 
